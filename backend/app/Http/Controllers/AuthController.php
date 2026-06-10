@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponse;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -35,12 +36,7 @@ class AuthController extends Controller
 
         return $this->successResponse([
             'token' => $token,
-            'usuario' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'cnpj' => $user->cnpj,
-            ]
+            'usuario' => new UserResource($user)
         ], 'Usuário cadastrado com sucesso', 201);
     }
 
@@ -64,12 +60,7 @@ class AuthController extends Controller
 
         return $this->successResponse([
             'token' => $token,
-            'usuario' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'cnpj' => $user->cnpj,
-            ]
+            'usuario' => new UserResource($user)
         ]);
     }
 
