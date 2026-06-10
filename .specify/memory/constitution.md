@@ -8,7 +8,7 @@ Esta constituição define as regras arquiteturais, princípios de engenharia de
 
 ### I. Arquitetura de Camadas (Service Layer) no Backend
 A lógica de negócios e as regras de negócio devem ser mantidas isoladas fora dos Controllers e Models do Laravel.
-*   **Controllers:** Devem ser magros (thin controllers). Suas responsabilidades limitam-se a receber a requisição, validar os dados usando FormRequests, chamar a classe de serviço correspondente e retornar a resposta JSON.
+*   **Controllers:** Devem ser magros (thin controllers). Suas responsabilidades limitam-se a receber a requisição (sendo obrigatório o uso de **Form Requests** customizados para qualquer validação de dados de entrada), acionar a classe de serviço correspondente e retornar a resposta JSON padronizada. É terminantemente proibido realizar validações inline nos controllers utilizando `$request->validate()` ou o facade `Validator`.
 *   **Services:** Toda a lógica de negócios (operações, cálculos, interações com banco) deve residir em classes de serviço específicas dentro de `app/Services/`.
 *   **Models:** Devem ser usados puramente para definição de relacionamentos, escopos locais e casts de atributos.
 
