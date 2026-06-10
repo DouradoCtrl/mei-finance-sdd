@@ -1,0 +1,24 @@
+# Docker database data
+.docker/
+
+# Environment files
+.env
+backend/.env
+frontend/.env.local
+
+# Dependency directories
+node_modules/
+vendor/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Laravel specific
+backend/bootstrap/cache/
+backend/storage/
+backend/database/*.sqlite
+
+# Next.js specific
+frontend/.next/
+frontend/out/
