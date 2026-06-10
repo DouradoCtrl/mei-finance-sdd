@@ -23,8 +23,8 @@ export default function LoginPage() {
       const data = await authService.login(email, password);
 
       setSuccess('Login realizado com sucesso! Acessando...');
-      localStorage.setItem('auth_token', data.dados.token);
-      localStorage.setItem('user_name', data.dados.usuario.name);
+      localStorage.setItem('auth_token', data.data.token);
+      localStorage.setItem('user_name', data.data.usuario.name);
       
       setTimeout(() => {
         router.push('/dashboard');
