@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { authService } from '../../services/auth.service';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -27,25 +28,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          cnpj: cnpj || null,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || data.erro || 'Falha ao realizar o cadastro.');
-      }
+      const data = await authService.register(name, email, password, cnpj);
 
       setSuccess('Cadastro realizado com sucesso! Redirecionando...');
       localStorage.setItem('auth_token', data.token);
