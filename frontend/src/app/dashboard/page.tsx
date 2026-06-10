@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { authService } from '../../services/auth.service';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -23,19 +24,9 @@ export default function DashboardPage() {
 
   const handleLogout = async () => {
     setLoggingOut(true);
-    const token = localStorage.getItem('auth_token');
 
     try {
-      if (token) {
-        await fetch('http://127.0.0.1:8000/api/logout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-      }
+      await authService.logout();
     } catch (err) {
       console.error('Erro ao chamar API de logout:', err);
     } finally {
