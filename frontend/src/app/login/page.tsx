@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { authService } from '../../services/auth.service';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,23 +20,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.erro || 'Falha ao autenticar.');
-      }
+      const data = await authService.login(email, password);
 
       setSuccess('Login realizado com sucesso! Acessando...');
       localStorage.setItem('auth_token', data.token);
