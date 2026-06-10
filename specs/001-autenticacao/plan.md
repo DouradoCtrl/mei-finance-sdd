@@ -45,7 +45,8 @@ backend/                 # Projeto Laravel
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/ # AuthController
-│   │   └── Requests/    # Validações de Cadastro/Login
+│   │   ├── Requests/    # Validações de Cadastro/Login
+│   │   └── Resources/   # API Resources para formatar entidades (UserResource)
 │   └── Models/          # User (incluindo HasApiTokens do Sanctum)
 ├── database/
 │   └── migrations/      # Migration com campo CNPJ adicionado
