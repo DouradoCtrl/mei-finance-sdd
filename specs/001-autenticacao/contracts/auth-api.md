@@ -31,14 +31,16 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Usuário cadastrado com sucesso",
-  "token": "1|sanctum_token_value_xyz...",
-  "usuario": {
-    "id": 1,
-    "name": "João Silva MEI",
-    "email": "joao@silva.com",
-    "cnpj": "12345678000190"
+  "success": true,
+  "message": "Usuário cadastrado com sucesso",
+  "data": {
+    "token": "1|sanctum_token_value_xyz...",
+    "usuario": {
+      "id": 1,
+      "name": "João Silva MEI",
+      "email": "joao@silva.com",
+      "cnpj": "12345678000190"
+    }
   }
 }
 ```
@@ -84,13 +86,16 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 
 ```json
 {
-  "sucesso": true,
-  "token": "2|sanctum_token_value_abc...",
-  "usuario": {
-    "id": 1,
-    "name": "João Silva MEI",
-    "email": "joao@silva.com",
-    "cnpj": "12345678000190"
+  "success": true,
+  "message": null,
+  "data": {
+    "token": "2|sanctum_token_value_abc...",
+    "usuario": {
+      "id": 1,
+      "name": "João Silva MEI",
+      "email": "joao@silva.com",
+      "cnpj": "12345678000190"
+    }
   }
 }
 ```
@@ -99,8 +104,9 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 
 ```json
 {
-  "sucesso": false,
-  "erro": "E-mail ou senha incorretos."
+  "success": false,
+  "message": "E-mail ou senha incorretos.",
+  "data": null
 }
 ```
 
@@ -122,8 +128,9 @@ Revoga o token atual enviado na requisição.
 
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Token revogado e logout realizado com sucesso."
+  "success": true,
+  "message": "Token revogado e logout realizado com sucesso.",
+  "data": null
 }
 ```
 
