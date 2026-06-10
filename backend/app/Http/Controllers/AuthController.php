@@ -4,40 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponse;
 use App\Http\Resources\UserResource;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
     use ApiResponse;
+
+    protected AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
 
     /**
      * Registra um novo usuário MEI.
      */
     public function register(RegisterRequest $request)
     {
-        $cnpj = $request->cnpj;
-        if ($cnpj) {
-            // Remove qualquer caractere não numérico do CNPJ
-            $cnpj = preg_replace('/\D/', '', $cnpj);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'cnpj' => $cnpj,
-        ]);
-
-        $token = $user->createToken('NextJSToken')->plainTextToken;
+        $result = $this->authService->register($request->validated());
 
         return $this->successResponse([
-            'token' => $token,
-            'usuario' => new UserResource($user)
+            'token' => $result['token'],
+            'usuario' => new UserResource($result['user'])
         ], 'Usuário cadastrado com sucesso', 201);
     }
 
@@ -46,17 +39,15 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $result = $this->authService->login($request->validated());
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$result) {
             return $this->errorResponse('E-mail ou senha incorretos.', 401);
         }
 
-        $token = $user->createToken('NextJSToken')->plainTextToken;
-
         return $this->successResponse([
-            'token' => $token,
-            'usuario' => new UserResource($user)
+            'token' => $result['token'],
+            'usuario' => new UserResource($result['user'])
         ]);
     }
 
@@ -65,7 +56,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $this->authService->logout($request->user());
 
         return $this->successResponse(null, 'Token revogado e logout realizado com sucesso.');
     }
