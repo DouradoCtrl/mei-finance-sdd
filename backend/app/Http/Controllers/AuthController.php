@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Traits\ApiResponse;
 
 class AuthController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Registra um novo usuário MEI.
      */
@@ -30,9 +33,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('NextJSToken')->plainTextToken;
 
-        return response()->json([
-            'sucesso' => true,
-            'mensagem' => 'Usuário cadastrado com sucesso',
+        return $this->successResponse([
             'token' => $token,
             'usuario' => [
                 'id' => $user->id,
@@ -40,7 +41,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'cnpj' => $user->cnpj,
             ]
-        ], 201);
+        ], 'Usuário cadastrado com sucesso', 201);
     }
 
     /**
@@ -56,16 +57,12 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'sucesso' => false,
-                'erro' => 'E-mail ou senha incorretos.'
-            ], 401);
+            return $this->errorResponse('E-mail ou senha incorretos.', 401);
         }
 
         $token = $user->createToken('NextJSToken')->plainTextToken;
 
-        return response()->json([
-            'sucesso' => true,
+        return $this->successResponse([
             'token' => $token,
             'usuario' => [
                 'id' => $user->id,
@@ -83,9 +80,6 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json([
-            'sucesso' => true,
-            'mensagem' => 'Token revogado e logout realizado com sucesso.'
-        ]);
+        return $this->successResponse(null, 'Token revogado e logout realizado com sucesso.');
     }
 }
