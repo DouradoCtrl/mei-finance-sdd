@@ -1,50 +1,55 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# MEI Finance Constitution
+
+Esta constituição define as regras arquiteturais, princípios de engenharia de software e diretrizes de desenvolvimento inegociáveis para o projeto MEI Finance. Qualquer decisão técnica ou plano de implementação (plan.md) deve estar em total conformidade com estas diretrizes.
+
+---
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Arquitetura de Camadas (Service Layer) no Backend
+A lógica de negócios e as regras de negócio devem ser mantidas isoladas fora dos Controllers e Models do Laravel.
+*   **Controllers:** Devem ser magros (thin controllers). Suas responsabilidades limitam-se a receber a requisição, validar os dados usando FormRequests, chamar a classe de serviço correspondente e retornar a resposta JSON.
+*   **Services:** Toda a lógica de negócios (operações, cálculos, interações com banco) deve residir em classes de serviço específicas dentro de `app/Services/`.
+*   **Models:** Devem ser usados puramente para definição de relacionamentos, escopos locais e casts de atributos.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Respostas JSON Padronizadas
+Toda resposta enviada pela API do backend para o Next.js deve seguir uma estrutura JSON uniforme para facilitar o tratamento de estados no frontend:
+*   **Sucesso:**
+    ```json
+    {
+      "sucesso": true,
+      "mensagem": "Mensagem opcional de sucesso",
+      "dados": { ... } // ou lista de dados
+    }
+    ```
+*   **Erro:**
+    ```json
+    {
+      "sucesso": false,
+      "erro": "Mensagem legível descrevendo o erro que ocorreu"
+    }
+    ```
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Banco de Dados Dockerizado e Isolado
+O banco de dados oficial de desenvolvimento é o PostgreSQL 16 executado em container Docker via Docker Compose.
+*   O volume físico do PostgreSQL deve ser mapeado na pasta local `./.docker/pgdata/`.
+*   A pasta `.docker/` deve estar listada no `.gitignore` do projeto raiz para evitar o commit de binários do banco de dados.
+*   Para evitar conflitos com instalações locais no host do desenvolvedor, a porta padrão externa de comunicação no docker-compose deve ser mapeada na porta `5433` (ou outra disponível que não a 5432).
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Arquitetura do Frontend Next.js e Consumo de API
+A arquitetura do frontend deve ser modular, reutilizável e organizada:
+*   **Organização de Chamadas de API:** É terminantemente proibido realizar chamadas `fetch` bruto (raw fetch) diretamente dentro de páginas React. Todas as comunicações com a API do backend devem ser encapsuladas em serviços dedicados dentro de `src/services/` (ex: `src/services/auth.service.ts`) ou wrappers em `src/lib/api.ts`.
+*   **Estilização:** Manter estética premium (Dark-First por padrão, com suporte a transições suaves e design limpo) utilizando Tailwind CSS v4 ou CSS Modules.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Versionamento Rastreável (Git)
+*   Os commits devem ser atômicos e, para arquivos customizados, preferencialmente individuais (um commit por arquivo) para garantir a máxima rastreabilidade do histórico.
+*   As mensagens de commit devem seguir o padrão Conventional Commits em português (ex: `feat(auth): ...`, `chore(db): ...`, `docs(spec): ...`).
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+---
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+*   Qualquer plano de implementação (`plan.md`) deve obrigatoriamente validar estes princípios na seção `## Constitution Check`.
+*   Caso uma funcionalidade necessite quebrar temporariamente um princípio por razões técnicas justificáveis, a violação deve ser formalmente registrada e justificada na seção `Complexity Tracking` do plano antes da aprovação.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-10
