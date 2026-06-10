@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mei-finance-db
+    restart: always
+    environment:
+      POSTGRES_DB: mei_finance
+      POSTGRES_USER: mei_user
+      POSTGRES_PASSWORD: mei_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./.docker/pgdata:/var/lib/postgresql/data
