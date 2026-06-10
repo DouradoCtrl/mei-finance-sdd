@@ -18,7 +18,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const errorMessage = data.erro || data.message || 'Ocorreu um erro na requisição.';
+    const errorMessage = data.message || data.error || 'Ocorreu um erro na requisição.';
     throw new Error(errorMessage);
   }
 
