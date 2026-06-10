@@ -31,8 +31,8 @@ export default function RegisterPage() {
       const data = await authService.register(name, email, password, cnpj);
 
       setSuccess('Cadastro realizado com sucesso! Redirecionando...');
-      localStorage.setItem('auth_token', data.dados.token);
-      localStorage.setItem('user_name', data.dados.usuario.name);
+      localStorage.setItem('auth_token', data.data.token);
+      localStorage.setItem('user_name', data.data.usuario.name);
       
       setTimeout(() => {
         router.push('/dashboard');
