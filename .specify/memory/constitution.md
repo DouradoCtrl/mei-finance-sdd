@@ -12,23 +12,27 @@ A lógica de negócios e as regras de negócio devem ser mantidas isoladas fora 
 *   **Services:** Toda a lógica de negócios (operações, cálculos, interações com banco) deve residir em classes de serviço específicas dentro de `app/Services/`.
 *   **Models:** Devem ser usados puramente para definição de relacionamentos, escopos locais e casts de atributos.
 
-### II. Respostas JSON Padronizadas
-Toda resposta enviada pela API do backend para o Next.js deve seguir uma estrutura JSON uniforme para facilitar o tratamento de estados no frontend:
-*   **Sucesso:**
-    ```json
-    {
-      "sucesso": true,
-      "mensagem": "Mensagem opcional de sucesso",
-      "dados": { ... } // ou lista de dados
-    }
-    ```
-*   **Erro:**
-    ```json
-    {
-      "sucesso": false,
-      "erro": "Mensagem legível descrevendo o erro que ocorreu"
-    }
-    ```
+### II. Respostas JSON Padronizadas e Uso da Trait `ApiResponse`
+Toda resposta enviada pela API do backend para o Next.js deve seguir uma estrutura JSON uniforme para facilitar o tratamento de estados no frontend, utilizando obrigatoriamente a trait `App\Traits\ApiResponse` nos Controllers.
+*   **Métodos da Trait:**
+    - `successResponse($data, ?string $message, int $code)`: retorna `{ "success": true, "message": $message, "data": $data }`
+    - `errorResponse(string $message, int $code, $data)`: retorna `{ "success": false, "message": $message, "data": $data }`
+*   **Formatos das Respostas:**
+    - **Sucesso:**
+      ```json
+      {
+        "success": true,
+        "message": "Mensagem em português",
+        "data": { ... }
+      }
+      ```
+    - **Erro:**
+      ```json
+      {
+        "success": false,
+        "message": "Mensagem de erro em português"
+      }
+      ```
 
 ### III. Banco de Dados Dockerizado e Isolado
 O banco de dados oficial de desenvolvimento é o PostgreSQL 16 executado em container Docker via Docker Compose.
