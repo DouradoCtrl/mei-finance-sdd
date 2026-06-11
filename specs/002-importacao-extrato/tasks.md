@@ -13,7 +13,7 @@
 **Purpose**: Preparação do ambiente e criação das rotas iniciais de navegação no frontend.
 
 - [x] T001 [P] Configurar caminhos e variáveis locais em `backend/.env` e `frontend/.env.local`
-- [x] T002 Criar a página de visualização de importação de extrato vazia no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T002 Criar a página de visualização de importação de extrato vazia no frontend em `frontend/src/app/dashboard/importar/page.tsx`
 
 ---
 
@@ -36,7 +36,7 @@
 - [x] T008 [US1] Criar classe de serviço `BankStatementParserService` contendo expressões regulares de leitura de texto e decodificador OFX (SGML/XML) em `backend/app/Services/BankStatementParserService.php`
 - [x] T009 [US1] Criar `TransactionController` e implementar o método `parse()` em `backend/app/Http/Controllers/TransactionController.php` chamando o serviço de leitura
 - [x] T010 [P] [US1] Criar serviço de chamadas da API de transações no Next.js em `frontend/src/services/transaction.service.ts`
-- [x] T011 [US1] Construir o formulário de upload de arquivo OFX e campo textarea de texto bruto em `frontend/src/app/dashboard/importacao/page.tsx`, exibindo as transações retornadas em formato de tabela
+- [x] T011 [US1] Construir o formulário de upload de arquivo OFX e campo textarea de texto bruto em `frontend/src/app/dashboard/importar/page.tsx`, exibindo as transações retornadas em formato de tabela
 
 ---
 
@@ -44,8 +44,8 @@
 
 **Goal**: Permitir classificar de forma rápida cada transação na tabela entre PJ (Empresa), PF (Pessoal) ou Neutro (Transfer).
 
-- [x] T012 [P] [US2] Implementar botões de seleção de classificação para cada linha da tabela em `frontend/src/app/dashboard/importacao/page.tsx`
-- [x] T013 [US2] Vincular estilos CSS diferenciados para cada tipo de classificação (Verde/PJ, Azul/PF, Cinza/Neutro) para feedback visual rápido do usuário na tabela de `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T012 [P] [US2] Implementar botões de seleção de classificação para cada linha da tabela em `frontend/src/app/dashboard/importar/page.tsx`
+- [x] T013 [US2] Vincular estilos CSS diferenciados para cada tipo de classificação (Verde/PJ, Azul/PF, Cinza/Neutro) para feedback visual rápido do usuário na tabela de `frontend/src/app/dashboard/importar/page.tsx`
 
 ---
 
@@ -56,8 +56,8 @@
 - [x] T014 [P] [US3] Criar validador `ConfirmTransactionsRequest` para recebimento de transações em `backend/app/Http/Requests/ConfirmTransactionsRequest.php`
 - [x] T015 [US3] Criar classe de serviço `TransactionService` em `backend/app/Services/TransactionService.php` contendo regras de negócio para ignorar registros duplicados (verificando o index único e `fit_id`) e salvar registros válidos
 - [x] T016 [US3] Implementar o método `confirm()` no controller `TransactionController` em `backend/app/Http/Controllers/TransactionController.php` delegando para o serviço e retornando resposta padronizada
-- [x] T017 [P] [US3] Implementar o cálculo dinâmico dos somatórios em tempo real (Receita PJ, Despesa PJ, Retiradas PF, Lucro Líquido) no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
-- [x] T018 [US3] Integrar chamada de API `confirmTransactions` ao botão "Confirmar Fechamento" no frontend de `frontend/src/app/dashboard/importacao/page.tsx`, limpando a tela de importação e exibindo mensagem de sucesso
+- [x] T017 [P] [US3] Implementar o cálculo dinâmico dos somatórios em tempo real (Receita PJ, Despesa PJ, Retiradas PF, Lucro Líquido) no frontend em `frontend/src/app/dashboard/importar/page.tsx`
+- [x] T018 [US3] Integrar chamada de API `confirmTransactions` ao botão "Confirmar Fechamento" no frontend de `frontend/src/app/dashboard/importar/page.tsx`, limpando a tela de importação e exibindo mensagem de sucesso
 
 ---
 

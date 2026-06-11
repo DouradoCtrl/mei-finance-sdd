@@ -62,7 +62,7 @@ frontend/                # Projeto Next.js
 ├── src/
 │   ├── app/
 │   │   └── dashboard/
-│   │       └── importacao/ # Tela unificada de importação (Conta Corrente / Cartão)
+│   │       └── importar/ # Tela unificada de importação (Conta Corrente / Cartão)
 │   ├── components/      # Componentes React e painel dinâmico
 │   ├── lib/             # api.ts (apiFetch)
 │   └── services/        # transaction.service.ts
