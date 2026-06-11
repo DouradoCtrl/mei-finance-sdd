@@ -29,6 +29,8 @@ export const authOptions: NextAuthOptions = {
               name: response.data.usuario.name,
               email: response.data.usuario.email,
               cnpj: response.data.usuario.cnpj,
+              role: response.data.usuario.role,
+              active: response.data.usuario.active,
               accessToken: response.data.token,
               successMessage: response.message,
             };
@@ -55,6 +57,8 @@ export const authOptions: NextAuthOptions = {
           name: user.name || '',
           email: user.email || '',
           cnpj: (user as any).cnpj || null,
+          role: (user as any).role || 'default',
+          active: (user as any).active ?? true,
         };
         token.accessToken = (user as any).accessToken;
         token.successMessage = (user as any).successMessage;

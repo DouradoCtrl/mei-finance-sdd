@@ -6,6 +6,8 @@ declare module 'next-auth' {
     name: string;
     email: string;
     cnpj?: string | null;
+    role: string;
+    active: boolean;
     accessToken: string;
     successMessage?: string;
   }
@@ -18,6 +20,8 @@ declare module 'next-auth' {
       name: string;
       email: string;
       cnpj?: string | null;
+      role: string;
+      active: boolean;
     } & DefaultSession['user'];
   }
 }
@@ -31,6 +35,8 @@ declare module 'next-auth/jwt' {
       name: string;
       email: string;
       cnpj?: string | null;
+      role: string;
+      active: boolean;
     };
   }
 }

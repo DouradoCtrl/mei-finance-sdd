@@ -29,6 +29,8 @@ export default function DashboardPage() {
   }
 
   const userCnpj = (session?.user as any)?.cnpj || 'Não cadastrado';
+  const userRole = (session?.user as any)?.role || 'default';
+  const userActive = (session?.user as any)?.active ?? true;
 
   return (
     <div className="flex flex-col flex-1">
@@ -51,6 +53,8 @@ export default function DashboardPage() {
               <div>Session status: Authenticated</div>
               <div>User: {session?.user?.email}</div>
               <div>CNPJ: {userCnpj}</div>
+              <div>Role: {userRole}</div>
+              <div>Status: {userActive ? 'Active (Ativo)' : 'Inactive (Inativo)'}</div>
             </div>
           </CardContent>
         </Card>
