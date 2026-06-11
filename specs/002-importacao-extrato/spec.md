@@ -7,18 +7,18 @@
 
 **Status**: Implemented
 
-**Input**: User description: "A página de importar será uma seção da página de 'Receita', onde haverá faturamento, lucro, gastos, entradas, duas abas separando PJ e PF, e duas abas secundárias separando conta corrente e cartão de crédito. A importação aceitará apenas arquivos OFX (sem input TXT/texto bruto). Adicionado suporte para excluir transações e alterar classificação PJ/PF de lançamentos já persistidos no histórico."
+**Input**: User description: "A página de importar será uma seção da página de 'Receita', onde haverá faturamento, lucro, gastos, entradas, quatro cartões bento principais de escopo (Pendentes, PJ, PF e Neutro), e filtros secundários em formato pill (conta corrente e cartão de crédito). A importação aceitará apenas arquivos OFX (sem input TXT). Adicionado suporte para excluir transações (com modal contendo ícone no cabeçalho) e alterar classificação de lançamentos no histórico em formato de cápsula de controle segmentado."
 
 ---
 
 ## User Scenarios & Testing
 
-### User Story 1 - Página de Receitas com Abas PF/PJ e Conta/Cartão (Priority: P1)
-O usuário acessa `/dashboard/receitas` para visualizar a saúde financeira do seu negócio. Ele pode alternar entre abas principais (Pessoa Jurídica vs Pessoa Física) e abas secundárias (Conta Corrente vs Cartão de Crédito) para filtrar o histórico de transações e recalcular as métricas consolidadas.
+### User Story 1 - Página de Receitas com Bento Cards de Escopo e Filtros de Origem (Priority: P1)
+O usuário acessa `/dashboard/receitas` para visualizar a saúde financeira do seu negócio. Ele pode alternar entre os quatro Bento Cards principais de escopo (Pendentes, Pessoa Jurídica, Pessoa Física e Neutro) e os filtros pill secundários (Conta Corrente vs Cartão de Crédito) para filtrar o histórico de transações e recalcular as métricas consolidadas.
 
 **Acceptance Scenarios**:
-1. **Given** que o usuário está logado e na página `/dashboard/receitas`, **When** ele clica na aba "Pessoa Física (PF)", **Then** o sistema exibe apenas as despesas pessoais e retiradas (pro-labore) do histórico.
-2. **Given** que o usuário está visualizando a aba "PJ", **When** ele alterna da aba secundária "Conta Corrente" para "Cartão de Crédito", **Then** a lista de lançamentos e os KPIs (Faturamento, Gastos, Lucro) são atualizados para exibir apenas dados originados do cartão de crédito corporativo.
+1. **Given** que o usuário está logado e na página `/dashboard/receitas`, **When** ele clica no bento card "Pessoa Física (PF)", **Then** o sistema exibe apenas as despesas pessoais e retiradas do histórico.
+2. **Given** que o usuário está visualizando a aba "PJ", **When** ele seleciona o filtro pill "Cartão de Crédito", **Then** a lista de lançamentos e os KPIs são atualizados para exibir apenas dados originados do cartão de crédito corporativo.
 
 ---
 
@@ -59,7 +59,9 @@ O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação di
 
 ### Functional Requirements
 - **FR-001**: O sistema deve possuir a rota de frontend `/dashboard/receitas`.
-- **FR-002**: A página deve possuir abas principais para alternar o escopo entre PJ, PF e Neutro/Transferências, e abas secundárias para filtrar entre Conta Corrente (`checking_account`) e Cartão de Crédito (`credit_card`).
+- **FR-002**: A página deve possuir quatro Bento Cards de escopo principal para alternar entre Pendentes, PJ, PF e Neutro/Transferências, e filtros pill glassmorphic secundários para selecionar a origem entre Conta Corrente (`checking_account`) e Cartão de Crédito (`credit_card`).
+- **FR-002.1**: A ação de classificar transações nas tabelas deve ser apresentada como um controle segmentado em cápsula contendo os botões PJ, PF e Neutro para evidenciar interatividade.
+- **FR-002.2**: O modal de exclusão de transação deve carregar o ícone de alerta e a mensagem principal centralizados em seu cabeçalho (title prop do GlowDialog).
 - **FR-003**: A página deve listar o histórico de transações salvas e cards de resumo (Faturamento, Gastos, Lucro) carregados do banco de dados para o usuário autenticado.
 - **FR-004**: O sistema deve incluir uma seção de importação de extrato via Modal ou painel retrátil, aceitando **apenas arquivos no formato OFX** (remover suporte a colagem de texto bruto).
 - **FR-005**: O backend deve processar o arquivo OFX e retornar uma lista de transações pré-estruturadas identificando duplicidades (comparando pelo `fit_id` do usuário conectado).
