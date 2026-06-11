@@ -21,4 +21,6 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/transactions', [TransactionController::class, 'index']);
     Route::post('/transactions/parse', [TransactionController::class, 'parse']);
     Route::post('/transactions/confirm', [TransactionController::class, 'confirm']);
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']);
+    Route::patch('/transactions/{id}/classify', [TransactionController::class, 'classify']);
 });

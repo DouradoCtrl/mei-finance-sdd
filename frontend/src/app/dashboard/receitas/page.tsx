@@ -14,7 +14,8 @@ import {
   Plus,
   CreditCard,
   Wallet,
-  X
+  X,
+  Trash2
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -25,6 +26,8 @@ import {
   getTransactions, 
   parseStatement, 
   confirmTransactions, 
+  deleteTransaction,
+  updateTransactionClassification,
   TransactionPayload 
 } from '@/services/transaction.service';
 
@@ -175,6 +178,43 @@ export default function ReceitasPage() {
       setError(err.message || 'Falha ao confirmar fechamento.');
     } finally {
       setConfirmLoading(false);
+    }
+  };
+
+  // Exclui uma transação salva permanentemente
+  const handleDeleteSaved = async (id: number) => {
+    if (!session?.accessToken) return;
+    if (!window.confirm('Tem certeza de que deseja excluir esta transação permanentemente?')) return;
+    
+    try {
+      const response = await deleteTransaction(id, session.accessToken);
+      if (response.success) {
+        setHistory((prev) => prev.filter((tx) => tx.id !== id));
+      } else {
+        alert(response.message || 'Erro ao excluir a transação.');
+      }
+    } catch (err) {
+      console.error('Erro ao excluir transação:', err);
+      alert('Erro de conexão ao excluir a transação.');
+    }
+  };
+
+  // Altera a classificação de uma transação já persistida no banco
+  const handleReclassifySaved = async (id: number, classification: 'business_pj' | 'personal_pf' | 'transfer') => {
+    if (!session?.accessToken) return;
+    
+    try {
+      const response = await updateTransactionClassification(id, classification, session.accessToken);
+      if (response.success) {
+        setHistory((prev) =>
+          prev.map((tx) => (tx.id === id ? { ...tx, classification } : tx))
+        );
+      } else {
+        alert(response.message || 'Erro ao alterar a classificação.');
+      }
+    } catch (err) {
+      console.error('Erro ao alterar classificação:', err);
+      alert('Erro de conexão ao alterar a classificação.');
     }
   };
 
@@ -333,7 +373,8 @@ export default function ReceitasPage() {
                     <th className="p-4">Data</th>
                     <th className="p-4">Descrição</th>
                     <th className="p-4">Valor</th>
-                    <th className="p-4">Classificação</th>
+                    <th className="p-4 text-center">Classificação</th>
+                    <th className="p-4 text-center">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -355,16 +396,44 @@ export default function ReceitasPage() {
                         <td className={`p-4 font-semibold ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
                           R$ {tx.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                         </td>
-                        <td className="p-4">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                            tx.classification === 'business_pj'
-                              ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
-                              : tx.classification === 'personal_pf'
-                              ? 'bg-sky-500/10 text-sky-500 border border-sky-500/20'
-                              : 'bg-zinc-500/10 text-zinc-500 border border-zinc-500/20'
-                          }`}>
-                            {tx.classification === 'business_pj' ? 'PJ' : tx.classification === 'personal_pf' ? 'PF' : 'Neutro'}
-                          </span>
+                        <td className="p-4 text-center">
+                          <div className="flex justify-center gap-1.5">
+                            <Button
+                              size="xs"
+                              variant={tx.classification === 'business_pj' ? 'default' : 'outline'}
+                              onClick={() => handleReclassifySaved(tx.id!, 'business_pj')}
+                              className={tx.classification === 'business_pj' ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'h-7 text-xs'}
+                            >
+                              PJ
+                            </Button>
+                            <Button
+                              size="xs"
+                              variant={tx.classification === 'personal_pf' ? 'default' : 'outline'}
+                              onClick={() => handleReclassifySaved(tx.id!, 'personal_pf')}
+                              className={tx.classification === 'personal_pf' ? 'bg-sky-600 hover:bg-sky-700 text-white' : 'h-7 text-xs'}
+                            >
+                              PF
+                            </Button>
+                            <Button
+                              size="xs"
+                              variant={tx.classification === 'transfer' ? 'default' : 'outline'}
+                              onClick={() => handleReclassifySaved(tx.id!, 'transfer')}
+                              className={tx.classification === 'transfer' ? 'bg-zinc-600 hover:bg-zinc-700 text-white' : 'h-7 text-xs'}
+                            >
+                              Neutro
+                            </Button>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center">
+                          <Button
+                            size="xs"
+                            variant="destructive"
+                            onClick={() => handleDeleteSaved(tx.id!)}
+                            className="h-7 text-xs flex items-center gap-1 mx-auto"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                            Excluir
+                          </Button>
                         </td>
                       </tr>
                     );

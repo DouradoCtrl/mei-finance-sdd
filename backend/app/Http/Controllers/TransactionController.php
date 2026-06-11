@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ParseRequest;
 use App\Http\Requests\ConfirmTransactionsRequest;
+use App\Http\Requests\ClassifyRequest;
 use App\Services\BankStatementParserService;
 use App\Services\TransactionService;
 use App\Traits\ApiResponse;
@@ -88,5 +89,41 @@ class TransactionController extends Controller
         $this->transactionService->saveTransactions($request->user(), $validated['transactions']);
 
         return $this->successResponse(null, 'Transações salvas e conciliação efetuada com sucesso.', 201);
+    }
+
+    /**
+     * Exclui uma transação.
+     */
+    public function destroy(Request $request, int $id)
+    {
+        $deleted = $this->transactionService->deleteTransaction($request->user(), $id);
+
+        if (!$deleted) {
+            return $this->errorResponse('Transação não encontrada ou acesso não autorizado.', 404);
+        }
+
+        return $this->successResponse(null, 'Transação excluída com sucesso.');
+    }
+
+    /**
+     * Reclassifica uma transação existente.
+     */
+    public function classify(ClassifyRequest $request, int $id)
+    {
+        $validated = $request->validated();
+        $transaction = $this->transactionService->updateClassification(
+            $request->user(),
+            $id,
+            $validated['classification']
+        );
+
+        if (!$transaction) {
+            return $this->errorResponse('Transação não encontrada ou acesso não autorizado.', 404);
+        }
+
+        return $this->successResponse(
+            new \App\Http\Resources\TransactionResource($transaction),
+            'Transação reclassificada com sucesso.'
+        );
     }
 }

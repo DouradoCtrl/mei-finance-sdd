@@ -69,3 +69,28 @@ export async function getTransactions(
     accessToken,
   });
 }
+
+/**
+ * Exclui uma transação no banco de dados.
+ */
+export async function deleteTransaction(id: number, accessToken: string) {
+  return await apiFetch(`/transactions/${id}`, {
+    method: 'DELETE',
+    accessToken,
+  });
+}
+
+/**
+ * Altera a classificação de uma transação existente no banco de dados.
+ */
+export async function updateTransactionClassification(
+  id: number,
+  classification: 'business_pj' | 'personal_pf' | 'transfer',
+  accessToken: string
+) {
+  return await apiFetch(`/transactions/${id}/classify`, {
+    method: 'PATCH',
+    body: { classification },
+    accessToken,
+  });
+}

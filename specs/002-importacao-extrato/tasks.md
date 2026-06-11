@@ -12,25 +12,23 @@
 
 ---
 
-## Phase 2: Frontend Service Updates
+## Phase 2: Backend Deletion & Reclassification
 
-- [x] T004 Atualizar `transaction.service.ts` para adicionar `getTransactions` e simplificar `parseStatement` (apenas OFX)
+- [x] T004 Criar `ClassifyRequest.php` para validar o campo de classificação de transações
+- [x] T005 Implementar métodos de reclassificação e exclusão no `TransactionService.php`
+- [x] T006 Expor endpoints `DELETE /api/transactions/{id}` e `PATCH /api/transactions/{id}/classify` no `TransactionController.php` e rotas de `routes/api.php`
 
 ---
 
-## Phase 3: Frontend UI: Receitas Page
+## Phase 3: Frontend Service & UI Updates
 
-- [x] T005 Criar a página unificada de receitas em `frontend/src/app/dashboard/receitas/page.tsx` com as abas principais (PJ/PF) e abas secundárias (Conta/Cartão)
-- [x] T006 Implementar os Cards de KPI (Faturamento, Gastos, Lucro Líquido) com somatórios baseados no histórico filtrado pelas abas
-- [x] T007 Adicionar a tabela de histórico de transações na página de Receitas consumindo dados do backend
-- [x] T008 Integrar o fluxo de importação de extrato OFX (com tabela temporária para classificação antes de salvar) como um modal ou seção retrátil nesta mesma página
-- [x] T009 Atualizar a barra de navegação lateral (`app-sidebar.tsx`) e breadcrumbs (`header.tsx`) para direcionar para `/dashboard/receitas` em vez de `/dashboard/importar`
-- [x] T010 Remover fisicamente a rota obsoleta `frontend/src/app/dashboard/importar` do projeto
+- [x] T007 Atualizar `transaction.service.ts` para adicionar chamadas de exclusão e reclassificação
+- [x] T008 Atualizar a página `receitas/page.tsx` para adicionar botões de classificação e ícone de lixeira (excluir) na tabela de histórico, atualizando os KPIs em tempo real
 
 ---
 
 ## Phase 4: Tests & Validation
 
-- [x] T011 Atualizar e expandir a suite de testes `TransactionTest.php` no backend para testar a rota index (`GET /api/transactions`) e remover cenários obsoletos de texto bruto
-- [x] T012 Executar a suite de testes via Docker para certificar que todas as asserções passem com sucesso
-- [x] T013 Executar a verificação de tipos do TypeScript com `npx tsc --noEmit` para garantir ausência de erros de build
+- [x] T009 Expandir a suite de testes `TransactionTest.php` no backend para cobrir exclusão e reclassificação de lançamentos salvos
+- [x] T010 Executar a suite de testes via Docker para certificar que todas as asserções passem com sucesso
+- [x] T011 Executar a verificação de tipos do TypeScript com `npx tsc --noEmit` para garantir ausência de erros de build

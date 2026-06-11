@@ -7,7 +7,7 @@
 
 **Status**: Implemented
 
-**Input**: User description: "A página de importar será uma seção da página de 'Receita', onde haverá faturamento, lucro, gastos, entradas, duas abas separando PJ e PF, e duas abas secundárias separando conta corrente e cartão de crédito. A importação aceitará apenas arquivos OFX (sem input TXT/texto bruto)."
+**Input**: User description: "A página de importar será uma seção da página de 'Receita', onde haverá faturamento, lucro, gastos, entradas, duas abas separando PJ e PF, e duas abas secundárias separando conta corrente e cartão de crédito. A importação aceitará apenas arquivos OFX (sem input TXT/texto bruto). Adicionado suporte para excluir transações e alterar classificação PJ/PF de lançamentos já persistidos no histórico."
 
 ---
 
@@ -39,6 +39,22 @@ A página exibe três cards de métricas (Faturamento, Gastos e Lucro Líquido) 
 
 ---
 
+### User Story 4 - Exclusão de Transações no Histórico (Priority: P1)
+O usuário pode clicar em um botão de excluir ao lado de qualquer transação listada no histórico da página de Receitas para removê-la permanentemente.
+
+**Acceptance Scenarios**:
+1. **Given** uma transação listada na tabela de histórico, **When** o usuário clica na lixeira/excluir e confirma, **Then** o sistema remove a transação do banco de dados, remove da tabela na tela e atualiza os KPIs automaticamente.
+
+---
+
+### User Story 5 - Reclassificação de Lançamentos Salvos (Priority: P1)
+O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação diretamente na tabela de histórico.
+
+**Acceptance Scenarios**:
+1. **Given** uma transação classificada como PJ no histórico, **When** o usuário clica para alterar sua classificação para PF, **Then** o sistema atualiza a classificação no banco de dados e recalcula dinamicamente os KPIs (Faturamento, Gastos, Lucro) na tela do usuário.
+
+---
+
 ## Requirements
 
 ### Functional Requirements
@@ -48,7 +64,9 @@ A página exibe três cards de métricas (Faturamento, Gastos e Lucro Líquido) 
 - **FR-004**: O sistema deve incluir uma seção de importação de extrato via Modal ou painel retrátil, aceitando **apenas arquivos no formato OFX** (remover suporte a colagem de texto bruto).
 - **FR-005**: O backend deve processar o arquivo OFX e retornar uma lista de transações pré-estruturadas identificando duplicidades (comparando pelo `fit_id` do usuário conectado).
 - **FR-006**: O backend deve fornecer um endpoint `GET /api/transactions` para recuperar o histórico de transações salvas do usuário conectado, com suporte a filtros de `source` (origem) e `classification` (classificação).
-- **FR-007**: As transações devem ser obrigatoriamente associadas ao usuário autenticado (`user_id = auth()->id()`) in all read and write operations.
+- **FR-007**: As transações devem ser obrigatoriamente associadas ao usuário autenticado (`user_id = auth()->id()`) em todas as operações de leitura e gravação.
+- **FR-008**: O sistema deve permitir a exclusão física de uma transação salva através do endpoint `DELETE /api/transactions/{id}`.
+- **FR-009**: O sistema deve permitir a reclassificação de uma transação através do endpoint `PATCH /api/transactions/{id}/classify`.
 
 ### Key Entities
 - **Transaction**:
@@ -66,3 +84,4 @@ A página exibe três cards de métricas (Faturamento, Gastos e Lucro Líquido) 
 - **SC-001**: As transações importadas devem ser salvas e vinculadas exclusivamente ao ID do usuário conectado.
 - **SC-002**: O processamento e retorno do arquivo OFX pelo backend deve ocorrer em menos de 200ms.
 - **SC-003**: A alternância de abas (PJ/PF ou Conta/Cartão) deve re-filtrar e re-calcular os KPIs e histórico em menos de 100ms.
+- **SC-004**: A exclusão e a reclassificação de uma transação devem persistir e refletir na interface do usuário em menos de 100ms.

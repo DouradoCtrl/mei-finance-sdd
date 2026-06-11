@@ -46,4 +46,37 @@ class TransactionService
             }
         }
     }
+
+    /**
+     * Exclui uma transação se ela pertencer ao usuário informado.
+     */
+    public function deleteTransaction(User $user, int $transactionId): bool
+    {
+        $transaction = Transaction::where('user_id', $user->id)
+            ->where('id', $transactionId)
+            ->first();
+
+        if ($transaction) {
+            return (bool) $transaction->delete();
+        }
+
+        return false;
+    }
+
+    /**
+     * Atualiza a classificação de uma transação se ela pertencer ao usuário informado.
+     */
+    public function updateClassification(User $user, int $transactionId, string $classification): ?Transaction
+    {
+        $transaction = Transaction::where('user_id', $user->id)
+            ->where('id', $transactionId)
+            ->first();
+
+        if ($transaction) {
+            $transaction->update(['classification' => $classification]);
+            return $transaction;
+        }
+
+        return null;
+    }
 }

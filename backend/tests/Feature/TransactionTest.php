@@ -160,4 +160,92 @@ OFX;
             'classification' => 'business_pj',
         ]);
     }
+
+    public function test_user_can_delete_their_transaction(): void
+    {
+        $user = User::factory()->create();
+        $transaction = Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'DELETAR',
+            'amount' => -50.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->deleteJson("/api/transactions/{$transaction->id}");
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('success', true);
+        $this->assertEquals(0, Transaction::count());
+    }
+
+    public function test_user_cannot_delete_other_users_transaction(): void
+    {
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $transaction = Transaction::create([
+            'user_id' => $otherUser->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'OUTRA',
+            'amount' => -50.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->deleteJson("/api/transactions/{$transaction->id}");
+
+        $response->assertStatus(404);
+        $this->assertEquals(1, Transaction::count());
+    }
+
+    public function test_user_can_reclassify_their_transaction(): void
+    {
+        $user = User::factory()->create();
+        $transaction = Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'ALTERAR',
+            'amount' => -50.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->patchJson("/api/transactions/{$transaction->id}/classify", [
+                'classification' => 'business_pj',
+            ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('success', true);
+        
+        $transaction->refresh();
+        $this->assertEquals('business_pj', $transaction->classification);
+    }
+
+    public function test_user_cannot_reclassify_other_users_transaction(): void
+    {
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $transaction = Transaction::create([
+            'user_id' => $otherUser->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'OUTRA',
+            'amount' => -50.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->patchJson("/api/transactions/{$transaction->id}/classify", [
+                'classification' => 'business_pj',
+            ]);
+
+        $response->assertStatus(404);
+        
+        $transaction->refresh();
+        $this->assertEquals('personal_pf', $transaction->classification);
+    }
 }
