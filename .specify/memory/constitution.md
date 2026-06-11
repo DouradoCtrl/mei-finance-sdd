@@ -34,6 +34,13 @@ Toda resposta enviada pela API do backend para o Next.js deve seguir uma estrutu
         "message": "Mensagem de erro em português"
       }
       ```
+*   **Tratamento de Exceções Global no Bootstrap:**
+    - Toda exceção sob a rota `/api/*` que resulte em erro HTTP deve ser capturada no arquivo `bootstrap/app.php` e formatada usando a trait `ApiResponse` via classe anônima.
+    - Exceções de validação (`ValidationException`) devem retornar status `422` com as mensagens detalhadas de validação populadas no campo `data`.
+    - Exceções de autenticação (`AuthenticationException`) devem retornar status `401` com a mensagem `"Usuário não autenticado."`.
+    - Exceções de autorização (`AccessDeniedHttpException`) devem retornar status `403` com a mensagem `"Esta ação não é autorizada."`.
+    - Exceções de recursos não encontrados (`ModelNotFoundException`) devem ser traduzidas dinamicamente baseando-se no nome da classe do model Eloquent (ex: `User` -> `Usuário`) e retornar status `404` com a mensagem `"{Entidade} não encontrado."`.
+
 
 ### III. Banco de Dados Dockerizado e Isolado
 O banco de dados oficial de desenvolvimento é o PostgreSQL 16 executado em container Docker via Docker Compose.
