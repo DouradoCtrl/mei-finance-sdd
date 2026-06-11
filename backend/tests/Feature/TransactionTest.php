@@ -1,0 +1,148 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\User;
+use App\Models\Transaction;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Tests\TestCase;
+
+class TransactionTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_user_can_parse_statement_text(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->postJson('/api/transactions/parse', [
+                'source' => 'checking_account',
+                'format' => 'text',
+                'raw_text' => "10/06/2026 PIX RECEBIDO JOAO R$ 1500,00\n11/06/2026 ALUGUEL R$ -450,00",
+            ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('success', true);
+        $response->assertJsonCount(2, 'data');
+        
+        $response->assertJsonPath('data.0.transaction_date', '2026-06-10');
+        $response->assertJsonPath('data.0.description', 'PIX RECEBIDO JOAO');
+        $response->assertJsonPath('data.0.amount', 1500);
+        $response->assertJsonPath('data.0.is_duplicate', false);
+    }
+
+    public function test_user_can_parse_statement_ofx(): void
+    {
+        $user = User::factory()->create();
+
+        $ofxContent = <<<OFX
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+
+<OFX>
+<BANKMSGSRSV1>
+<STMTTRNRS>
+<TRNUID>1
+<STATUS>
+<CODE>0
+<SEVERITY>INFO
+</STATUS>
+<STMTRS>
+<CURDEF>BRL
+<BANKTRANLIST>
+<DTSTART>20260601
+<DTEND>20260615
+<STMTTRN>
+<TRNTYPE>DEBIT
+<DTPOSTED>20260611120000[-3:BRT]
+<TRNAMT>-450.00
+<FITID>10293810293
+<MEMO>ALUGUEL ESCRITORIO
+</STMTTRN>
+</BANKTRANLIST>
+</STMTRS>
+</STMTTRNRS>
+</BANKMSGSRSV1>
+</OFX>
+OFX;
+
+        $file = UploadedFile::fake()->createWithContent('extrato.ofx', $ofxContent);
+
+        $response = $this->actingAs($user)
+            ->postJson('/api/transactions/parse', [
+                'source' => 'checking_account',
+                'format' => 'ofx',
+                'file' => $file,
+            ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('success', true);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.transaction_date', '2026-06-11');
+        $response->assertJsonPath('data.0.amount', -450);
+        $response->assertJsonPath('data.0.description', 'ALUGUEL ESCRITORIO');
+        $response->assertJsonPath('data.0.fit_id', '10293810293');
+    }
+
+    public function test_user_can_confirm_transactions_and_duplicates_are_ignored(): void
+    {
+        $user = User::factory()->create();
+
+        // Insere previamente uma transação no banco (duplicada de teste)
+        Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'DUPLICADA',
+            'amount' => -100.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+            'fit_id' => '111222333',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->postJson('/api/transactions/confirm', [
+                'transactions' => [
+                    // Transação nova
+                    [
+                        'transaction_date' => '2026-06-12',
+                        'description' => 'NOVA',
+                        'amount' => 500.00,
+                        'source' => 'checking_account',
+                        'classification' => 'business_pj',
+                        'fit_id' => '999888777',
+                    ],
+                    // Transação duplicada (deve ser ignorada pelo fit_id)
+                    [
+                        'transaction_date' => '2026-06-10',
+                        'description' => 'DUPLICADA',
+                        'amount' => -100.00,
+                        'source' => 'checking_account',
+                        'classification' => 'personal_pf',
+                        'fit_id' => '111222333',
+                    ],
+                ]
+            ]);
+
+        $response->assertStatus(201);
+        $response->assertJsonPath('success', true);
+
+        // Apenas 2 transações devem existir no banco (a inicial e a nova, a duplicada foi ignorada)
+        $this->assertEquals(2, Transaction::count());
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id' => $user->id,
+            'description' => 'NOVA',
+            'amount' => 500.00,
+            'classification' => 'business_pj',
+        ]);
+    }
+}

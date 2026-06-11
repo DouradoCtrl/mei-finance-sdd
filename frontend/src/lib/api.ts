@@ -37,11 +37,16 @@ export const apiFetch = async (endpoint: string, options: ApiOptions = {}) => {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const fullUrl = `${baseUrl}${cleanEndpoint}`;
 
+  const isFormData = typeof window !== 'undefined' && body instanceof FormData;
+
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
     ...restOptions.headers,
   };
+
+  if (!isFormData) {
+    (headers as Record<string, string>)['Content-Type'] = 'application/json';
+  }
 
   if (accessToken) {
     (headers as Record<string, string>).Authorization = `Bearer ${accessToken}`;
@@ -53,7 +58,7 @@ export const apiFetch = async (endpoint: string, options: ApiOptions = {}) => {
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = isFormData ? body : JSON.stringify(body);
   }
 
   const response = await fetch(fullUrl, config);

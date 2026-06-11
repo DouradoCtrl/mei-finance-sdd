@@ -32,11 +32,11 @@
 
 **Goal**: Permitir o upload de arquivo OFX ou colagem de texto bruto e visualização das transações estruturadas em uma tabela.
 
-- [ ] T007 [P] [US1] Criar validador de requisição `ParseRequest` para a API de parsing em `backend/app/Http/Requests/ParseRequest.php`
-- [ ] T008 [US1] Criar classe de serviço `BankStatementParserService` contendo expressões regulares de leitura de texto e decodificador OFX (SGML/XML) em `backend/app/Services/BankStatementParserService.php`
-- [ ] T009 [US1] Criar `TransactionController` e implementar o método `parse()` em `backend/app/Http/Controllers/TransactionController.php` chamando o serviço de leitura
-- [ ] T010 [P] [US1] Criar serviço de chamadas da API de transações no Next.js em `frontend/src/services/transaction.service.ts`
-- [ ] T011 [US1] Construir o formulário de upload de arquivo OFX e campo textarea de texto bruto em `frontend/src/app/dashboard/importacao/page.tsx`, exibindo as transações retornadas em formato de tabela
+- [x] T007 [P] [US1] Criar validador de requisição `ParseRequest` para a API de parsing em `backend/app/Http/Requests/ParseRequest.php`
+- [x] T008 [US1] Criar classe de serviço `BankStatementParserService` contendo expressões regulares de leitura de texto e decodificador OFX (SGML/XML) em `backend/app/Services/BankStatementParserService.php`
+- [x] T009 [US1] Criar `TransactionController` e implementar o método `parse()` em `backend/app/Http/Controllers/TransactionController.php` chamando o serviço de leitura
+- [x] T010 [P] [US1] Criar serviço de chamadas da API de transações no Next.js em `frontend/src/services/transaction.service.ts`
+- [x] T011 [US1] Construir o formulário de upload de arquivo OFX e campo textarea de texto bruto em `frontend/src/app/dashboard/importacao/page.tsx`, exibindo as transações retornadas em formato de tabela
 
 ---
 
@@ -44,8 +44,8 @@
 
 **Goal**: Permitir classificar de forma rápida cada transação na tabela entre PJ (Empresa), PF (Pessoal) ou Neutro (Transfer).
 
-- [ ] T012 [P] [US2] Implementar botões de seleção de classificação para cada linha da tabela em `frontend/src/app/dashboard/importacao/page.tsx`
-- [ ] T013 [US2] Vincular estilos CSS diferenciados para cada tipo de classificação (Verde/PJ, Azul/PF, Cinza/Neutro) para feedback visual rápido do usuário na tabela de `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T012 [P] [US2] Implementar botões de seleção de classificação para cada linha da tabela em `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T013 [US2] Vincular estilos CSS diferenciados para cada tipo de classificação (Verde/PJ, Azul/PF, Cinza/Neutro) para feedback visual rápido do usuário na tabela de `frontend/src/app/dashboard/importacao/page.tsx`
 
 ---
 
@@ -53,11 +53,11 @@
 
 **Goal**: Exibir os somatórios atualizados dinamicamente com base nas classificações e enviar para persistência no banco de dados.
 
-- [ ] T014 [P] [US3] Criar validador `ConfirmTransactionsRequest` para recebimento de transações em `backend/app/Http/Requests/ConfirmTransactionsRequest.php`
-- [ ] T015 [US3] Criar classe de serviço `TransactionService` em `backend/app/Services/TransactionService.php` contendo regras de negócio para ignorar registros duplicados (verificando o index único e `fit_id`) e salvar registros válidos
-- [ ] T016 [US3] Implementar o método `confirm()` no controller `TransactionController` em `backend/app/Http/Controllers/TransactionController.php` delegando para o serviço e retornando resposta padronizada
-- [ ] T017 [P] [US3] Implementar o cálculo dinâmico dos somatórios em tempo real (Receita PJ, Despesa PJ, Retiradas PF, Lucro Líquido) no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
-- [ ] T018 [US3] Integrar chamada de API `confirmTransactions` ao botão "Confirmar Fechamento" no frontend de `frontend/src/app/dashboard/importacao/page.tsx`, limpando a tela de importação e exibindo mensagem de sucesso
+- [x] T014 [P] [US3] Criar validador `ConfirmTransactionsRequest` para recebimento de transações em `backend/app/Http/Requests/ConfirmTransactionsRequest.php`
+- [x] T015 [US3] Criar classe de serviço `TransactionService` em `backend/app/Services/TransactionService.php` contendo regras de negócio para ignorar registros duplicados (verificando o index único e `fit_id`) e salvar registros válidos
+- [x] T016 [US3] Implementar o método `confirm()` no controller `TransactionController` em `backend/app/Http/Controllers/TransactionController.php` delegando para o serviço e retornando resposta padronizada
+- [x] T017 [P] [US3] Implementar o cálculo dinâmico dos somatórios em tempo real (Receita PJ, Despesa PJ, Retiradas PF, Lucro Líquido) no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T018 [US3] Integrar chamada de API `confirmTransactions` ao botão "Confirmar Fechamento" no frontend de `frontend/src/app/dashboard/importacao/page.tsx`, limpando a tela de importação e exibindo mensagem de sucesso
 
 ---
 
@@ -65,10 +65,10 @@
 
 **Purpose**: Testes automatizados de validação de parsing e salvamento, limpeza e checagem de tipos.
 
-- [ ] T019 Criar suite de testes de integração `TransactionTest` em `backend/tests/Feature/TransactionTest.php` validando parsing de texto/OFX e confirmação de transações
-- [ ] T020 Rodar testes locais com `php artisan test` e certificar-se de que a suite está verde
-- [ ] T021 Rodar checagem de tipos do TypeScript com `npx tsc --noEmit` no frontend e certificar que não há erros de tipagem
-- [ ] T022 Executar o roteiro de testes do `quickstart.md` manualmente e documentar resultados
+- [x] T019 Criar suite de testes de integração `TransactionTest` em `backend/tests/Feature/TransactionTest.php` validando parsing de texto/OFX e confirmação de transações
+- [x] T020 Rodar testes locais com `php artisan test` e certificar-se de que a suite está verde
+- [x] T021 Rodar checagem de tipos do TypeScript com `npx tsc --noEmit` no frontend e certificar que não há erros de tipagem
+- [x] T022 Executar o roteiro de testes do `quickstart.md` manualmente e documentar resultados
 
 ---
 
