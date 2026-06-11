@@ -48,7 +48,7 @@ O usuário pode clicar em um botão de excluir ao lado de qualquer transação l
 ---
 
 ### User Story 5 - Reclassificação de Lançamentos Salvos (Priority: P1)
-O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação diretamente na tabela de histórico.
+O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação diretamente na tabela de histórico, tendo a visibilidade de lançamentos neutros garantida através de uma aba dedicada.
 
 **Acceptance Scenarios**:
 1. **Given** uma transação classificada como PJ no histórico, **When** o usuário clica para alterar sua classificação para PF, **Then** o sistema atualiza a classificação no banco de dados e recalcula dinamicamente os KPIs (Faturamento, Gastos, Lucro) na tela do usuário.
@@ -59,7 +59,7 @@ O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação di
 
 ### Functional Requirements
 - **FR-001**: O sistema deve possuir a rota de frontend `/dashboard/receitas`.
-- **FR-002**: A página deve possuir abas principais para alternar o escopo entre PJ e PF, e abas secundárias para filtrar entre Conta Corrente (`checking_account`) e Cartão de Crédito (`credit_card`).
+- **FR-002**: A página deve possuir abas principais para alternar o escopo entre PJ, PF e Neutro/Transferências, e abas secundárias para filtrar entre Conta Corrente (`checking_account`) e Cartão de Crédito (`credit_card`).
 - **FR-003**: A página deve listar o histórico de transações salvas e cards de resumo (Faturamento, Gastos, Lucro) carregados do banco de dados para o usuário autenticado.
 - **FR-004**: O sistema deve incluir uma seção de importação de extrato via Modal ou painel retrátil, aceitando **apenas arquivos no formato OFX** (remover suporte a colagem de texto bruto).
 - **FR-005**: O backend deve processar o arquivo OFX e retornar uma lista de transações pré-estruturadas identificando duplicidades (comparando pelo `fit_id` do usuário conectado).
@@ -83,5 +83,5 @@ O usuário pode alterar a classificação (PJ, PF, Neutro) de uma transação di
 ## Success Criteria
 - **SC-001**: As transações importadas devem ser salvas e vinculadas exclusivamente ao ID do usuário conectado.
 - **SC-002**: O processamento e retorno do arquivo OFX pelo backend deve ocorrer em menos de 200ms.
-- **SC-003**: A alternância de abas (PJ/PF ou Conta/Cartão) deve re-filtrar e re-calcular os KPIs e histórico em menos de 100ms.
+- **SC-003**: A alternância de abas (PJ/PF/Neutro ou Conta/Cartão) deve re-filtrar e re-calcular os KPIs e histórico em menos de 100ms.
 - **SC-004**: A exclusão e a reclassificação de uma transação devem persistir e refletir na interface do usuário em menos de 100ms.
