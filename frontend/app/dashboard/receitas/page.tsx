@@ -12,7 +12,11 @@ import {
   Wallet,
   CreditCard,
   Trash2,
-  AlertTriangle
+  AlertTriangle,
+  Clock,
+  Building2,
+  User,
+  RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { GlowCard, GlowButton, GlowBadge } from '@/components/custom/GlowUI';
@@ -297,12 +301,54 @@ export default function ReceitasPage() {
     );
   }
 
-  const mainTabs = [
-    { label: 'Pendentes', value: 'pending' },
-    { label: 'Pessoa Jurídica (PJ)', value: 'business_pj' },
-    { label: 'Pessoa Física (PF)', value: 'personal_pf' },
-    { label: 'Neutro / Transferências', value: 'transfer' },
-  ] as const;
+  const mainTabs = useMemo(() => {
+    return [
+      { 
+        label: 'Pendentes', 
+        value: 'pending' as const, 
+        desc: 'Aguardando conciliação', 
+        icon: Clock,
+        indicatorBg: 'bg-amber-500',
+        dotColor: 'bg-amber-500',
+        iconBg: 'bg-amber-50 dark:bg-amber-950/30 border-amber-100/30 dark:border-amber-900/20 text-amber-500 dark:text-amber-400',
+        bgGradient: 'bg-gradient-to-br from-amber-500/5 to-transparent dark:from-amber-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(245,158,11,0.03)] hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] hover:border-amber-500/20'
+      },
+      { 
+        label: 'Pessoa Jurídica (PJ)', 
+        value: 'business_pj' as const, 
+        desc: 'Controle da empresa', 
+        icon: Building2,
+        indicatorBg: 'bg-emerald-500',
+        dotColor: 'bg-emerald-500',
+        iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100/30 dark:border-emerald-900/20 text-emerald-500 dark:text-emerald-400',
+        bgGradient: 'bg-gradient-to-br from-emerald-500/5 to-transparent dark:from-emerald-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.08)] hover:border-emerald-500/20'
+      },
+      { 
+        label: 'Pessoa Física (PF)', 
+        value: 'personal_pf' as const, 
+        desc: 'Despesas pessoais', 
+        icon: User,
+        indicatorBg: 'bg-sky-500',
+        dotColor: 'bg-sky-500',
+        iconBg: 'bg-sky-50 dark:bg-sky-950/30 border-sky-100/30 dark:border-sky-900/20 text-sky-500 dark:text-sky-400',
+        bgGradient: 'bg-gradient-to-br from-sky-500/5 to-transparent dark:from-sky-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(14,165,233,0.03)] hover:shadow-[0_0_20px_rgba(14,165,233,0.08)] hover:border-sky-500/20'
+      },
+      { 
+        label: 'Neutro / Transf.', 
+        value: 'transfer' as const, 
+        desc: 'Movimentações isentas', 
+        icon: RefreshCw,
+        indicatorBg: 'bg-zinc-550 dark:bg-zinc-650',
+        dotColor: 'bg-zinc-550 dark:bg-zinc-650',
+        iconBg: 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-150 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400',
+        bgGradient: 'bg-gradient-to-br from-zinc-500/5 to-transparent dark:from-zinc-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(113,113,122,0.03)] hover:shadow-[0_0_20px_rgba(113,113,122,0.08)] hover:border-zinc-500/20'
+      },
+    ];
+  }, []);
 
   const sourceTabs = [
     { label: 'Conta Corrente', value: 'checking_account', icon: Wallet },
@@ -333,22 +379,54 @@ export default function ReceitasPage() {
           </GlowButton>
         </div>
 
-        {/* Abas Principais (Pendentes vs PJ vs PF vs Neutro) */}
-        <div className="flex gap-4 border-b border-zinc-150 dark:border-zinc-800/80 overflow-x-auto select-none">
-          {mainTabs.map((tab) => (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={cn(
-                "pb-2.5 px-1 text-xs font-semibold uppercase tracking-wider border-b-2 transition-all whitespace-nowrap cursor-pointer",
-                activeTab === tab.value
-                  ? "border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold"
-                  : "border-transparent text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
+        {/* Filtro de Contexto (Bento Cards de Escopo) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 select-none">
+          {mainTabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.value;
+            return (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={cn(
+                  "relative overflow-hidden p-4 rounded-2xl border flex flex-col items-start gap-2.5 text-left transition-all duration-300 cursor-pointer hover:-translate-y-0.5",
+                  isActive
+                    ? cn(
+                        "bg-white dark:bg-zinc-950 border-zinc-200/80 dark:border-zinc-800",
+                        tab.glowShadow,
+                        tab.bgGradient
+                      )
+                    : "bg-white/40 dark:bg-zinc-950/40 border-zinc-150 dark:border-zinc-800/40 text-zinc-450 dark:text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-white/60 dark:hover:bg-zinc-900/40"
+                )}
+              >
+                {/* Active left indicator bar */}
+                {isActive && <div className={cn("absolute left-0 top-0 bottom-0 w-1", tab.indicatorBg)} />}
+
+                <div className="flex items-center justify-between w-full">
+                  <div className={cn(
+                    "p-1.5 rounded-lg shrink-0 border",
+                    isActive ? tab.iconBg : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-100 dark:border-zinc-800/30 text-zinc-400 dark:text-zinc-550"
+                  )}>
+                    <Icon className="size-4" />
+                  </div>
+                  {/* Small active dot */}
+                  {isActive && <span className={cn("w-1.5 h-1.5 rounded-full animate-ping", tab.dotColor)} />}
+                </div>
+
+                <div className="space-y-0.5">
+                  <h4 className={cn(
+                    "text-[10px] font-bold uppercase tracking-wider",
+                    isActive ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-zinc-500"
+                  )}>
+                    {tab.label}
+                  </h4>
+                  <p className="text-[9px] text-zinc-400 dark:text-zinc-500 leading-tight">
+                    {tab.desc}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* Filtros de Origem (Pills com Glow e Vidro) */}
