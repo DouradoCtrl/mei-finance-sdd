@@ -1,310 +1,325 @@
 <template>
-  <main class="flex-1 p-6 space-y-6 max-w-6xl w-full mx-auto">
-    <!-- Cabeçalho da Página com Título e Botão de Ação -->
+  <div class="p-6 space-y-6 max-w-6xl mx-auto">
+    <!-- Page Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div>
-        <h1 class="text-2xl font-semibold tracking-tight text-gray-950 dark:text-white">Receitas e Fluxo de Caixa</h1>
-        <p class="text-sm text-gray-500 mt-1">
-          Acompanhe seu faturamento, controle despesas e faça conciliações rápidas via extrato.
+        <h1 class="text-xl font-bold text-gray-950 dark:text-white">Fluxo de Caixa</h1>
+        <p class="text-xs text-gray-400 mt-0.5">
+          Organize e classifique seus lançamentos bancários PJ e PF de forma ágil.
         </p>
       </div>
       <UButton 
-        icon="i-heroicons-cloud-arrow-up"
-        class="flex items-center gap-2 font-medium"
+        icon="i-heroicons-arrow-up-tray"
+        color="emerald"
+        class="text-xs font-semibold uppercase tracking-wider px-3.5 py-2 rounded-lg"
         @click="openImportModal"
       >
-        Importar Extrato OFX
+        Importar OFX
       </UButton>
     </div>
 
-    <!-- Abas Principais (Pendentes vs PJ vs PF vs Neutro) -->
-    <div class="border-b border-gray-200 dark:border-zinc-800 flex gap-4 overflow-x-auto">
-      <button
-        v-for="tab in mainTabs"
-        :key="tab.value"
-        @click="activeTab = tab.value"
-        class="pb-3 px-1 text-sm font-medium border-b-2 transition-colors whitespace-nowrap"
-        :class="[
-          activeTab === tab.value
-            ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
-            : 'border-transparent text-gray-500 dark:text-zinc-400 hover:text-gray-700 hover:border-gray-300'
-        ]"
-      >
-        {{ tab.label }}
-      </button>
+    <!-- Filters and Tabs -->
+    <div class="flex flex-col gap-4">
+      <!-- Main tabs with active underlines -->
+      <div class="flex gap-4 border-b border-gray-100 dark:border-zinc-800/80 overflow-x-auto select-none">
+        <button
+          v-for="tab in mainTabs"
+          :key="tab.value"
+          @click="activeTab = tab.value"
+          class="pb-2.5 px-1 text-xs font-semibold uppercase tracking-wider border-b-2 transition-all whitespace-nowrap"
+          :class="[
+            activeTab === tab.value
+              ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold'
+              : 'border-transparent text-gray-400 dark:text-zinc-500 hover:text-gray-900 dark:hover:text-white'
+          ]"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <!-- Secondary segmented tabs for source selection -->
+      <div class="flex bg-gray-100/60 dark:bg-zinc-800/50 p-1 rounded-lg self-start">
+        <button
+          v-for="src in sourceTabs"
+          :key="src.value"
+          @click="activeSource = src.value"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all"
+          :class="[
+            activeSource === src.value
+              ? 'bg-white dark:bg-zinc-900 text-gray-950 dark:text-white shadow-sm'
+              : 'text-gray-400 dark:text-zinc-500 hover:text-gray-900 dark:hover:text-white'
+          ]"
+        >
+          <UIcon :name="src.icon" class="h-3.5 w-3.5 shrink-0" />
+          {{ src.label }}
+        </button>
+      </div>
     </div>
 
-    <!-- Abas Secundárias (Conta Corrente vs Cartão) -->
-    <div class="flex bg-gray-100 dark:bg-zinc-800 p-1 rounded-lg self-start">
-      <button
-        v-for="src in sourceTabs"
-        :key="src.value"
-        @click="activeSource = src.value"
-        class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors"
-        :class="[
-          activeSource === src.value
-            ? 'bg-white dark:bg-zinc-900 text-gray-950 dark:text-white shadow-sm'
-            : 'text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white'
-        ]"
-      >
-        <UIcon :name="src.icon" class="h-3.5 w-3.5" />
-        {{ src.label }}
-      </button>
-    </div>
-
-    <!-- Cards de KPIs (Atualizados com base nas seleções de abas) -->
+    <!-- KPI Bento Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <UCard :ui="{ body: { padding: 'p-4 pb-3 flex flex-col gap-1 items-center text-center' } }">
-        <div class="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
-          <UIcon name="i-heroicons-arrow-up-right" class="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-          <span>{{ faturamentoLabel }}</span>
+      <UCard 
+        v-for="kpi in kpiConfig" 
+        :key="kpi.label" 
+        :ui="{ 
+          base: 'overflow-hidden border border-gray-100 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 shadow-none rounded-xl',
+          body: { padding: 'p-4 flex flex-col gap-1 items-center text-center' } 
+        }"
+      >
+        <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-400 select-none">
+          <UIcon :name="kpi.icon" class="size-4 shrink-0" :class="kpi.iconColor" />
+          <span>{{ kpi.label }}</span>
         </div>
-        <div class="text-2xl font-black tracking-tight text-gray-950 dark:text-white mt-1 font-mono">
-          R$ {{ formatCurrency(kpis.faturamento) }}
-        </div>
-      </UCard>
-
-      <UCard :ui="{ body: { padding: 'p-4 pb-3 flex flex-col gap-1 items-center text-center' } }">
-        <div class="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
-          <UIcon name="i-heroicons-arrow-down-left" class="w-3.5 h-3.5 text-rose-500 shrink-0" />
-          <span>{{ gastosLabel }}</span>
-        </div>
-        <div class="text-2xl font-black tracking-tight text-gray-950 dark:text-white mt-1 font-mono">
-          R$ {{ formatCurrency(kpis.gastos) }}
-        </div>
-      </UCard>
-
-      <UCard :ui="{ body: { padding: 'p-4 pb-3 flex flex-col gap-1 items-center text-center' } }">
-        <div class="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
-          <UIcon name="i-heroicons-chart-bar" class="w-3.5 h-3.5 shrink-0" :class="[kpis.lucro >= 0 ? 'text-emerald-500' : 'text-rose-500']" />
-          <span>{{ lucroLabel }}</span>
-        </div>
-        <div class="text-2xl font-black tracking-tight mt-1 font-mono" :class="[kpis.lucro >= 0 ? 'text-emerald-500' : 'text-rose-500']">
-          R$ {{ formatCurrency(kpis.lucro) }}
+        <div 
+          class="text-2xl font-semibold tracking-tight mt-1 font-mono"
+          :class="kpi.valueClass || 'text-gray-900 dark:text-white'"
+        >
+          R$ {{ formatCurrency(kpi.value) }}
         </div>
       </UCard>
     </div>
 
-    <!-- Tabela de Histórico Persistido -->
-    <div class="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm overflow-hidden">
-      <div class="p-6 border-b border-gray-200 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-900/50">
-        <h3 class="text-base font-semibold text-gray-950 dark:text-white">Histórico de Lançamentos</h3>
-        <p class="text-xs text-gray-500 mt-1">
-          Transações já conciliadas e gravadas no banco de dados para a origem selecionada.
-        </p>
-      </div>
+    <!-- Transactions Section -->
+    <UCard 
+      :ui="{ 
+        base: 'overflow-hidden border border-gray-100 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 shadow-none rounded-xl',
+        header: { padding: 'p-4 border-b border-gray-100 dark:border-zinc-800/80 bg-gray-50/20 dark:bg-zinc-900/10' },
+        body: { padding: 'p-0' }
+      }"
+    >
+      <template #header>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-white">Lançamentos Conciliados</h3>
+            <p class="text-[10px] text-gray-400 font-mono mt-0.5">Valores persistidos no banco de dados</p>
+          </div>
+        </div>
+      </template>
 
-      <div v-if="fetchLoading" class="p-12 flex justify-center items-center">
-        <UIcon name="i-heroicons-arrow-path" class="h-6 w-6 animate-spin text-gray-500" />
-      </div>
+      <!-- UTable component -->
+      <UTable 
+        :rows="filteredHistory" 
+        :columns="columns" 
+        :loading="fetchLoading"
+        :ui="{
+          thead: 'bg-gray-50/50 dark:bg-zinc-900/50 border-b border-gray-100 dark:border-zinc-800/80',
+          th: { 
+            base: 'text-left rtl:text-right',
+            color: 'text-gray-400 dark:text-zinc-500',
+            font: 'font-semibold text-[10px] uppercase tracking-wider'
+          },
+          td: { 
+            base: 'whitespace-nowrap',
+            color: 'text-gray-600 dark:text-zinc-300',
+            font: 'text-xs'
+          }
+        }"
+      >
+        <!-- Date Column Slot -->
+        <template #transaction_date-data="{ row }">
+          <span class="font-mono text-gray-400">{{ formatDate(row.transaction_date) }}</span>
+        </template>
 
-      <div v-else-if="filteredHistory.length === 0" class="p-12 text-center text-sm text-gray-500">
-        Nenhuma transação encontrada no banco de dados para os filtros selecionados.
-      </div>
+        <!-- Description Column Slot -->
+        <template #description-data="{ row }">
+          <div class="flex flex-col">
+            <span class="font-medium text-gray-950 dark:text-white">{{ row.description }}</span>
+            <span v-if="row.fit_id" class="text-[9px] text-gray-400 dark:text-zinc-500 font-mono mt-0.5">FITID: {{ row.fit_id }}</span>
+          </div>
+        </template>
 
-      <div v-else class="overflow-x-auto w-full">
-        <table class="w-full text-sm text-left">
-          <thead class="bg-gray-50 dark:bg-zinc-900 text-xs font-semibold uppercase text-gray-500 dark:text-zinc-400 border-b border-gray-200 dark:border-zinc-800">
-            <tr>
-              <th class="px-4 py-3">Data</th>
-              <th class="px-4 py-3">Descrição</th>
-              <th class="px-4 py-3">Valor</th>
-              <th class="px-4 py-3 text-center">Classificação</th>
-              <th class="px-4 py-3 text-center">Ações</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-zinc-800">
-            <tr 
-              v-for="tx in filteredHistory" 
-              :key="tx.id" 
-              class="hover:bg-gray-50 dark:hover:bg-zinc-800/20 transition-colors"
+        <!-- Amount Column Slot -->
+        <template #amount-data="{ row }">
+          <span class="font-mono font-semibold" :class="row.amount > 0 ? 'text-emerald-500' : 'text-rose-500'">
+            {{ row.amount > 0 ? '+' : '' }}R$ {{ formatCurrency(row.amount) }}
+          </span>
+        </template>
+
+        <!-- Classification Actions Slot -->
+        <template #classification-data="{ row }">
+          <div class="flex gap-1 justify-center">
+            <UButton
+              size="xs"
+              :variant="row.classification === 'business_pj' ? 'solid' : 'outline'"
+              color="emerald"
+              class="font-bold text-[10px] px-2"
+              @click="reclassifySaved(row.id, 'business_pj')"
             >
-              <td class="px-4 py-3 font-mono text-gray-500 dark:text-zinc-400 whitespace-nowrap">
-                {{ formatDate(tx.transaction_date) }}
-              </td>
-              <td class="px-4 py-3 whitespace-normal break-words max-w-[150px] sm:max-w-xs">
-                <div class="font-medium text-gray-950 dark:text-white">{{ tx.description }}</div>
-                <div v-if="tx.fit_id" class="text-[10px] text-gray-400 dark:text-zinc-500 font-mono mt-0.5">
-                  FITID: {{ tx.fit_id }}
-                </div>
-              </td>
-              <td class="px-4 py-3 font-semibold font-mono whitespace-nowrap" :class="[tx.amount > 0 ? 'text-emerald-500' : 'text-rose-500']">
-                R$ {{ formatCurrency(tx.amount) }}
-              </td>
-              <td class="px-4 py-3">
-                <div class="flex justify-center gap-1">
-                  <UButton
-                    size="xs"
-                    :variant="tx.classification === 'business_pj' ? 'solid' : 'outline'"
-                    color="emerald"
-                    @click="handleReclassifySaved(tx.id!, 'business_pj')"
-                  >
-                    PJ
-                  </UButton>
-                  <UButton
-                    size="xs"
-                    :variant="tx.classification === 'personal_pf' ? 'solid' : 'outline'"
-                    color="sky"
-                    @click="handleReclassifySaved(tx.id!, 'personal_pf')"
-                  >
-                    PF
-                  </UButton>
-                  <UButton
-                    size="xs"
-                    :variant="tx.classification === 'transfer' ? 'solid' : 'outline'"
-                    color="gray"
-                    @click="handleReclassifySaved(tx.id!, 'transfer')"
-                  >
-                    Neutro
-                  </UButton>
-                </div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="flex justify-center">
-                  <UButton
-                    size="xs"
-                    color="red"
-                    variant="light"
-                    icon="i-heroicons-trash"
-                    class="flex items-center gap-1 font-medium"
-                    @click="openDeleteDialog(tx.id!)"
-                  >
-                    Excluir
-                  </UButton>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+              PJ
+            </UButton>
+            <UButton
+              size="xs"
+              :variant="row.classification === 'personal_pf' ? 'solid' : 'outline'"
+              color="sky"
+              class="font-bold text-[10px] px-2"
+              @click="reclassifySaved(row.id, 'personal_pf')"
+            >
+              PF
+            </UButton>
+            <UButton
+              size="xs"
+              :variant="row.classification === 'transfer' ? 'solid' : 'outline'"
+              color="gray"
+              class="font-bold text-[10px] px-2"
+              @click="reclassifySaved(row.id, 'transfer')"
+            >
+              Neutro
+            </UButton>
+          </div>
+        </template>
 
-    <!-- Modal/Dialog de Importação e Conciliação -->
-    <UModal v-model="isImportModalOpen" prevent-close :ui="{ width: 'sm:max-w-2xl md:max-w-3xl lg:max-w-4xl' }">
-      <div class="flex flex-col max-h-[90vh] overflow-hidden bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-xl">
-        <div class="p-6 pb-4 border-b border-gray-200 dark:border-zinc-800 shrink-0">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white">Conciliação de Extrato OFX</h3>
-          <p class="text-xs text-gray-500 mt-1">
-            Origem selecionada: <span class="font-semibold">{{ activeSource === 'checking_account' ? 'Conta Corrente' : 'Cartão de Crédito' }}</span>
-          </p>
+        <!-- Actions Column Slot -->
+        <template #actions-data="{ row }">
+          <div class="flex justify-center">
+            <UButton
+              size="xs"
+              color="red"
+              variant="ghost"
+              icon="i-heroicons-trash"
+              class="hover:bg-red-50 dark:hover:bg-red-950/20"
+              @click="openDeleteDialog(row.id)"
+            />
+          </div>
+        </template>
+
+        <!-- Empty State Slot -->
+        <template #empty-state>
+          <div class="p-10 text-center select-none">
+            <UIcon name="i-heroicons-inbox" class="h-6 w-6 text-gray-300 dark:text-zinc-700 mx-auto mb-2" />
+            <p class="text-xs text-gray-400">Nenhum lançamento registrado para estes filtros.</p>
+          </div>
+        </template>
+      </UTable>
+    </UCard>
+
+    <!-- Import OFX Modal -->
+    <UModal v-slot="{ close }" v-model="isImportModalOpen" prevent-close :ui="{ width: 'sm:max-w-2xl md:max-w-3xl' }">
+      <div class="flex flex-col max-h-[85vh] overflow-hidden bg-white dark:bg-zinc-950 border border-gray-100 dark:border-zinc-800/80 rounded-xl shadow-xl">
+        <!-- Header -->
+        <div class="p-5 border-b border-gray-100 dark:border-zinc-800/80 flex justify-between items-center shrink-0">
+          <div>
+            <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Conciliação de Extrato</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">
+              Origem: <span class="font-bold text-gray-700 dark:text-zinc-300 font-mono">{{ activeSource === 'checking_account' ? 'CONTA CORRENTE' : 'CARTÃO DE CRÉDITO' }}</span>
+            </p>
+          </div>
+          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark" @click="close" />
         </div>
 
-        <div class="p-6 overflow-y-auto space-y-4 flex-1">
-          <!-- Formulário de Upload -->
-          <form v-if="tempTransactions.length === 0" @submit.prevent="handleUploadOFX" class="space-y-4 py-4">
-            <div class="border border-dashed border-gray-300 dark:border-zinc-700 rounded-xl p-8 flex flex-col items-center justify-center text-center gap-3 bg-gray-50 dark:bg-zinc-900/50">
-              <UIcon name="i-heroicons-cloud-arrow-up" class="h-8 w-8 text-gray-400 animate-pulse" />
-              <div>
-                <label for="ofxFile" class="cursor-pointer text-sm font-semibold text-emerald-500 hover:underline">
-                  Clique para selecionar o arquivo
-                </label>
-                <p class="text-xs text-gray-500 mt-1">Apenas arquivos no formato .ofx</p>
-              </div>
-              <input
-                id="ofxFile"
-                type="file"
-                accept=".ofx"
-                required
-                class="hidden"
-                @change="handleFileChange"
-              />
-              <p v-if="file" class="text-xs font-mono bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 px-2.5 py-1 rounded-md text-gray-700 dark:text-zinc-300 mt-2">
-                {{ file.name }}
+        <!-- Scrollable Body -->
+        <div class="p-5 overflow-y-auto flex-1">
+          <!-- Dropzone file upload -->
+          <div v-if="tempTransactions.length === 0" class="py-4 space-y-4">
+            <div 
+              class="border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center gap-2.5 transition-colors cursor-pointer select-none"
+              :class="[isDragging ? 'border-emerald-500 bg-emerald-50/10' : 'border-gray-200 dark:border-zinc-800 bg-gray-50/30 dark:bg-zinc-900/10 hover:border-emerald-300']"
+              @dragover.prevent="isDragging = true"
+              @dragleave.prevent="isDragging = false"
+              @drop.prevent="handleDrop"
+              @click="triggerFileInput"
+            >
+              <UIcon name="i-heroicons-cloud-arrow-up" class="h-8 w-8 text-gray-400" />
+              <p class="text-xs text-gray-500">
+                Arraste seu arquivo .ofx aqui ou 
+                <span class="text-emerald-500 font-semibold underline">procure nos seus arquivos</span>
               </p>
+              <input ref="fileInput" type="file" accept=".ofx" class="hidden" @change="handleFileChange" />
+              
+              <span v-if="file" class="text-[10px] font-mono bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/50 px-2.5 py-1 rounded text-emerald-600 dark:text-emerald-400 mt-2">
+                {{ file.name }}
+              </span>
             </div>
 
-            <UButton type="submit" block :loading="importLoading" :disabled="!file">
-              Carregar Extrato
+            <UButton 
+              block 
+              color="emerald" 
+              class="text-xs font-semibold uppercase tracking-wider py-2"
+              :loading="importLoading" 
+              :disabled="!file"
+              @click="handleUploadOFX"
+            >
+              Processar Extrato
             </UButton>
-          </form>
+          </div>
 
-          <!-- Lista de lançamentos a classificar -->
+          <!-- Temp classification table -->
           <div v-else class="space-y-4">
-            <div class="border border-gray-200 dark:border-zinc-800 rounded-md overflow-hidden bg-white dark:bg-zinc-900">
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                  <thead class="bg-gray-50 dark:bg-zinc-950 text-xs font-semibold uppercase text-gray-500">
-                    <tr>
-                      <th class="px-4 py-3">Data</th>
-                      <th class="px-4 py-3">Descrição</th>
-                      <th class="px-4 py-3">Valor</th>
-                      <th class="px-4 py-3 text-center">Classificação</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-gray-200 dark:divide-zinc-800">
-                    <tr 
-                      v-for="(tx, index) in tempTransactions" 
-                      :key="index"
-                      :class="[
-                        tx.is_duplicate 
-                          ? 'bg-amber-500/5 opacity-70' 
-                          : tx.classification === 'business_pj'
-                          ? 'bg-emerald-500/5 border-l-2 border-l-emerald-500'
-                          : tx.classification === 'personal_pf'
-                          ? 'bg-sky-500/5 border-l-2 border-l-sky-500'
-                          : tx.classification === 'transfer'
-                          ? 'bg-zinc-500/5 border-l-2 border-l-zinc-500'
-                          : ''
-                      ]"
+            <div class="border border-gray-100 dark:border-zinc-800/80 rounded-lg overflow-hidden bg-white dark:bg-zinc-900">
+              <UTable 
+                :rows="tempTransactions" 
+                :columns="tempColumns"
+                :ui="{
+                  thead: 'bg-gray-50/50 dark:bg-zinc-950 border-b border-gray-100 dark:border-zinc-800/80',
+                  th: { font: 'font-semibold text-[10px] uppercase tracking-wider' },
+                  td: { font: 'text-xs' }
+                }"
+              >
+                <template #transaction_date-data="{ row }">
+                  <span class="font-mono text-gray-400">{{ formatDate(row.transaction_date) }}</span>
+                </template>
+
+                <template #description-data="{ row }">
+                  <div class="flex flex-col">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="font-medium text-gray-950 dark:text-white">{{ row.description }}</span>
+                      <span v-if="row.is_duplicate" class="inline-flex items-center gap-1 px-1 py-0.5 rounded text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50">
+                        Duplicada
+                      </span>
+                    </div>
+                  </div>
+                </template>
+
+                <template #amount-data="{ row }">
+                  <span class="font-mono font-semibold" :class="row.amount > 0 ? 'text-emerald-500' : 'text-rose-500'">
+                    {{ row.amount > 0 ? '+' : '' }}R$ {{ formatCurrency(row.amount) }}
+                  </span>
+                </template>
+
+                <template #classification-data="{ row, index }">
+                  <div class="flex gap-1 justify-center">
+                    <UButton
+                      size="xs"
+                      :color="row.classification === 'business_pj' ? 'emerald' : 'gray'"
+                      :variant="row.classification === 'business_pj' ? 'solid' : 'outline'"
+                      class="font-bold text-[9px] px-1.5"
+                      @click="classifyTemp(index, 'business_pj')"
                     >
-                      <td class="px-4 py-3 font-mono text-gray-500 dark:text-zinc-400 whitespace-nowrap">
-                        {{ formatDate(tx.transaction_date) }}
-                      </td>
-                      <td class="px-4 py-3 whitespace-normal break-words max-w-[150px] sm:max-w-xs">
-                        <div class="font-medium flex items-center gap-1.5 flex-wrap">
-                          <span>{{ tx.description }}</span>
-                          <span v-if="tx.is_duplicate" class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50">
-                            <UIcon name="i-heroicons-exclamation-triangle" class="h-3 w-3" />
-                            Duplicada
-                          </span>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 font-semibold font-mono whitespace-nowrap" :class="[tx.amount > 0 ? 'text-emerald-500' : 'text-rose-500']">
-                        R$ {{ formatCurrency(tx.amount) }}
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex justify-center gap-1">
-                          <UButton
-                            size="xs"
-                            :variant="tx.classification === 'business_pj' ? 'solid' : 'outline'"
-                            color="emerald"
-                            @click="handleClassifyTemp(index, 'business_pj')"
-                          >
-                            PJ
-                          </UButton>
-                          <UButton
-                            size="xs"
-                            :variant="tx.classification === 'personal_pf' ? 'solid' : 'outline'"
-                            color="sky"
-                            @click="handleClassifyTemp(index, 'personal_pf')"
-                          >
-                            PF
-                          </UButton>
-                          <UButton
-                            size="xs"
-                            :variant="tx.classification === 'transfer' ? 'solid' : 'outline'"
-                            color="gray"
-                            @click="handleClassifyTemp(index, 'transfer')"
-                          >
-                            Neutro
-                          </UButton>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                      PJ
+                    </UButton>
+                    <UButton
+                      size="xs"
+                      :color="row.classification === 'personal_pf' ? 'sky' : 'gray'"
+                      :variant="row.classification === 'personal_pf' ? 'solid' : 'outline'"
+                      class="font-bold text-[9px] px-1.5"
+                      @click="classifyTemp(index, 'personal_pf')"
+                    >
+                      PF
+                    </UButton>
+                    <UButton
+                      size="xs"
+                      :color="row.classification === 'transfer' ? 'gray' : 'gray'"
+                      :variant="row.classification === 'transfer' ? 'solid' : 'outline'"
+                      class="font-bold text-[9px] px-1.5"
+                      @click="classifyTemp(index, 'transfer')"
+                    >
+                      Neutro
+                    </UButton>
+                  </div>
+                </template>
+              </UTable>
             </div>
           </div>
         </div>
 
-        <div class="p-6 border-t border-gray-200 dark:border-zinc-800 flex justify-end gap-3 bg-gray-50 dark:bg-zinc-900/20 shrink-0">
-          <UButton color="gray" variant="ghost" @click="isImportModalOpen = false">
+        <!-- Footer -->
+        <div class="p-5 border-t border-gray-100 dark:border-zinc-800/80 flex justify-end gap-3 bg-gray-50/50 dark:bg-zinc-900/20 shrink-0">
+          <UButton color="gray" variant="ghost" class="text-xs uppercase tracking-wider" @click="close">
             Cancelar
           </UButton>
           <UButton 
             v-if="tempTransactions.length > 0"
             color="emerald"
+            class="text-xs font-semibold uppercase tracking-wider"
             icon="i-heroicons-check-circle"
             :loading="confirmLoading"
             @click="handleConfirmImport"
@@ -315,74 +330,71 @@
       </div>
     </UModal>
 
-    <!-- Dialog de Confirmação de Exclusão (Dupla Confirmação) -->
-    <UModal v-model="isDeleteDialogOpen" :ui="{ width: 'sm:max-w-[425px]' }">
-      <div class="p-6 bg-white dark:bg-zinc-900 rounded-lg shadow-xl border border-gray-200 dark:border-zinc-800">
-        <div class="flex items-center gap-2 text-red-600 dark:text-red-500 mb-1">
-          <UIcon name="i-heroicons-exclamation-triangle" class="h-5 w-5 animate-bounce" />
-          <h3 class="text-lg font-bold">Excluir Lançamento</h3>
+    <!-- Delete Confirmation Modal (Dupla Confirmação) -->
+    <UModal v-model="isDeleteDialogOpen" :ui="{ width: 'sm:max-w-[360px]' }">
+      <div class="p-6 text-center select-none bg-white dark:bg-zinc-950 rounded-xl border border-gray-100 dark:border-zinc-800/80">
+        <div class="w-11 h-11 rounded-full bg-red-50 dark:bg-red-950/20 text-red-500 flex items-center justify-center mx-auto mb-3">
+          <UIcon name="i-heroicons-exclamation-triangle" class="size-6 animate-pulse" />
         </div>
         
-        <div class="pt-2 text-sm text-gray-500 dark:text-zinc-400 text-left">
-          Você está prestes a excluir esta transação permanentemente. Esta ação atualizará seus relatórios financeiros.
-        </div>
-        
-        <p class="text-[11px] text-gray-400 dark:text-zinc-500 pt-1.5 font-semibold text-left">
-          Esta ação é irreversível e removerá permanentemente os registros do banco de dados.
+        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Excluir Lançamento?</h4>
+        <p class="text-[11px] text-gray-400 dark:text-zinc-500 mt-1.5 leading-relaxed">
+          Você está prestes a excluir esta transação permanentemente. Esta ação atualizará seus relatórios e removerá os dados do servidor.
         </p>
         
-        <div class="pt-4 flex justify-end gap-3">
+        <div class="mt-5 flex gap-2.5">
           <UButton 
             color="gray" 
             variant="ghost" 
+            block 
+            class="flex-1 text-xs font-semibold uppercase tracking-wider py-2" 
             @click="isDeleteDialogOpen = false"
           >
             Cancelar
           </UButton>
           <UButton 
             color="red" 
+            block 
+            class="flex-1 text-xs font-semibold uppercase tracking-wider py-2" 
             @click="confirmDelete"
           >
-            Confirmar Exclusão
+            Confirmar
           </UButton>
         </div>
       </div>
     </UModal>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
-interface TransactionPayload {
-  id?: number
-  transaction_date: string
-  description: string
-  amount: number
-  source: 'checking_account' | 'credit_card'
-  classification: 'pending' | 'business_pj' | 'personal_pf' | 'transfer'
-  fit_id?: string | null
-  is_duplicate?: boolean
-}
-
 const activeTab = ref<'business_pj' | 'personal_pf' | 'transfer' | 'pending'>('business_pj')
 const activeSource = ref<'checking_account' | 'credit_card'>('checking_account')
 
-const history = ref<TransactionPayload[]>([])
-const tempTransactions = ref<TransactionPayload[]>([])
-
 const isImportModalOpen = ref(false)
 const file = ref<File | null>(null)
+const isDragging = ref(false)
 
-const fetchLoading = ref(false)
-const importLoading = ref(false)
-const confirmLoading = ref(false)
+const fileInput = ref<HTMLInputElement | null>(null)
 
 const isDeleteDialogOpen = ref(false)
 const transactionToDelete = ref<number | null>(null)
 
-const { apiFetch } = useAuth()
-const toast = useToast()
+// Load state from composable
+const {
+  history,
+  tempTransactions,
+  fetchLoading,
+  importLoading,
+  confirmLoading,
+  fetchHistory,
+  uploadOFX,
+  classifyTemp,
+  confirmImport,
+  reclassifySaved,
+  deleteSaved
+} = useTransactions()
 
 const mainTabs = [
   { label: 'Pendentes', value: 'pending' },
@@ -396,67 +408,30 @@ const sourceTabs = [
   { label: 'Cartão de Crédito', value: 'credit_card', icon: 'i-heroicons-credit-card' }
 ]
 
-// Labels dinâmicos para os cards baseados na aba atual
-const faturamentoLabel = computed(() => {
-  switch (activeTab.value) {
-    case 'business_pj': return 'Faturamento (PJ)'
-    case 'personal_pf': return 'Entradas (PF)'
-    case 'transfer': return 'Entradas (Neutras)'
-    default: return 'Entradas (Pendentes)'
-  }
-})
+// UTable configuration columns
+const columns = [
+  { key: 'transaction_date', label: 'Data', sortable: true },
+  { key: 'description', label: 'Descrição' },
+  { key: 'amount', label: 'Valor', sortable: true },
+  { key: 'classification', label: 'Classificação', align: 'center' },
+  { key: 'actions', label: '', align: 'center' }
+]
 
-const gastosLabel = computed(() => {
-  switch (activeTab.value) {
-    case 'business_pj': return 'Gastos (PJ)'
-    case 'personal_pf': return 'Saídas (PF)'
-    case 'transfer': return 'Saídas (Neutras)'
-    default: return 'Saídas (Pendentes)'
-  }
-})
+const tempColumns = [
+  { key: 'transaction_date', label: 'Data' },
+  { key: 'description', label: 'Descrição' },
+  { key: 'amount', label: 'Valor' },
+  { key: 'classification', label: 'Classificação', align: 'center' }
+]
 
-const lucroLabel = computed(() => {
-  switch (activeTab.value) {
-    case 'business_pj': return 'Lucro Líquido'
-    case 'personal_pf': return 'Saldo (PF)'
-    case 'transfer': return 'Saldo (Neutro)'
-    default: return 'Saldo (Pendente)'
-  }
-})
-
-// Busca histórico
-const fetchHistory = async () => {
-  fetchLoading.value = true
-  try {
-    const response: any = await apiFetch('/transactions', { method: 'GET' })
-    if (response && response.success) {
-      history.value = response.data || []
-    } else {
-      toast.add({
-        title: 'Erro ao carregar histórico',
-        description: response?.message || 'Falha ao buscar dados',
-        color: 'red'
-      })
-    }
-  } catch (err: any) {
-    toast.add({
-      title: 'Erro de conexão',
-      description: err.message || 'Falha ao buscar dados no backend',
-      color: 'red'
-    })
-  } finally {
-    fetchLoading.value = false
-  }
-}
-
-// Filtra histórico
+// Filter data
 const filteredHistory = computed(() => {
   return history.value.filter(
     (tx) => tx.source === activeSource.value && tx.classification === activeTab.value
   )
 })
 
-// KPIs baseados nos lançamentos filtrados
+// Calculations for dynamic KPI config
 const kpis = computed(() => {
   let faturamento = 0
   let gastos = 0
@@ -476,14 +451,59 @@ const kpis = computed(() => {
   }
 })
 
-// Abre modal de importação
+const kpiConfig = computed(() => {
+  let labelFat = 'Faturamento (PJ)'
+  let labelGas = 'Gastos (PJ)'
+  let labelLuc = 'Lucro Líquido'
+
+  if (activeTab.value === 'personal_pf') {
+    labelFat = 'Entradas (PF)'
+    labelGas = 'Saídas (PF)'
+    labelLuc = 'Saldo (PF)'
+  } else if (activeTab.value === 'transfer') {
+    labelFat = 'Entradas (Neutro)'
+    labelGas = 'Saídas (Neutro)'
+    labelLuc = 'Saldo (Neutro)'
+  } else if (activeTab.value === 'pending') {
+    labelFat = 'Entradas (Pendentes)'
+    labelGas = 'Saídas (Pendentes)'
+    labelLuc = 'Saldo (Pendente)'
+  }
+
+  return [
+    {
+      label: labelFat,
+      value: kpis.value.faturamento,
+      icon: 'i-heroicons-arrow-up-circle',
+      iconColor: 'text-emerald-500'
+    },
+    {
+      label: labelGas,
+      value: kpis.value.gastos,
+      icon: 'i-heroicons-arrow-down-circle',
+      iconColor: 'text-rose-500'
+    },
+    {
+      label: labelLuc,
+      value: kpis.value.lucro,
+      icon: 'i-heroicons-scale',
+      iconColor: kpis.value.lucro >= 0 ? 'text-emerald-500' : 'text-rose-500',
+      valueClass: kpis.value.lucro >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'
+    }
+  ]
+})
+
+// Triggering OFX upload triggers
 const openImportModal = () => {
   tempTransactions.value = []
   file.value = null
   isImportModalOpen.value = true
 }
 
-// Controla upload
+const triggerFileInput = () => {
+  fileInput.value?.click()
+}
+
 const handleFileChange = (e: Event) => {
   const target = e.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
@@ -491,125 +511,29 @@ const handleFileChange = (e: Event) => {
   }
 }
 
+const handleDrop = (e: DragEvent) => {
+  isDragging.value = false
+  if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+    file.value = e.dataTransfer.files[0]
+  }
+}
+
 const handleUploadOFX = async () => {
   if (!file.value) return
-
-  importLoading.value = true
-  tempTransactions.value = []
-
-  const formData = new FormData()
-  formData.append('source', activeSource.value)
-  formData.append('file', file.value)
-
-  try {
-    const response: any = await apiFetch('/transactions/parse', {
-      method: 'POST',
-      body: formData
-    })
-
-    if (response && response.success) {
-      tempTransactions.value = response.data || []
-      toast.add({
-        title: 'Arquivo processado!',
-        description: 'Extrato processado com sucesso. Classifique os lançamentos.',
-        color: 'green'
-      })
-    } else {
-      toast.add({
-        title: 'Falha no upload',
-        description: response?.message || 'Erro ao processar o arquivo.',
-        color: 'red'
-      })
-    }
-  } catch (err: any) {
-    toast.add({
-      title: 'Erro de conexão',
-      description: err.message || 'Erro ao processar arquivo.',
-      color: 'red'
-    })
-  } finally {
-    importLoading.value = false
+  const success = await uploadOFX(activeSource.value, file.value)
+  if (!success) {
+    file.value = null
   }
 }
 
-// Classifica lançamento temporário na memória
-const handleClassifyTemp = (index: number, classification: 'business_pj' | 'personal_pf' | 'transfer') => {
-  tempTransactions.value = tempTransactions.value.map((tx, idx) => 
-    idx === index ? { ...tx, classification } : tx
-  )
-}
-
-// Confirma importação
 const handleConfirmImport = async () => {
-  confirmLoading.value = true
-  try {
-    const response: any = await apiFetch('/transactions/confirm', {
-      method: 'POST',
-      body: { transactions: tempTransactions.value }
-    })
-
-    if (response && response.success) {
-      toast.add({
-        title: 'Lançamentos salvos!',
-        description: 'Transações salvas e conciliação realizada com sucesso.',
-        color: 'green'
-      })
-      tempTransactions.value = []
-      file.value = null
-      isImportModalOpen.value = false
-      await fetchHistory()
-    } else {
-      toast.add({
-        title: 'Erro ao salvar',
-        description: response?.message || 'Falha ao salvar lançamentos.',
-        color: 'red'
-      })
-    }
-  } catch (err: any) {
-    toast.add({
-      title: 'Erro de conexão',
-      description: err.message || 'Falha ao salvar lançamentos.',
-      color: 'red'
-    })
-  } finally {
-    confirmLoading.value = false
+  const success = await confirmImport()
+  if (success) {
+    isImportModalOpen.value = false
   }
 }
 
-// Reclassifica lançamento salvo no banco
-const handleReclassifySaved = async (id: number, classification: 'business_pj' | 'personal_pf' | 'transfer') => {
-  try {
-    const response: any = await apiFetch(`/transactions/${id}/classify`, {
-      method: 'PATCH',
-      body: { classification }
-    })
-
-    if (response && response.success) {
-      history.value = history.value.map((tx) =>
-        tx.id === id ? { ...tx, classification } : tx
-      )
-      toast.add({
-        title: 'Classificação atualizada',
-        description: 'Classificação atualizada com sucesso.',
-        color: 'green'
-      })
-    } else {
-      toast.add({
-        title: 'Erro ao reclassificar',
-        description: response?.message || 'Erro ao alterar classificação.',
-        color: 'red'
-      })
-    }
-  } catch (err: any) {
-    toast.add({
-      title: 'Erro de conexão',
-      description: err.message || 'Erro ao alterar classificação.',
-      color: 'red'
-    })
-  }
-}
-
-// Exclui lançamento com dupla confirmação
+// Delete confirmations dialog
 const openDeleteDialog = (id: number) => {
   transactionToDelete.value = id
   isDeleteDialogOpen.value = true
@@ -620,36 +544,10 @@ const confirmDelete = async () => {
   const id = transactionToDelete.value
   isDeleteDialogOpen.value = false
   transactionToDelete.value = null
-
-  try {
-    const response: any = await apiFetch(`/transactions/${id}`, {
-      method: 'DELETE'
-    })
-
-    if (response && response.success) {
-      history.value = history.value.filter((tx) => tx.id !== id)
-      toast.add({
-        title: 'Lançamento excluído',
-        description: 'Transação excluída com sucesso.',
-        color: 'green'
-      })
-    } else {
-      toast.add({
-        title: 'Erro ao excluir',
-        description: response?.message || 'Erro ao excluir transação.',
-        color: 'red'
-      })
-    }
-  } catch (err: any) {
-    toast.add({
-      title: 'Erro de conexão',
-      description: err.message || 'Erro de conexão ao excluir transação.',
-      color: 'red'
-    })
-  }
+  await deleteSaved(id)
 }
 
-// Formatadores
+// Format utilities
 const formatDate = (dateStr: string) => {
   if (!dateStr) return ''
   return dateStr.split('-').reverse().join('/')
