@@ -12,8 +12,8 @@
 
 **Purpose**: Preparação do ambiente e criação das rotas iniciais de navegação no frontend.
 
-- [ ] T001 [P] Configurar caminhos e variáveis locais em `backend/.env` e `frontend/.env.local`
-- [ ] T002 Criar a página de visualização de importação de extrato vazia no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
+- [x] T001 [P] Configurar caminhos e variáveis locais em `backend/.env` e `frontend/.env.local`
+- [x] T002 Criar a página de visualização de importação de extrato vazia no frontend em `frontend/src/app/dashboard/importacao/page.tsx`
 
 ---
 
@@ -21,10 +21,10 @@
 
 **Purpose**: Estrutura core de persistência no backend (tabela, modelo, recurso e rotas).
 
-- [ ] T003 Criar arquivo de migration para a tabela `transactions` em `backend/database/migrations/xxxx_create_transactions_table.php` contendo `source`, `classification` e `fit_id`
-- [ ] T004 Criar o modelo Eloquent `Transaction` com fillable, casts e atributos padrões em `backend/app/Models/Transaction.php`
-- [ ] T005 Criar a classe `TransactionResource` para serialização padronizada de transações em `backend/app/Http/Resources/TransactionResource.php`
-- [ ] T006 Configurar as rotas de API `/api/transactions/parse` e `/api/transactions/confirm` dentro do middleware de autenticação em `backend/routes/api.php`
+- [x] T003 Criar arquivo de migration para a tabela `transactions` em `backend/database/migrations/2026_06_11_021823_create_transactions_table.php` contendo `source`, `classification` e `fit_id`
+- [x] T004 Criar o modelo Eloquent `Transaction` com fillable, casts e atributos padrões em `backend/app/Models/Transaction.php`
+- [x] T005 Criar a classe `TransactionResource` para serialização padronizada de transações em `backend/app/Http/Resources/TransactionResource.php`
+- [x] T006 Configurar as rotas de API `/api/transactions/parse` e `/api/transactions/confirm` dentro do middleware de autenticação em `backend/routes/api.php`
 
 ---
 
