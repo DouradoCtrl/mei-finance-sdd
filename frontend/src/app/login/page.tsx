@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { authService } from '../../services/auth.service';
+import { signIn } from 'next-auth/react';
+import { Mail, Lock, Loader2 } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,88 +25,122 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await authService.login(email, password);
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
 
-      setSuccess('Login realizado com sucesso! Acessando...');
-      localStorage.setItem('auth_token', data.data.token);
-      localStorage.setItem('user_name', data.data.usuario.name);
-      
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 1500);
+      if (result?.error) {
+        setError(result.error);
+        setLoading(false);
+      } else if (result?.ok) {
+        setSuccess('Acesso concedido! Carregando painel...');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 1500);
+      }
     } catch (err: any) {
-      setError(err.message || 'E-mail ou senha incorretos.');
-    } finally {
+      setError('Ocorreu um erro ao tentar acessar. Tente novamente.');
       setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#121212]/80 backdrop-blur-md border border-[#222] p-8 rounded-2xl shadow-xl">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
-            MEI Finance
-          </h1>
-          <p className="text-gray-400 mt-2 text-sm">Gerencie suas contas de forma periódica e inteligente</p>
-        </div>
+    <main className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-emerald-500/10 blur-[150px] pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
+      
+      <div className="w-full max-w-md z-10">
+        <Card className="border-[#222] bg-[#121212]/80 backdrop-blur-md shadow-2xl rounded-2xl">
+          <CardHeader className="text-center pb-2">
+            <CardTitle className="text-3xl font-extrabold bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent pb-1">
+              MEI Finance
+            </CardTitle>
+            <CardDescription className="text-gray-400 text-sm mt-1">
+              Gerencie suas contas PJ e PF de forma inteligente
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent className="pt-4">
+            {error && (
+              <div className="mb-6 bg-red-950/40 border border-red-500/30 text-red-200 text-sm px-4 py-3 rounded-xl">
+                {error}
+              </div>
+            )}
 
-        {error && (
-          <div className="mb-6 bg-red-950/50 border border-red-500/50 text-red-200 text-sm px-4 py-3 rounded-lg">
-            {error}
-          </div>
-        )}
+            {success && (
+              <div className="mb-6 bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 text-sm px-4 py-3 rounded-xl">
+                {success}
+              </div>
+            )}
 
-        {success && (
-          <div className="mb-6 bg-emerald-950/50 border border-emerald-500/50 text-emerald-200 text-sm px-4 py-3 rounded-lg">
-            {success}
-          </div>
-        )}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                  E-mail
+                </Label>
+                <div className="relative flex items-center">
+                  <Mail className="absolute left-3.5 size-4 text-gray-500 pointer-events-none" />
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    disabled={loading}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Ex: carlos@email.com"
+                    className="pl-10 h-11 bg-[#1c1c1c] border-[#333] focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm rounded-xl text-white placeholder-gray-600 transition"
+                  />
+                </div>
+              </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
-              E-mail
-            </label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#1c1c1c] border border-[#333] focus:border-emerald-500 focus:outline-none rounded-xl px-4 py-3 text-sm transition"
-              placeholder="Ex: carlos@email.com"
-            />
-          </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="password" className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                  Senha
+                </Label>
+                <div className="relative flex items-center">
+                  <Lock className="absolute left-3.5 size-4 text-gray-500 pointer-events-none" />
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    disabled={loading}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="pl-10 h-11 bg-[#1c1c1c] border-[#333] focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm rounded-xl text-white placeholder-gray-600 transition"
+                  />
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
-              Senha
-            </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#1c1c1c] border border-[#333] focus:border-emerald-500 focus:outline-none rounded-xl px-4 py-3 text-sm transition"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-[#0a0a0a] font-bold rounded-xl hover:opacity-95 transition disabled:opacity-50 text-sm cursor-pointer shadow-lg shadow-emerald-500/20"
-          >
-            {loading ? 'Acessando...' : 'Entrar'}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center text-sm text-gray-500">
-          Ainda não tem cadastro?{' '}
-          <Link href="/register" className="text-emerald-400 hover:underline">
-            Criar conta
-          </Link>
-        </div>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full h-11 mt-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-[#0a0a0a] font-bold rounded-xl hover:opacity-90 transition disabled:opacity-50 text-sm cursor-pointer shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    <span>Acessando...</span>
+                  </>
+                ) : (
+                  'Entrar'
+                )}
+              </Button>
+            </form>
+          </CardContent>
+          
+          <CardFooter className="flex justify-center border-t border-[#222]/50 pt-4 pb-6">
+            <p className="text-xs text-gray-500 text-center">
+              Ainda não tem cadastro?{' '}
+              <Link href="/register" className="text-emerald-400 hover:underline font-semibold">
+                Criar conta
+              </Link>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
     </main>
   );
