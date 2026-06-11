@@ -314,7 +314,7 @@ export default function ReceitasPage() {
 
         {/* Cards de KPIs (Atualizados com base nas seleções de abas) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="w-full transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_20px_-5px_rgba(16,185,129,0.15)]">
+          <Card className="w-full">
             <CardHeader className="p-4 pb-3 flex flex-col gap-1 items-center text-center">
               <CardDescription className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                 <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -334,7 +334,7 @@ export default function ReceitasPage() {
             </CardHeader>
           </Card>
 
-          <Card className="w-full transition-all duration-300 hover:border-rose-500/40 hover:shadow-[0_0_20px_-5px_rgba(244,63,94,0.15)]">
+          <Card className="w-full">
             <CardHeader className="p-4 pb-3 flex flex-col gap-1 items-center text-center">
               <CardDescription className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                 <ArrowDownLeft className="w-3.5 h-3.5 text-rose-400 shrink-0" />
@@ -354,7 +354,7 @@ export default function ReceitasPage() {
             </CardHeader>
           </Card>
 
-          <Card className={`w-full transition-all duration-300 ${kpis.lucro >= 0 ? 'hover:border-emerald-500/40 hover:shadow-[0_0_20px_-5px_rgba(16,185,129,0.15)]' : 'hover:border-rose-500/40 hover:shadow-[0_0_20px_-5px_rgba(244,63,94,0.15)]'}`}>
+          <Card className="w-full">
             <CardHeader className="p-4 pb-3 flex flex-col gap-1 items-center text-center">
               <CardDescription className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                 <TrendingUp className={`w-3.5 h-3.5 shrink-0 ${kpis.lucro >= 0 ? 'text-emerald-400' : 'text-rose-400'}`} />

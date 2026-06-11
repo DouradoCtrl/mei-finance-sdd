@@ -15,7 +15,6 @@ function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   );
 }
 
-// Fixed breadcrumb alignment class spacing
 function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
   return (
       <ol

@@ -105,7 +105,6 @@ function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-// Fixed sheet text alignment to fit headers
 function SheetTitle({
   className,
   ...props
