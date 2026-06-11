@@ -453,28 +453,45 @@ export default function ReceitasPage() {
                         {isPositive ? '+' : ''}R$ {tx.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </GlowTableCell>
                       <GlowTableCell>
-                        <div className="flex justify-center gap-1">
-                          <GlowButton
-                            variant={tx.classification === 'business_pj' ? 'primary' : 'ghost'}
-                            onClick={() => handleReclassifySaved(tx.id!, 'business_pj')}
-                            className="h-7 px-2.5 rounded-lg text-[9px]"
-                          >
-                            PJ
-                          </GlowButton>
-                          <GlowButton
-                            variant={tx.classification === 'personal_pf' ? 'secondary' : 'ghost'}
-                            onClick={() => handleReclassifySaved(tx.id!, 'personal_pf')}
-                            className="h-7 px-2.5 rounded-lg text-[9px] bg-sky-500/10 hover:bg-sky-500/20 text-sky-500 border-transparent hover:border-transparent dark:bg-sky-500/10"
-                          >
-                            PF
-                          </GlowButton>
-                          <GlowButton
-                            variant={tx.classification === 'transfer' ? 'secondary' : 'ghost'}
-                            onClick={() => handleReclassifySaved(tx.id!, 'transfer')}
-                            className="h-7 px-2.5 rounded-lg text-[9px]"
-                          >
-                            Neutro
-                          </GlowButton>
+                        <div className="flex justify-center">
+                          <div className="inline-flex bg-zinc-100/80 dark:bg-zinc-900/60 p-0.5 rounded-lg border border-zinc-200/50 dark:border-zinc-800/40 select-none shadow-inner">
+                            <button
+                              type="button"
+                              onClick={() => handleReclassifySaved(tx.id!, 'business_pj')}
+                              className={cn(
+                                "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                tx.classification === 'business_pj'
+                                  ? "bg-emerald-500 text-white shadow-sm"
+                                  : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                              )}
+                            >
+                              PJ
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleReclassifySaved(tx.id!, 'personal_pf')}
+                              className={cn(
+                                "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                tx.classification === 'personal_pf'
+                                  ? "bg-sky-500 text-white shadow-sm"
+                                  : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                              )}
+                            >
+                              PF
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleReclassifySaved(tx.id!, 'transfer')}
+                              className={cn(
+                                "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                tx.classification === 'transfer'
+                                  ? "bg-zinc-500 dark:bg-zinc-700 text-white shadow-sm"
+                                  : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                              )}
+                            >
+                              Neutro
+                            </button>
+                          </div>
                         </div>
                       </GlowTableCell>
                       <GlowTableCell>
@@ -563,28 +580,45 @@ export default function ReceitasPage() {
                               {isPositive ? '+' : ''}R$ {tx.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </GlowTableCell>
                             <GlowTableCell>
-                              <div className="flex justify-center gap-1">
-                                <GlowButton
-                                  variant={tx.classification === 'business_pj' ? 'primary' : 'ghost'}
-                                  onClick={() => handleClassifyTemp(index, 'business_pj')}
-                                  className="h-7 px-2 rounded-lg text-[9px]"
-                                >
-                                  PJ
-                                </GlowButton>
-                                <GlowButton
-                                  variant={tx.classification === 'personal_pf' ? 'secondary' : 'ghost'}
-                                  onClick={() => handleClassifyTemp(index, 'personal_pf')}
-                                  className="h-7 px-2 rounded-lg text-[9px] bg-sky-500/10 hover:bg-sky-500/20 text-sky-500 border-transparent hover:border-transparent dark:bg-sky-500/10"
-                                >
-                                  PF
-                                </GlowButton>
-                                <GlowButton
-                                  variant={tx.classification === 'transfer' ? 'secondary' : 'ghost'}
-                                  onClick={() => handleClassifyTemp(index, 'transfer')}
-                                  className="h-7 px-2 rounded-lg text-[9px]"
-                                >
-                                  Neutro
-                                </GlowButton>
+                              <div className="flex justify-center">
+                                <div className="inline-flex bg-zinc-100/80 dark:bg-zinc-900/60 p-0.5 rounded-lg border border-zinc-200/50 dark:border-zinc-800/40 select-none shadow-inner">
+                                  <button
+                                    type="button"
+                                    onClick={() => handleClassifyTemp(index, 'business_pj')}
+                                    className={cn(
+                                      "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                      tx.classification === 'business_pj'
+                                        ? "bg-emerald-500 text-white shadow-sm"
+                                        : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                                    )}
+                                  >
+                                    PJ
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleClassifyTemp(index, 'personal_pf')}
+                                    className={cn(
+                                      "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                      tx.classification === 'personal_pf'
+                                        ? "bg-sky-500 text-white shadow-sm"
+                                        : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                                    )}
+                                  >
+                                    PF
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleClassifyTemp(index, 'transfer')}
+                                    className={cn(
+                                      "px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all cursor-pointer",
+                                      tx.classification === 'transfer'
+                                        ? "bg-zinc-500 dark:bg-zinc-700 text-white shadow-sm"
+                                        : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                                    )}
+                                  >
+                                    Neutro
+                                  </button>
+                                </div>
                               </div>
                             </GlowTableCell>
                           </GlowTableRow>
