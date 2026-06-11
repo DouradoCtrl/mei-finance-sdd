@@ -21,9 +21,7 @@ class ParseRequest extends FormRequest
     {
         return [
             'source' => 'required|string|in:checking_account,credit_card',
-            'format' => 'required|string|in:ofx,text',
-            'raw_text' => 'required_if:format,text|nullable|string',
-            'file' => 'required_if:format,ofx|nullable|file|max:5120', // máximo de 5MB
+            'file' => 'required|file|max:5120', // máximo de 5MB
         ];
     }
 }

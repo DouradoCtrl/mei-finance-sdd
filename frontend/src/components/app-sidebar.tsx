@@ -11,7 +11,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
-import { LayoutDashboard, UploadCloud } from 'lucide-react';
+import { LayoutDashboard, TrendingUp } from 'lucide-react';
 
 const data = {
   navMain: [
@@ -21,9 +21,9 @@ const data = {
       icon: <LayoutDashboard className="size-4" />,
     },
     {
-      title: 'Importar Extrato',
-      url: '/dashboard/importar',
-      icon: <UploadCloud className="size-4" />,
+      title: 'Receitas',
+      url: '/dashboard/receitas',
+      icon: <TrendingUp className="size-4" />,
     },
   ],
 };

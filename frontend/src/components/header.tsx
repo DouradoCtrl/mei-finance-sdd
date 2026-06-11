@@ -15,7 +15,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 
 const BREADCRUMB_LABELS: Record<string, string> = {
   dashboard: 'Dashboard',
-  importar: 'Importar Extrato',
+  receitas: 'Receitas',
 };
 
 interface HeaderProps {

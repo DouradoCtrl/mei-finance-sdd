@@ -18,6 +18,7 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     
     // Rotas de Extratos
+    Route::get('/transactions', [TransactionController::class, 'index']);
     Route::post('/transactions/parse', [TransactionController::class, 'parse']);
     Route::post('/transactions/confirm', [TransactionController::class, 'confirm']);
 });

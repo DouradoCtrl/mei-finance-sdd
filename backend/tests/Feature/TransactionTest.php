@@ -12,25 +12,40 @@ class TransactionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_parse_statement_text(): void
+    public function test_user_can_list_transactions(): void
     {
         $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+
+        // Transação do usuário logado
+        Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'MINHA TRANSACAO',
+            'amount' => 1500.00,
+            'source' => 'checking_account',
+            'classification' => 'business_pj',
+            'fit_id' => 'fit111',
+        ]);
+
+        // Transação de outro usuário (não deve ser listada)
+        Transaction::create([
+            'user_id' => $otherUser->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'OUTRA TRANSACAO',
+            'amount' => 500.00,
+            'source' => 'checking_account',
+            'classification' => 'business_pj',
+            'fit_id' => 'fit222',
+        ]);
 
         $response = $this->actingAs($user)
-            ->postJson('/api/transactions/parse', [
-                'source' => 'checking_account',
-                'format' => 'text',
-                'raw_text' => "10/06/2026 PIX RECEBIDO JOAO R$ 1500,00\n11/06/2026 ALUGUEL R$ -450,00",
-            ]);
+            ->getJson('/api/transactions');
 
         $response->assertStatus(200);
         $response->assertJsonPath('success', true);
-        $response->assertJsonCount(2, 'data');
-        
-        $response->assertJsonPath('data.0.transaction_date', '2026-06-10');
-        $response->assertJsonPath('data.0.description', 'PIX RECEBIDO JOAO');
-        $response->assertJsonPath('data.0.amount', 1500);
-        $response->assertJsonPath('data.0.is_duplicate', false);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.description', 'MINHA TRANSACAO');
     }
 
     public function test_user_can_parse_statement_ofx(): void

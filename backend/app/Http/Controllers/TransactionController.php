@@ -25,23 +25,40 @@ class TransactionController extends Controller
     }
 
     /**
+     * Retorna a lista de transações do usuário logado com filtros opcionais.
+     */
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $query = \App\Models\Transaction::where('user_id', $user->id);
+
+        if ($request->filled('source')) {
+            $query->where('source', $request->query('source'));
+        }
+
+        if ($request->filled('classification')) {
+            $query->where('classification', $request->query('classification'));
+        }
+
+        $transactions = $query->orderBy('transaction_date', 'desc')->get();
+
+        return $this->successResponse(
+            \App\Http\Resources\TransactionResource::collection($transactions),
+            'Transações recuperadas com sucesso.'
+        );
+    }
+
+    /**
      * Processa o extrato enviado (formato texto ou OFX).
      */
     public function parse(ParseRequest $request)
     {
         $validated = $request->validated();
         $source = $validated['source'];
-        $format = $validated['format'];
-        $transactions = [];
 
-        if ($format === 'ofx') {
-            $file = $request->file('file');
-            $content = file_get_contents($file->getRealPath());
-            $transactions = $this->parserService->parseOfx($content, $source);
-        } else {
-            $rawText = $validated['raw_text'] ?? '';
-            $transactions = $this->parserService->parseText($rawText, $source);
-        }
+        $file = $request->file('file');
+        $content = file_get_contents($file->getRealPath());
+        $transactions = $this->parserService->parseOfx($content, $source);
 
         // Checagem de duplicidade antes de retornar ao frontend
         $user = $request->user();
