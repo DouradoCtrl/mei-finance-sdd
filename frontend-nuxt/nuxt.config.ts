@@ -5,8 +5,9 @@ export default defineNuxtConfig({
   telemetry: false,
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8001/api'
     }
   }
 })
+
 

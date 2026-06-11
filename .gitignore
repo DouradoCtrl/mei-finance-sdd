@@ -5,6 +5,8 @@
 .env
 backend/.env
 frontend/.env.local
+frontend-nuxt/.env
+
 
 # Dependency directories
 node_modules/
