@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 interface GlowDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  title?: string;
+  title?: React.ReactNode;
   description?: string;
   children: React.ReactNode;
   className?: string;
@@ -51,7 +51,13 @@ export const GlowDialog: React.FC<GlowDialogProps> = ({
         {/* Header */}
         <div className="p-5 border-b border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
           <div>
-            {title && <h3 className="text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider">{title}</h3>}
+            {title && (
+              typeof title === 'string' ? (
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider">{title}</h3>
+              ) : (
+                title
+              )
+            )}
             {description && <p className="text-[10px] text-zinc-400 mt-0.5">{description}</p>}
           </div>
           <button 

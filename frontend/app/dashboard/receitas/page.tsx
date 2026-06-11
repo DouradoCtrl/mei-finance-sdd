@@ -651,15 +651,18 @@ export default function ReceitasPage() {
         <GlowDialog
           open={isDeleteDialogOpen}
           onOpenChange={setIsDeleteDialogOpen}
-          title="Excluir Lançamento"
+          title={
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="size-4 text-red-500 animate-pulse shrink-0" />
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
+                Excluir Lançamento
+              </h3>
+            </div>
+          }
           className="max-w-[360px]"
         >
-          <div className="text-center select-none p-1">
-            <div className="w-11 h-11 rounded-full bg-red-50 dark:bg-red-950/20 text-red-500 flex items-center justify-center mx-auto mb-3">
-              <AlertTriangle className="size-6 animate-pulse" />
-            </div>
-            
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">
+          <div className="select-none p-1">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
               Você está prestes a excluir esta transação permanentemente. Esta ação atualizará seus relatórios e removerá os dados do servidor.
             </p>
             
