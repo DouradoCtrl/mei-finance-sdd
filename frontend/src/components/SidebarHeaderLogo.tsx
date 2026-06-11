@@ -17,24 +17,24 @@ export function SidebarHeaderLogo() {
       <SidebarMenuItem>
         <SidebarMenuButton
           size="lg"
-          render={
-            <Link href="/dashboard">
-              <div className="flex items-center gap-3">
-                <div className="shrink-0 rounded-lg bg-primary text-primary-foreground p-2">
-                  <Landmark className="size-5" />
-                </div>
-                {state === 'expanded' && (
-                  <div className="transition-all duration-200">
-                    <div className="font-bold text-sm leading-tight">MEI Finance</div>
-                    <div className="text-xs text-muted-foreground leading-none">
-                      PJ/PF Organizado
-                    </div>
-                  </div>
-                )}
+          asChild
+        >
+          <Link href="/dashboard">
+            <div className="flex items-center gap-3">
+              <div className="shrink-0 rounded-lg bg-primary text-primary-foreground p-2">
+                <Landmark className="size-5" />
               </div>
-            </Link>
-          }
-        />
+              {state === 'expanded' && (
+                <div className="transition-all duration-200">
+                  <div className="font-bold text-sm leading-tight">MEI Finance</div>
+                  <div className="text-xs text-muted-foreground leading-none">
+                    PJ/PF Organizado
+                  </div>
+                </div>
+              )}
+            </div>
+          </Link>
+        </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
   );

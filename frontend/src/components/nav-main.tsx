@@ -42,13 +42,13 @@ export function NavMain({
               <SidebarMenuButton
                 tooltip={item.title}
                 isActive={isActive}
-                render={
-                  <Link href={item.url}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                }
-              />
+                asChild
+              >
+                <Link href={item.url}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           );
         })}
