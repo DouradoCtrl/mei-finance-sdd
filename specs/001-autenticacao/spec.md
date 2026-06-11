@@ -4,7 +4,7 @@
 
 **Created**: 2026-06-10
 
-**Status**: Draft
+**Status**: Completed
 
 **Input**: User description: "Fluxo de cadastro de conta (com nome, e-mail, CNPJ e senha) e login seguro para acesso ao aplicativo MEI Finance."
 
@@ -20,7 +20,7 @@ Como um novo microempreendedor, eu quero criar uma conta informando meu nome, e-
 
 **Acceptance Scenarios**:
 
-1. **Given** que o usuário está na tela de cadastro, **When** ele preenche nome, e-mail válido, CNPJ válido e uma senha forte, e clica em "Cadastrar", **Then** o sistema cria o usuário e o redireciona para a tela de login com uma mensagem de sucesso.
+1. **Given** que o usuário está na tela de cadastro, **When** ele preenche nome, e-mail válido, CNPJ válido e uma senha forte, e clica em "Cadastrar", **Then** o sistema cria o usuário e o redireciona automaticamente para o painel principal (Dashboard) já autenticado.
 2. **Given** que o usuário digita um e-mail que já existe no sistema, **When** ele tenta cadastrar, **Then** o sistema exibe uma mensagem de erro informando que o e-mail já está em uso.
 3. **Given** que o usuário deixa campos obrigatórios em branco, **When** ele tenta enviar, **Then** o sistema destaca os campos obrigatórios e não envia os dados.
 
@@ -72,13 +72,13 @@ Como um usuário logado, eu quero poder sair da minha conta para garantir que ni
 
 ### Key Entities *(include if feature involves data)*
 
-- **Usuario**:
+- **User**:
   - `id` (Identificador único)
-  - `nome` (Nome completo ou fantasia do MEI)
+  - `name` (Nome completo ou fantasia do MEI)
   - `email` (E-mail único de acesso)
-  - `senha_hash` (Senha criptografada)
+  - `password` (Senha criptografada com hash bcrypt)
   - `cnpj` (CNPJ do microempreendedor, opcional)
-  - `data_criacao` (Data de criação da conta)
+  - `created_at` (Data de criação da conta)
 
 ## Success Criteria *(mandatory)*
 
