@@ -42,9 +42,24 @@ O banco de dados oficial de desenvolvimento é o PostgreSQL 16 executado em cont
 *   Para evitar conflitos com instalações locais no host do desenvolvedor, a porta padrão externa de comunicação no docker-compose deve ser mapeada na porta `5433` (ou outra disponível que não a 5432).
 
 ### IV. Arquitetura do Frontend Next.js e Consumo de API
-A arquitetura do frontend deve ser modular, reutilizável e organizada:
-*   **Organização de Chamadas de API:** É terminantemente proibido realizar chamadas `fetch` bruto (raw fetch) diretamente dentro de páginas React. Todas as comunicações com a API do backend devem ser encapsuladas em serviços dedicados dentro de `src/services/` (ex: `src/services/auth.service.ts`) ou wrappers em `src/lib/api.ts`.
-*   **Estilização:** Manter estética premium (Dark-First por padrão, com suporte a transições suaves e design limpo) utilizando Tailwind CSS v4 ou CSS Modules.
+A arquitetura do frontend deve ser modular, desacoplada, segura e alinhada com as melhores práticas do Next.js:
+*   **Controle de Sessão com NextAuth:** 
+    - Toda a autenticação e controle de sessões do usuário devem ser gerenciados centralizadamente via NextAuth (v4).
+    - O provider configurado deve ser o `CredentialsProvider`, conectando-se diretamente à API do backend.
+    - O token JWT e os dados do usuário MEI devem ser estendidos na sessão através dos callbacks `jwt` e `session`, garantindo acesso em tempo de execução via `useSession` (cliente) ou `getServerSession` (servidor).
+    - As tipagens customizadas para o usuário (ex: `cnpj`), token de acesso (`accessToken`) e mensagens de resposta devem ser formalmente estendidas em `src/next-auth.d.ts`.
+*   **Abstração de Requisições HTTP (apiFetch):**
+    - Todas as chamadas HTTP devem ser feitas através do wrapper `apiFetch` definido em `src/lib/api.ts`. É proibido usar `fetch` cru em componentes React ou páginas.
+    - O `apiFetch` deve descobrir dinamicamente a URL base pelas variáveis de ambiente (`NEXT_API_URL` no servidor e `NEXT_PUBLIC_API_URL` no cliente).
+    - O token de autenticação deve ser injetado automaticamente via cabeçalho `Authorization: Bearer <token>` sempre que a opção `accessToken` for fornecida.
+    - Respostas não-2xx devem ser encapsuladas em uma instância de `ApiError`, que carrega a resposta estruturada (`ApiResponse`) com as propriedades `success`, `message` e `data`.
+*   **Camada de Serviços Desacoplada (Services):**
+    - Endpoints da API devem ser mapeados em funções assíncronas isoladas (puras e sem estado) em `src/services/` (ex: `src/services/auth.service.ts`).
+    - Estas funções recebem o `accessToken` e os payloads necessários por parâmetro, permitindo chamadas flexíveis tanto no lado cliente quanto no servidor.
+*   **Design System & UI Components:**
+    - A interface e os componentes de UI devem reaproveitar a estrutura do Shadcn/ui (estilo New York) instalada em `src/components/ui/`.
+    - Manter estética premium (Dark-First por padrão, com suporte a transições suaves e design limpo) utilizando Tailwind CSS v4.
+
 
 ### V. Versionamento Rastreável (Git)
 *   Os commits devem ser atômicos e, para arquivos customizados, preferencialmente individuais (um commit por arquivo) para garantir a máxima rastreabilidade do histórico.
