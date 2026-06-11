@@ -1,19 +1,19 @@
-# Implementation Plan: Importação de Extrato e Classificação PF/PJ (Laravel + Next.js)
+# Implementation Plan: Importação de Extrato Multibancos e Conciliação de Cartão de Crédito
 
 **Branch**: `002-importacao-extrato` | **Date**: 2026-06-11 | **Spec**: [spec.md](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/specs/002-importacao-extrato/spec.md)
 
-**Input**: Feature specification from `/specs/002-importacao-extrato/spec.md`
+**Input**: Feature specification from `/specs/002-importacao-extrato/spec.md` reformulada para suportar múltiplos formatos e fontes.
 
 ## Summary
 
-Implementação do sistema de importação de extrato via colagem de texto bruto e classificação rápida de transações entre PF (Pessoal) e PJ (Negócio) para o **MEI Finance**. A extração estruturada será centralizada no backend Laravel através de serviços baseados em Regex, e o frontend Next.js gerenciará o estado dinâmico dos totais em tempo real antes da persistência final.
+Implementação do sistema de importação flexível de extratos no **MEI Finance**, integrando dois formatos (OFX universal e colagem de texto) e duas origens de dados (Conta Corrente e Cartão de Crédito). O processamento (parsing) do extrato será realizado no backend (com regexes flexíveis para texto e um parser XML/SGML estruturado para arquivos OFX). A interface Next.js permitirá a classificação individual de compras e a conciliação de faturas (despesa neutra de pagamento) para evitar duplicidade de lançamentos.
 
 ## Technical Context
 
 **Language/Version**: PHP 8.5.0 (Laravel 11+), Node.js v20.18.1 (Next.js 16+)
 
 **Primary Dependencies**:
-- **Backend:** Laravel Framework, Laravel Sanctum
+- **Backend:** Laravel Framework, Laravel Sanctum, PHP SimpleXML / libxml (para leitura do OFX)
 - **Frontend:** React 19, Next.js 16, NextAuth, Shadcn/ui (Tailwind CSS v4)
 
 **Storage**: PostgreSQL 16 (rodando localmente via Docker Compose na porta 5433)
@@ -25,24 +25,22 @@ Implementação do sistema de importação de extrato via colagem de texto bruto
 **Project Type**: Web Application (API Backend + SPA/SSR Frontend)
 
 **Performance Goals**:
-- Tempo de resposta para Parsing de Extrato < 200ms (SC-002)
-- Resumo mensal atualizado em menos de 100ms no cliente React (SC-003)
+- Tempo de processamento do parser de arquivos OFX < 150ms
+- Atualização dinâmica em tempo real do painel de resumo financeiro < 50ms
 
-**Constraints**: Prevenção de duplicidades baseada em hash/chave composta no banco de dados.
+**Constraints**: Prevenção rígida de duplicidades baseada no `fit_id` (FITID) do arquivo OFX e chave composta em banco de dados para texto bruto.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Princípio I (Service Layer):** A lógica de parsing residirá em `App\Services\BankStatementParserService` e a persistência em `App\Services\TransactionService`. Os controllers serão magros e usarão Form Requests para validação. (APROVADO)
-- **Princípio II (Respostas JSON):** Utilização da trait `ApiResponse` e de API Resources (`TransactionResource`) para estruturar todas as transações de retorno. (APROVADO)
-- **Princípio III (Banco de Dados Docker):** A tabela `transactions` será persistida no PostgreSQL 16 já configurado via compose. (APROVADO)
-- **Princípio IV (Frontend modular):** Utilização do NextAuth para injetar o token de acesso PJ nas requisições HTTP através do wrapper centralizado `apiFetch`. (APROVADO)
+- **Princípio I (Service Layer):** A lógica de leitura reside em `App\Services\BankStatementParserService` e o gerenciamento de duplicidades/salvamento em `App\Services\TransactionService`. Os controllers apenas delegam e retornam respostas. (APROVADO)
+- **Princípio II (Respostas JSON):** Utilização da trait `ApiResponse` e do resource `TransactionResource` para formatar o payload enviado ao frontend. (APROVADO)
+- **Princípio III (Banco de Dados Docker):** A tabela `transactions` será persistida no PostgreSQL 16 na porta `5433`. (APROVADO)
+- **Princípio IV (Frontend modular):** Consumo dos endpoints com `apiFetch` passando o `accessToken` do NextAuth. (APROVADO)
 - **Princípio V (Versionamento Rastreável):** Commit de arquivos de forma atômica seguindo Conventional Commits em português. (APROVADO)
 
 ## Project Structure
-
-Dividido em dois subprojetos principais na raiz:
 
 ```text
 backend/                 # Projeto Laravel
@@ -54,9 +52,9 @@ backend/                 # Projeto Laravel
 │   ├── Models/          # Transaction
 │   └── Services/        # BankStatementParserService, TransactionService
 ├── database/
-│   └── migrations/      # Migration de criação da tabela 'transactions'
+│   └── migrations/      # Migration de criação da tabela 'transactions' com colunas 'source', 'fit_id'
 ├── routes/
-│   └── api.php          # Rotas /api/transactions/... protegidas
+│   └── api.php          # Rotas expostas protegidas pelo middleware 'auth:sanctum' e 'active'
 └── tests/
     └── Feature/         # Testes de integração (TransactionTest)
 
@@ -64,8 +62,8 @@ frontend/                # Projeto Next.js
 ├── src/
 │   ├── app/
 │   │   └── dashboard/
-│   │       └── importacao/ # Tela de importação de extrato
-│   ├── components/      # Componentes e resumos dinâmicos
+│   │       └── importacao/ # Tela unificada de importação (Conta Corrente / Cartão)
+│   ├── components/      # Componentes React e painel dinâmico
 │   ├── lib/             # api.ts (apiFetch)
 │   └── services/        # transaction.service.ts
 ```
@@ -75,3 +73,4 @@ frontend/                # Projeto Next.js
 ## Complexity Tracking
 
 *Sem violações identificadas nesta fase.*
+```
