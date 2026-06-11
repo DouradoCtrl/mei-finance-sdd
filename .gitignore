@@ -5,6 +5,8 @@
 .env
 backend/.env
 frontend/.env.local
+frontend-nuxt/.env
+
 
 # Dependency directories
 node_modules/
@@ -26,3 +28,7 @@ frontend/out/
 # Reference Projects
 nextjs-spring-consumer/
 
+# Nuxt specific
+frontend-nuxt/.nuxt/
+frontend-nuxt/.output/
+frontend-nuxt/node_modules/
