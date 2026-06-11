@@ -1,37 +1,34 @@
-import { apiFetch } from '../lib/api';
+import { apiFetch } from '@/lib/api';
 
-export const authService = {
-  async register(name: string, email: string, password: string, cnpj?: string) {
-    return apiFetch('/register', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        cnpj: cnpj || null,
-      }),
-    });
-  },
+export async function login(email: string, password: string) {
+  return await apiFetch('/login', {
+    method: 'POST',
+    body: { email, password },
+  });
+}
 
-  async login(email: string, password: string) {
-    return apiFetch('/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-  },
+export async function register(userData: {
+  name: string;
+  email: string;
+  password?: string;
+  cnpj?: string | null;
+}) {
+  return await apiFetch('/register', {
+    method: 'POST',
+    body: userData,
+  });
+}
 
-  async logout() {
-    return apiFetch('/logout', {
-      method: 'POST',
-    });
-  },
+export async function logout(accessToken: string) {
+  return await apiFetch('/logout', {
+    method: 'POST',
+    accessToken,
+  });
+}
 
-  async getUser() {
-    return apiFetch('/user', {
-      method: 'GET',
-    });
-  }
-};
+export async function getUser(accessToken: string) {
+  return await apiFetch('/user', {
+    method: 'GET',
+    accessToken,
+  });
+}
