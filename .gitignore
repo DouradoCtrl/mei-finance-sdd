@@ -22,3 +22,7 @@ backend/database/*.sqlite
 # Next.js specific
 frontend/.next/
 frontend/out/
+
+# Reference Projects
+nextjs-spring-consumer/
+
