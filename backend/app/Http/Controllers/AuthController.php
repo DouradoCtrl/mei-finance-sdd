@@ -45,6 +45,10 @@ class AuthController extends Controller
             return $this->errorResponse('E-mail ou senha incorretos.', 401);
         }
 
+        if (isset($result['inactive']) && $result['inactive']) {
+            return $this->errorResponse('Sua conta está desativada. Entre em contato com o suporte.', 403);
+        }
+
         return $this->successResponse([
             'token' => $result['token'],
             'usuario' => new UserResource($result['user'])

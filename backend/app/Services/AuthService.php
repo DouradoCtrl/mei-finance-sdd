@@ -50,6 +50,10 @@ class AuthService
             return null;
         }
 
+        if (!$user->active) {
+            return ['inactive' => true];
+        }
+
         $token = $user->createToken('NextJSToken')->plainTextToken;
 
         return [
