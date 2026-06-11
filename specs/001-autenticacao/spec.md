@@ -58,6 +58,8 @@ Como um usuário logado, eu quero poder sair da minha conta para garantir que ni
 - **CNPJ com formato inválido**: O sistema deve aceitar CNPJ apenas no formato correto (14 dígitos, com ou sem pontuação) e validar o dígito verificador. Caso seja inválido, não permite o cadastro.
 - **Senha fraca**: A senha deve conter no mínimo 6 caracteres para ser aceita.
 - **Tentar acessar página restrita sem login**: Se um usuário não autenticado tentar acessar o dashboard direto pela URL, o sistema deve redirecioná-lo para a tela de login.
+- **Conta desativada (active = false)**: Se a conta do usuário for desativada, ele não poderá realizar login (retornando erro 403) e qualquer sessão ativa/token deve ser imediatamente bloqueado nas rotas autenticadas da API.
+- **Funções de acesso (role)**: O usuário recém-registrado recebe por padrão a role `default`. O sistema suporta as roles `default` e `admin`.
 
 ## Requirements *(mandatory)*
 
@@ -69,6 +71,8 @@ Como um usuário logado, eu quero poder sair da minha conta para garantir que ni
 - **FR-004**: O sistema deve armazenar as senhas de forma criptografada segura (usando hash como bcrypt ou pbkdf2, nunca em texto puro).
 - **FR-005**: O sistema deve impedir cadastros duplicados com o mesmo endereço de e-mail.
 - **FR-006**: O sistema deve gerenciar sessões de login ativas e proteger as rotas internas contra acessos não autorizados.
+- **FR-007**: O sistema deve impedir o login e a navegação em rotas restritas se o usuário estiver inativo (`active` = false).
+- **FR-008**: O sistema deve associar a role `default` ao novo usuário no momento do cadastro.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -78,6 +82,8 @@ Como um usuário logado, eu quero poder sair da minha conta para garantir que ni
   - `email` (E-mail único de acesso)
   - `password` (Senha criptografada com hash bcrypt)
   - `cnpj` (CNPJ do microempreendedor, opcional)
+  - `role` (Função do usuário: 'default' ou 'admin')
+  - `active` (Estado de ativação da conta, booleano)
   - `created_at` (Data de criação da conta)
 
 ## Success Criteria *(mandatory)*

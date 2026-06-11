@@ -45,14 +45,17 @@ backend/                 # Projeto Laravel
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/ # AuthController
+│   │   ├── Middleware/  # EnsureUserIsActive middleware
 │   │   ├── Requests/    # Validações de Cadastro/Login
 │   │   ├── Resources/   # API Resources para formatar entidades (UserResource)
 │   ├── Models/          # User (incluindo HasApiTokens do Sanctum)
 │   └── Services/        # Classes de serviço contendo a regra de negócios (AuthService)
 ├── database/
-│   └── migrations/      # Migration com campo CNPJ adicionado
+│   └── migrations/      # Migrations (incluindo CNPJ, role e active)
 ├── routes/
 │   └── api.php          # Rotas expostas para o Next.js
+├── tests/
+│   └── Feature/         # Testes de integração (AuthAttributesTest)
 └── package.json
 
 frontend/                # Projeto Next.js

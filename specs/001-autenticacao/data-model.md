@@ -16,6 +16,8 @@ Guarda os dados cadastrais e credenciais do MEI.
 | `email_verified_at` | timestamp | NULL | Data de validação de e-mail (gerenciado pelo Laravel) |
 | `password` | string | NOT NULL | Senha criptografada com Bcrypt (padrão Laravel Hash) |
 | `cnpj` | string | NULL | CNPJ do MEI (14 caracteres numéricos) |
+| `role` | string | NOT NULL, DEFAULT 'default' | Função/papel do usuário ('default' ou 'admin') |
+| `active` | boolean | NOT NULL, DEFAULT true | Status de acesso do usuário (ativo/inativo) |
 | `remember_token` | string | NULL | Token de persistência de sessão |
 | `created_at` | timestamp | NULL | Data de cadastro |
 | `updated_at` | timestamp | NULL | Data de última atualização |
