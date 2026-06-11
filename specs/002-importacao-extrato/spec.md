@@ -1,10 +1,10 @@
 # Feature Specification: Importação de Extrato e Classificação PF/PJ
 
-**Feature Branch**: `001-importacao-extrato`
+**Feature Branch**: `002-importacao-extrato`
 
 **Created**: 2026-06-10
 
-**Status**: Draft
+**Status**: Implemented
 
 **Input**: User description: "Importação e colagem de extrato bancário para classificação periódica de gastos e receitas entre PF (Pessoal) e PJ (Negócio), ideal para uso semanal ou mensal por usuários MEI."
 
