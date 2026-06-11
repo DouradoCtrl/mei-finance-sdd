@@ -36,7 +36,7 @@ export default function ReceitasPage() {
   const { data: session, status } = useSession();
 
   // Abas e Filtros principais
-  const [activeTab, setActiveTab] = useState<'business_pj' | 'personal_pf'>('business_pj');
+  const [activeTab, setActiveTab] = useState<'business_pj' | 'personal_pf' | 'transfer'>('business_pj');
   const [activeSource, setActiveSource] = useState<'checking_account' | 'credit_card'>('checking_account');
 
   // Estados dos dados
@@ -258,7 +258,7 @@ export default function ReceitasPage() {
           </Button>
         </div>
 
-        {/* Abas Principais (PJ vs PF) */}
+        {/* Abas Principais (PJ vs PF vs Neutro) */}
         <div className="flex border-b border-muted">
           <button
             onClick={() => setActiveTab('business_pj')}
@@ -279,6 +279,16 @@ export default function ReceitasPage() {
             }`}
           >
             Pessoa Física (PF)
+          </button>
+          <button
+            onClick={() => setActiveTab('transfer')}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[2px] ${
+              activeTab === 'transfer'
+                ? 'border-zinc-500 text-zinc-500 font-bold'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Neutro / Transferências
           </button>
         </div>
 
@@ -309,7 +319,11 @@ export default function ReceitasPage() {
           <Card className="border-l-4 border-l-green-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                {activeTab === 'business_pj' ? 'Faturamento (Receitas)' : 'Entradas PF'}
+                {activeTab === 'business_pj' 
+                  ? 'Faturamento (Receitas)' 
+                  : activeTab === 'personal_pf' 
+                  ? 'Entradas PF' 
+                  : 'Entradas Neutras'}
               </CardTitle>
               <ArrowUpRight className="h-4 w-4 text-green-500" />
             </CardHeader>
@@ -323,7 +337,11 @@ export default function ReceitasPage() {
           <Card className="border-l-4 border-l-red-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                {activeTab === 'business_pj' ? 'Gastos (Despesas)' : 'Saídas PF'}
+                {activeTab === 'business_pj' 
+                  ? 'Gastos (Despesas)' 
+                  : activeTab === 'personal_pf' 
+                  ? 'Saídas PF' 
+                  : 'Saídas Neutras'}
               </CardTitle>
               <ArrowDownLeft className="h-4 w-4 text-red-500" />
             </CardHeader>
@@ -337,7 +355,11 @@ export default function ReceitasPage() {
           <Card className={`border-l-4 ${kpis.lucro >= 0 ? 'border-l-emerald-500' : 'border-l-rose-500'}`}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                {activeTab === 'business_pj' ? 'Lucro Líquido' : 'Saldo PF'}
+                {activeTab === 'business_pj' 
+                  ? 'Lucro Líquido' 
+                  : activeTab === 'personal_pf' 
+                  ? 'Saldo PF' 
+                  : 'Saldo Neutro'}
               </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
