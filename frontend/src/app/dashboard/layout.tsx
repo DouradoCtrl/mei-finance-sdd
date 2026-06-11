@@ -12,7 +12,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="min-h-screen flex flex-col w-full">
+      <SidebarInset className="min-h-screen flex flex-col w-full overflow-hidden md:peer-data-[variant=inset]:border">
         {children}
       </SidebarInset>
     </SidebarProvider>
