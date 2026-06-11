@@ -31,9 +31,9 @@ Instruções para executar o Backend (Laravel) e o Frontend (Next.js) para valid
     ```
 6.  Iniciar o servidor local do Laravel:
     ```bash
-    php artisan serve
+    php artisan serve --port=8085
     ```
-    *O backend estará acessível na porta 8000: `http://127.0.0.1:8000`.*
+    *O backend estará acessível na porta 8085: `http://127.0.0.1:8085` (portas alternativas evitam colisão com o Portainer).*
 
 ### 2. Frontend (Next.js App)
 
@@ -45,7 +45,14 @@ Instruções para executar o Backend (Laravel) e o Frontend (Next.js) para valid
     ```bash
     npm install
     ```
-3.  Iniciar o servidor Next.js em desenvolvimento:
+3.  Configurar as variáveis de ambiente em `frontend/.env.local` apontando para a API:
+    ```ini
+    NEXT_PUBLIC_API_URL=http://localhost:8085/api
+    NEXT_API_URL=http://localhost:8085/api
+    NEXTAUTH_SECRET=generate_any_secret_key_here
+    NEXTAUTH_URL=http://localhost:3000
+    ```
+4.  Iniciar o servidor Next.js em desenvolvimento:
     ```bash
     npm run dev
     ```
@@ -58,13 +65,14 @@ Instruções para executar o Backend (Laravel) e o Frontend (Next.js) para valid
 ### Cenário 1: Cadastro
 1.  Abra o navegador em `http://localhost:3000/register` (ou página de cadastro equivalente no Next.js).
 2.  Preencha Nome, E-mail, Senha (mínimo 6 dígitos) e clique em "Criar Conta".
-3.  **Esperado:** O cadastro chama `POST http://127.0.0.1:8000/api/register`, o usuário é cadastrado, o token é retornado, salvo localmente (ex: cookies ou localStorage) e redireciona para a Dashboard.
+3.  **Esperado:** O cadastro chama `POST http://127.0.0.1:8085/api/auth/register`, o usuário é cadastrado, o token é retornado, o NextAuth estabelece a sessão do usuário e redireciona para a Dashboard.
 
 ### Cenário 2: Login com Sucesso
 1.  Acesse `http://localhost:3000/login`.
 2.  Insira o e-mail cadastrado e a senha correta, depois clique em "Entrar".
-3.  **Esperado:** A chamada para `POST http://127.0.0.1:8000/api/login` retorna 200 OK com o token. O Next.js salva o token e exibe a Dashboard.
+3.  **Esperado:** A chamada para `POST http://127.0.0.1:8085/api/auth/login` retorna 200 OK com o token. O NextAuth salva o token na sessão e exibe a Dashboard.
 
 ### Cenário 3: Logout
-1.  Na Dashboard, clique em "Sair".
-2.  **Esperado:** O frontend faz uma chamada autenticada para `POST http://127.0.0.1:8000/api/logout` com o cabeçalho `Authorization: Bearer {token}`. O Laravel revoga o token no banco. O Next.js limpa o token local e redireciona para a página de login.
+1.  Na Dashboard, clique em "Sair" (dentro do menu dropdown do usuário no canto inferior esquerdo).
+2.  **Esperado:** O frontend faz uma chamada autenticada para `POST http://127.0.0.1:8085/api/logout` com o cabeçalho `Authorization: Bearer {token}`. O Laravel revoga o token no banco. O NextAuth limpa a sessão local e redireciona para a página de login.
+

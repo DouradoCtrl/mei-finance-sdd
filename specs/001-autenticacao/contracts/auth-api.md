@@ -8,7 +8,7 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 
 ## 1. Cadastro de Usuário
 
-*   **URL:** `/api/register`
+*   **URL:** `/api/auth/register`
 *   **Método:** `POST`
 *   **Headers:**
     *   `Accept: application/json`
@@ -39,23 +39,22 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
       "id": 1,
       "name": "João Silva MEI",
       "email": "joao@silva.com",
-      "cnpj": "12345678000190"
+      "cnpj": "12345678000190",
+      "created_at": "2026-06-11T00:54:21+00:00"
     }
   }
 }
 ```
 
-#### Erro de Validação (422 Unprocessable Entity - Padrão Laravel)
+#### Erro de Validação (422 Unprocessable Entity - Padrão Global da API)
 
 ```json
 {
-  "message": "The email has already been taken. (and/or other errors)",
-  "errors": {
+  "success": false,
+  "message": "The email has already been taken.",
+  "data": {
     "email": [
       "The email has already been taken."
-    ],
-    "password": [
-      "The password field must be at least 6 characters."
     ]
   }
 }
@@ -65,7 +64,7 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 
 ## 2. Login de Usuário
 
-*   **URL:** `/api/login`
+*   **URL:** `/api/auth/login`
 *   **Método:** `POST`
 *   **Headers:**
     *   `Accept: application/json`
@@ -94,7 +93,8 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
       "id": 1,
       "name": "João Silva MEI",
       "email": "joao@silva.com",
-      "cnpj": "12345678000190"
+      "cnpj": "12345678000190",
+      "created_at": "2026-06-11T00:54:21+00:00"
     }
   }
 }
@@ -138,6 +138,8 @@ Revoga o token atual enviado na requisição.
 
 ```json
 {
-  "message": "Unauthenticated."
+  "success": false,
+  "message": "Usuário não autenticado.",
+  "data": null
 }
 ```
