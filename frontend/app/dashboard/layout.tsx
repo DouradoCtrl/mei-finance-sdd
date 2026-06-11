@@ -81,7 +81,7 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen flex bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
+    <div className="h-screen flex bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-hidden">
       
       {/* Sidebar for Desktop */}
       <aside 
