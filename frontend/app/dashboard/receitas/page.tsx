@@ -184,6 +184,55 @@ export default function ReceitasPage() {
     ];
   }, [kpis, activeTab]);
 
+  const mainTabs = useMemo(() => {
+    return [
+      { 
+        label: 'Pendentes', 
+        value: 'pending' as const, 
+        desc: 'Aguardando conciliação', 
+        icon: Clock,
+        indicatorBg: 'bg-amber-500',
+        dotColor: 'bg-amber-500',
+        iconBg: 'bg-amber-50 dark:bg-amber-950/30 border-amber-100/30 dark:border-amber-900/20 text-amber-500 dark:text-amber-400',
+        bgGradient: 'bg-gradient-to-br from-amber-500/5 to-transparent dark:from-amber-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(245,158,11,0.03)] hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] hover:border-amber-500/20'
+      },
+      { 
+        label: 'Pessoa Jurídica (PJ)', 
+        value: 'business_pj' as const, 
+        desc: 'Controle da empresa', 
+        icon: Building2,
+        indicatorBg: 'bg-emerald-500',
+        dotColor: 'bg-emerald-500',
+        iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100/30 dark:border-emerald-900/20 text-emerald-500 dark:text-emerald-400',
+        bgGradient: 'bg-gradient-to-br from-emerald-500/5 to-transparent dark:from-emerald-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.08)] hover:border-emerald-500/20'
+      },
+      { 
+        label: 'Pessoa Física (PF)', 
+        value: 'personal_pf' as const, 
+        desc: 'Despesas pessoais', 
+        icon: User,
+        indicatorBg: 'bg-sky-500',
+        dotColor: 'bg-sky-500',
+        iconBg: 'bg-sky-50 dark:bg-sky-950/30 border-sky-100/30 dark:border-sky-900/20 text-sky-500 dark:text-sky-400',
+        bgGradient: 'bg-gradient-to-br from-sky-500/5 to-transparent dark:from-sky-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(14,165,233,0.03)] hover:shadow-[0_0_20px_rgba(14,165,233,0.08)] hover:border-sky-500/20'
+      },
+      { 
+        label: 'Neutro / Transf.', 
+        value: 'transfer' as const, 
+        desc: 'Movimentações isentas', 
+        icon: RefreshCw,
+        indicatorBg: 'bg-zinc-550 dark:bg-zinc-650',
+        dotColor: 'bg-zinc-550 dark:bg-zinc-650',
+        iconBg: 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-150 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400',
+        bgGradient: 'bg-gradient-to-br from-zinc-500/5 to-transparent dark:from-zinc-500/2',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(113,113,122,0.03)] hover:shadow-[0_0_20px_rgba(113,113,122,0.08)] hover:border-zinc-500/20'
+      },
+    ];
+  }, []);
+
   const handleFileSelect = (selectedFile: File) => {
     setFile(selectedFile);
   };
@@ -300,55 +349,6 @@ export default function ReceitasPage() {
       </div>
     );
   }
-
-  const mainTabs = useMemo(() => {
-    return [
-      { 
-        label: 'Pendentes', 
-        value: 'pending' as const, 
-        desc: 'Aguardando conciliação', 
-        icon: Clock,
-        indicatorBg: 'bg-amber-500',
-        dotColor: 'bg-amber-500',
-        iconBg: 'bg-amber-50 dark:bg-amber-950/30 border-amber-100/30 dark:border-amber-900/20 text-amber-500 dark:text-amber-400',
-        bgGradient: 'bg-gradient-to-br from-amber-500/5 to-transparent dark:from-amber-500/2',
-        glowShadow: 'shadow-[0_0_15px_-3px_rgba(245,158,11,0.03)] hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] hover:border-amber-500/20'
-      },
-      { 
-        label: 'Pessoa Jurídica (PJ)', 
-        value: 'business_pj' as const, 
-        desc: 'Controle da empresa', 
-        icon: Building2,
-        indicatorBg: 'bg-emerald-500',
-        dotColor: 'bg-emerald-500',
-        iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100/30 dark:border-emerald-900/20 text-emerald-500 dark:text-emerald-400',
-        bgGradient: 'bg-gradient-to-br from-emerald-500/5 to-transparent dark:from-emerald-500/2',
-        glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.08)] hover:border-emerald-500/20'
-      },
-      { 
-        label: 'Pessoa Física (PF)', 
-        value: 'personal_pf' as const, 
-        desc: 'Despesas pessoais', 
-        icon: User,
-        indicatorBg: 'bg-sky-500',
-        dotColor: 'bg-sky-500',
-        iconBg: 'bg-sky-50 dark:bg-sky-950/30 border-sky-100/30 dark:border-sky-900/20 text-sky-500 dark:text-sky-400',
-        bgGradient: 'bg-gradient-to-br from-sky-500/5 to-transparent dark:from-sky-500/2',
-        glowShadow: 'shadow-[0_0_15px_-3px_rgba(14,165,233,0.03)] hover:shadow-[0_0_20px_rgba(14,165,233,0.08)] hover:border-sky-500/20'
-      },
-      { 
-        label: 'Neutro / Transf.', 
-        value: 'transfer' as const, 
-        desc: 'Movimentações isentas', 
-        icon: RefreshCw,
-        indicatorBg: 'bg-zinc-550 dark:bg-zinc-650',
-        dotColor: 'bg-zinc-550 dark:bg-zinc-650',
-        iconBg: 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-150 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400',
-        bgGradient: 'bg-gradient-to-br from-zinc-500/5 to-transparent dark:from-zinc-500/2',
-        glowShadow: 'shadow-[0_0_15px_-3px_rgba(113,113,122,0.03)] hover:shadow-[0_0_20px_rgba(113,113,122,0.08)] hover:border-zinc-500/20'
-      },
-    ];
-  }, []);
 
   const sourceTabs = [
     { label: 'Conta Corrente', value: 'checking_account', icon: Wallet },
