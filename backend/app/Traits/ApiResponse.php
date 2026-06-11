@@ -12,9 +12,9 @@ trait ApiResponse
     protected function successResponse($data = null, ?string $message = null, int $code = 200): JsonResponse
     {
         return response()->json([
-            'sucesso' => true,
-            'mensagem' => $message,
-            'dados' => $data
+            'success' => true,
+            'message' => $message,
+            'data' => $data
         ], $code);
     }
 
@@ -24,9 +24,9 @@ trait ApiResponse
     protected function errorResponse(string $message, int $code = 400, $data = null): JsonResponse
     {
         return response()->json([
-            'sucesso' => false,
-            'erro' => $message,
-            'dados' => $data
+            'success' => false,
+            'message' => $message,
+            'data' => $data
         ], $code);
     }
 }
