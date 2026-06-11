@@ -36,7 +36,7 @@ export default function ReceitasPage() {
   const { data: session, status } = useSession();
 
   // Abas e Filtros principais
-  const [activeTab, setActiveTab] = useState<'business_pj' | 'personal_pf' | 'transfer'>('business_pj');
+  const [activeTab, setActiveTab] = useState<'business_pj' | 'personal_pf' | 'transfer' | 'pending'>('business_pj');
   const [activeSource, setActiveSource] = useState<'checking_account' | 'credit_card'>('checking_account');
 
   // Estados dos dados
@@ -258,8 +258,18 @@ export default function ReceitasPage() {
           </Button>
         </div>
 
-        {/* Abas Principais (PJ vs PF vs Neutro) */}
+        {/* Abas Principais (Pendentes vs PJ vs PF vs Neutro) */}
         <div className="flex border-b border-muted">
+          <button
+            onClick={() => setActiveTab('pending')}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[2px] ${
+              activeTab === 'pending'
+                ? 'border-yellow-500 text-yellow-500 font-bold'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Pendentes
+          </button>
           <button
             onClick={() => setActiveTab('business_pj')}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[2px] ${
@@ -323,7 +333,9 @@ export default function ReceitasPage() {
                   ? 'Faturamento (Receitas)' 
                   : activeTab === 'personal_pf' 
                   ? 'Entradas PF' 
-                  : 'Entradas Neutras'}
+                  : activeTab === 'transfer'
+                  ? 'Entradas Neutras'
+                  : 'Entradas Pendentes'}
               </CardTitle>
               <ArrowUpRight className="h-4 w-4 text-green-500" />
             </CardHeader>
@@ -341,7 +353,9 @@ export default function ReceitasPage() {
                   ? 'Gastos (Despesas)' 
                   : activeTab === 'personal_pf' 
                   ? 'Saídas PF' 
-                  : 'Saídas Neutras'}
+                  : activeTab === 'transfer'
+                  ? 'Saídas Neutras'
+                  : 'Saídas Pendentes'}
               </CardTitle>
               <ArrowDownLeft className="h-4 w-4 text-red-500" />
             </CardHeader>
@@ -359,7 +373,9 @@ export default function ReceitasPage() {
                   ? 'Lucro Líquido' 
                   : activeTab === 'personal_pf' 
                   ? 'Saldo PF' 
-                  : 'Saldo Neutro'}
+                  : activeTab === 'transfer'
+                  ? 'Saldo Neutro'
+                  : 'Saldo Pendente'}
               </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
