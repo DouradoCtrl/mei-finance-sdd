@@ -653,7 +653,7 @@ export default function ReceitasPage() {
           onOpenChange={setIsDeleteDialogOpen}
           title={
             <div className="flex items-center gap-2">
-              <AlertTriangle className="size-4 text-red-500 animate-pulse shrink-0" />
+              <AlertTriangle className="size-5 text-red-500 animate-pulse shrink-0" />
               <h3 className="text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
                 Excluir Lançamento
               </h3>
