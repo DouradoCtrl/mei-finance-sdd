@@ -58,20 +58,25 @@
 
     <!-- KPI Bento Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <UCard 
-        v-for="kpi in kpiConfig" 
-        :key="kpi.label" 
-        :ui="{ 
-          base: 'overflow-hidden border border-gray-100 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 shadow-none rounded-xl',
-          body: { padding: 'p-4 flex flex-col gap-1 items-center text-center' } 
+      <UCard
+        v-for="kpi in kpiConfig"
+        :key="kpi.label"
+        :class="[kpi.borderClass, kpi.bgGradient, kpi.glowShadow]"
+        :ui="{
+          base: 'overflow-hidden border border-gray-100 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md rounded-xl transition-all duration-300 hover:-translate-y-0.5',
+          body: { padding: 'p-5 flex flex-col gap-3.5 justify-center items-start text-left pl-6' }
         }"
       >
-        <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-400 select-none">
-          <UIcon :name="kpi.icon" class="size-4 shrink-0" :class="kpi.iconColor" />
-          <span>{{ kpi.label }}</span>
+        <div class="flex items-center justify-between w-full">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 select-none">
+            {{ kpi.label }}
+          </span>
+          <div :class="['p-1.5 rounded-lg shrink-0', kpi.iconBg]">
+            <UIcon :name="kpi.icon" class="size-4 shrink-0" :class="kpi.iconColor" />
+          </div>
         </div>
-        <div 
-          class="text-2xl font-semibold tracking-tight mt-1 font-mono"
+        <div
+          class="text-2xl font-semibold tracking-tight font-mono"
           :class="kpi.valueClass || 'text-gray-900 dark:text-white'"
         >
           R$ {{ formatCurrency(kpi.value) }}
@@ -470,25 +475,45 @@ const kpiConfig = computed(() => {
     labelLuc = 'Saldo (Pendente)'
   }
 
+  const isLucroPositive = kpis.value.lucro >= 0;
+
   return [
     {
       label: labelFat,
       value: kpis.value.faturamento,
-      icon: 'i-heroicons-arrow-up-circle',
-      iconColor: 'text-emerald-500'
+      icon: 'i-heroicons-arrow-up-right-20-solid',
+      iconColor: 'text-emerald-500 dark:text-emerald-400',
+      iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20',
+      borderClass: 'border-l-4 border-emerald-500 dark:border-emerald-500',
+      bgGradient: 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5',
+      glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/30'
     },
     {
       label: labelGas,
       value: kpis.value.gastos,
-      icon: 'i-heroicons-arrow-down-circle',
-      iconColor: 'text-rose-500'
+      icon: 'i-heroicons-arrow-down-left-20-solid',
+      iconColor: 'text-rose-500 dark:text-rose-400',
+      iconBg: 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
+      borderClass: 'border-l-4 border-rose-500 dark:border-rose-500',
+      bgGradient: 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
+      glowShadow: 'shadow-[0_0_15px_-3px_rgba(244,63,94,0.03)] hover:shadow-[0_0_20px_rgba(244,63,94,0.12)] hover:border-rose-500/30'
     },
     {
       label: labelLuc,
       value: kpis.value.lucro,
-      icon: 'i-heroicons-scale',
-      iconColor: kpis.value.lucro >= 0 ? 'text-emerald-500' : 'text-rose-500',
-      valueClass: kpis.value.lucro >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'
+      icon: isLucroPositive ? 'i-heroicons-arrow-trending-up-20-solid' : 'i-heroicons-arrow-trending-down-20-solid',
+      iconColor: isLucroPositive ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400',
+      iconBg: isLucroPositive
+        ? 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20'
+        : 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
+      borderClass: isLucroPositive ? 'border-l-4 border-emerald-500 dark:border-emerald-500' : 'border-l-4 border-rose-500 dark:border-rose-500',
+      bgGradient: isLucroPositive
+        ? 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5'
+        : 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
+      glowShadow: isLucroPositive
+        ? 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/30'
+        : 'shadow-[0_0_15px_-3px_rgba(244,63,94,0.03)] hover:shadow-[0_0_20px_rgba(244,63,94,0.12)] hover:border-rose-500/30',
+      valueClass: isLucroPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
     }
   ]
 })

@@ -8,6 +8,7 @@ import {
   ArrowUpRight, 
   ArrowDownLeft, 
   TrendingUp, 
+  TrendingDown,
   Wallet,
   CreditCard,
   Trash2,
@@ -137,25 +138,45 @@ export default function ReceitasPage() {
       labelLuc = 'Saldo (Pendente)';
     }
 
+    const isLucroPositive = kpis.lucro >= 0;
+    
     return [
       {
         label: labelFat,
         value: kpis.faturamento,
         icon: ArrowUpRight,
-        iconColor: 'text-emerald-500',
+        iconColor: 'text-emerald-500 dark:text-emerald-400',
+        iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20',
+        borderClass: 'border-l-4 border-l-emerald-500',
+        bgGradient: 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/30',
       },
       {
         label: labelGas,
         value: kpis.gastos,
         icon: ArrowDownLeft,
-        iconColor: 'text-rose-500',
+        iconColor: 'text-rose-500 dark:text-rose-400',
+        iconBg: 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
+        borderClass: 'border-l-4 border-l-rose-500',
+        bgGradient: 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
+        glowShadow: 'shadow-[0_0_15px_-3px_rgba(244,63,94,0.03)] hover:shadow-[0_0_20px_rgba(244,63,94,0.12)] hover:border-rose-500/30',
       },
       {
         label: labelLuc,
         value: kpis.lucro,
-        icon: TrendingUp,
-        iconColor: kpis.lucro >= 0 ? 'text-emerald-500' : 'text-rose-500',
-        valueClass: kpis.lucro >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400',
+        icon: isLucroPositive ? TrendingUp : TrendingDown,
+        iconColor: isLucroPositive ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400',
+        iconBg: isLucroPositive
+          ? 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20'
+          : 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
+        borderClass: isLucroPositive ? 'border-l-4 border-l-emerald-500' : 'border-l-4 border-l-rose-500',
+        bgGradient: isLucroPositive
+          ? 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5'
+          : 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
+        glowShadow: isLucroPositive
+          ? 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/30'
+          : 'shadow-[0_0_15px_-3px_rgba(244,63,94,0.03)] hover:shadow-[0_0_20px_rgba(244,63,94,0.12)] hover:border-rose-500/30',
+        valueClass: isLucroPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400',
       },
     ];
   }, [kpis, activeTab]);
@@ -360,12 +381,25 @@ export default function ReceitasPage() {
           {kpiConfig.map((kpi) => {
             const Icon = kpi.icon;
             return (
-              <GlowCard key={kpi.label} className="p-4 flex flex-col gap-1 items-center text-center">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-400 select-none">
-                  <Icon className={cn("size-4 shrink-0", kpi.iconColor)} />
-                  <span>{kpi.label}</span>
+              <GlowCard
+                key={kpi.label}
+                glow={false}
+                className={cn(
+                  "p-5 flex flex-col gap-3.5 justify-center items-start text-left pl-6 hover:-translate-y-0.5 transition-all duration-300",
+                  kpi.borderClass,
+                  kpi.bgGradient,
+                  kpi.glowShadow
+                )}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 select-none">
+                    {kpi.label}
+                  </span>
+                  <div className={cn("p-1.5 rounded-lg shrink-0", kpi.iconBg)}>
+                    <Icon className={cn("size-4", kpi.iconColor)} />
+                  </div>
                 </div>
-                <div className={cn("text-2xl font-semibold tracking-tight mt-1 font-mono", kpi.valueClass || "text-zinc-900 dark:text-white")}>
+                <div className={cn("text-2xl font-semibold tracking-tight font-mono", kpi.valueClass || "text-zinc-900 dark:text-white")}>
                   R$ {kpi.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
               </GlowCard>
