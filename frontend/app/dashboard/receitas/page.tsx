@@ -351,23 +351,24 @@ export default function ReceitasPage() {
           ))}
         </div>
 
-        {/* Abas Secundárias (Conta Corrente vs Cartão) */}
-        <div className="flex bg-zinc-100/60 dark:bg-zinc-800/50 p-1 rounded-lg self-start select-none">
+        {/* Filtros de Origem (Pills com Glow e Vidro) */}
+        <div className="flex items-center gap-2 select-none">
           {sourceTabs.map((src) => {
             const Icon = src.icon;
+            const isActive = activeSource === src.value;
             return (
               <button
                 key={src.value}
                 onClick={() => setActiveSource(src.value)}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer",
-                  activeSource === src.value
-                    ? "bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white shadow-sm"
-                    : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                  "flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-300 border cursor-pointer",
+                  isActive
+                    ? "border-emerald-500/50 bg-emerald-500/5 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_-3px_rgba(16,185,129,0.1)]"
+                    : "border-zinc-200 dark:border-zinc-800 bg-white/40 dark:bg-zinc-950/40 text-zinc-400 dark:text-zinc-500 hover:border-zinc-350 dark:hover:border-zinc-700 hover:text-zinc-950 dark:hover:text-white"
                 )}
               >
-                <Icon className="h-3.5 w-3.5 shrink-0" />
-                {src.label}
+                <Icon className={cn("h-4 w-4 shrink-0 transition-transform duration-300", isActive && "scale-105")} />
+                <span>{src.label}</span>
               </button>
             );
           })}
