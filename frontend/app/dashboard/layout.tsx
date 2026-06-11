@@ -206,6 +206,9 @@ export default function DashboardLayout({
               </ol>
             </nav>
           </div>
+
+          {/* Page-level Header Actions Slot */}
+          <div id="header-actions" className="flex items-center gap-3" />
         </header>
 
         {/* Mobile Header */}

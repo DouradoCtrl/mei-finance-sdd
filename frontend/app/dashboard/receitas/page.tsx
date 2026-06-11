@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { 
@@ -59,6 +60,11 @@ export default function ReceitasPage() {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Proteger rota no frontend
   useEffect(() => {
@@ -321,16 +327,32 @@ export default function ReceitasPage() {
               Acompanhe seu faturamento, controle despesas e faça conciliações rápidas via extrato.
             </p>
           </div>
+          {/* Mobile-only Action Button */}
           <GlowButton 
             onClick={() => {
               setTempTransactions([]);
               setFile(null);
               setIsImportModalOpen(true);
             }}
-            className="text-xs font-semibold uppercase tracking-wider px-3.5 py-2 rounded-lg"
+            className="md:hidden text-xs font-semibold uppercase tracking-wider px-3.5 py-2 rounded-lg"
           >
             Importar Extrato OFX
           </GlowButton>
+
+          {/* Portal for Desktop Header Actions Slot */}
+          {mounted && typeof document !== 'undefined' && document.getElementById('header-actions') && createPortal(
+            <GlowButton 
+              onClick={() => {
+                setTempTransactions([]);
+                setFile(null);
+                setIsImportModalOpen(true);
+              }}
+              className="text-xs font-semibold uppercase tracking-wider px-3.5 py-2 rounded-lg"
+            >
+              Importar Extrato OFX
+            </GlowButton>,
+            document.getElementById('header-actions')!
+          )}
         </div>
 
         {/* Abas Principais (Pendentes vs PJ vs PF vs Neutro) */}
