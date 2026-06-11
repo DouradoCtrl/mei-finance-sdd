@@ -600,6 +600,7 @@ export default function ReceitasPage() {
           onOpenChange={setIsImportModalOpen}
           title="Conciliação de Extrato"
           description={`Origem: ${activeSource === 'checking_account' ? 'CONTA CORRENTE' : 'CARTÃO DE CRÉDITO'}`}
+          className="max-w-2xl md:max-w-3xl w-full"
         >
           <div className="space-y-4">
             {tempTransactions.length === 0 ? (
