@@ -14,7 +14,6 @@ import {
   Trash2,
   AlertTriangle
 } from 'lucide-react';
-import { Header } from '@/components/header';
 import { toast } from 'sonner';
 import { GlowCard, GlowButton, GlowBadge } from '@/components/custom/GlowUI';
 import { GlowDialog } from '@/components/custom/GlowDialog';
@@ -312,8 +311,6 @@ export default function ReceitasPage() {
 
   return (
     <div className="flex flex-col flex-1">
-      <Header />
-
       <main className="flex-1 p-6 space-y-6 max-w-6xl w-full mx-auto">
         
         {/* Cabeçalho da Página com Título e Botão de Ação */}

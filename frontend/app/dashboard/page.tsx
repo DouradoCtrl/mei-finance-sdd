@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Loader2 } from 'lucide-react';
 import { GlowCard } from '@/components/custom/GlowUI';
-import { Header } from '@/components/header';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -34,8 +33,6 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col flex-1">
-      <Header />
-      
       <main className="flex-1 p-6 flex flex-col justify-center items-center">
         <GlowCard className="max-w-md w-full">
           <div className="text-center space-y-1 pb-4 border-b border-zinc-100 dark:border-zinc-800/80">

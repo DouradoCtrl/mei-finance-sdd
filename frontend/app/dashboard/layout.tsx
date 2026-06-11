@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -9,6 +9,7 @@ import {
   X, 
   ChevronDown, 
   ChevronUp, 
+  ChevronRight,
   LogOut, 
   User, 
   LayoutDashboard, 
@@ -16,6 +17,11 @@ import {
   Building2,
   ChevronsLeftRight
 } from 'lucide-react';
+
+const BREADCRUMB_LABELS: Record<string, string> = {
+  dashboard: 'Dashboard',
+  receitas: 'Fluxo de Caixa',
+};
 import { cn } from '@/lib/utils';
 import { GlowButton } from '@/components/custom/GlowUI';
 
@@ -42,6 +48,32 @@ export default function DashboardLayout({
   const userName = session?.user?.name || 'Microempreendedor';
   const userFirstName = userName.split(' ')[0];
   const userEmail = session?.user?.email || '';
+
+  const segments = pathname
+    .split('/')
+    .filter((segment) => segment && segment !== '(dashboard)');
+
+  const breadcrumbs = useMemo(() => {
+    return [
+      { 
+        label: 'Início', 
+        href: '/dashboard', 
+        isLast: segments.length === 0 || (segments.length === 1 && segments[0] === 'dashboard') 
+      },
+      ...segments
+        .filter((segment) => segment !== 'dashboard')
+        .map((segment, idx, filtered) => {
+          const isLast = idx === filtered.length - 1;
+          const href = '/dashboard/' + filtered.slice(0, idx + 1).join('/');
+
+          return {
+            label: BREADCRUMB_LABELS[segment] || segment.charAt(0).toUpperCase() + segment.slice(1),
+            href,
+            isLast,
+          };
+        }),
+    ];
+  }, [segments]);
 
   const handleLogout = async () => {
     await signOut({ redirect: false });
@@ -152,9 +184,27 @@ export default function DashboardLayout({
             >
               <ChevronsLeftRight className="size-4" />
             </button>
-            <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest font-mono select-none">
-              {currentPathName}
-            </span>
+            
+            <nav className="hidden sm:flex" aria-label="Breadcrumb">
+              <ol className="flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500 font-semibold select-none">
+                {breadcrumbs.map((crumb, idx) => (
+                  <React.Fragment key={idx}>
+                    {idx > 0 && <ChevronRight className="size-3.5 text-zinc-300 dark:text-zinc-700" />}
+                    <li>
+                      {crumb.isLast ? (
+                        <span className="text-zinc-900 dark:text-zinc-100 font-bold">
+                          {crumb.label}
+                        </span>
+                      ) : (
+                        <Link href={crumb.href} className="hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                          {crumb.label}
+                        </Link>
+                      )}
+                    </li>
+                  </React.Fragment>
+                ))}
+              </ol>
+            </nav>
           </div>
         </header>
 
