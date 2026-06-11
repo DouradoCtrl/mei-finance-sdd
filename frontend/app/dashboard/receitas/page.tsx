@@ -146,7 +146,7 @@ export default function ReceitasPage() {
         icon: ArrowUpRight,
         iconColor: 'text-emerald-500 dark:text-emerald-400',
         iconBg: 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20',
-        borderClass: 'border-l-4 border-l-emerald-500',
+        indicatorBg: 'bg-emerald-500',
         bgGradient: 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5',
         glowShadow: 'shadow-[0_0_15px_-3px_rgba(16,185,129,0.03)] hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/30',
       },
@@ -156,7 +156,7 @@ export default function ReceitasPage() {
         icon: ArrowDownLeft,
         iconColor: 'text-rose-500 dark:text-rose-400',
         iconBg: 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
-        borderClass: 'border-l-4 border-l-rose-500',
+        indicatorBg: 'bg-rose-500',
         bgGradient: 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
         glowShadow: 'shadow-[0_0_15px_-3px_rgba(244,63,94,0.03)] hover:shadow-[0_0_20px_rgba(244,63,94,0.12)] hover:border-rose-500/30',
       },
@@ -168,7 +168,7 @@ export default function ReceitasPage() {
         iconBg: isLucroPositive
           ? 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100/30 dark:border-emerald-900/20'
           : 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 dark:border-rose-900/20',
-        borderClass: isLucroPositive ? 'border-l-4 border-l-emerald-500' : 'border-l-4 border-l-rose-500',
+        indicatorBg: isLucroPositive ? 'bg-emerald-500' : 'bg-rose-500',
         bgGradient: isLucroPositive
           ? 'bg-gradient-to-r from-emerald-50/15 to-transparent dark:from-emerald-950/5'
           : 'bg-gradient-to-r from-rose-50/15 to-transparent dark:from-rose-950/5',
@@ -382,12 +382,14 @@ export default function ReceitasPage() {
                 key={kpi.label}
                 glow={false}
                 className={cn(
-                  "p-5 flex flex-col gap-3.5 justify-center items-start text-left pl-6 hover:-translate-y-0.5 transition-all duration-300",
-                  kpi.borderClass,
+                  "relative overflow-hidden p-5 flex flex-col gap-3.5 justify-center items-start text-left pl-7 hover:-translate-y-0.5 transition-all duration-300",
                   kpi.bgGradient,
                   kpi.glowShadow
                 )}
               >
+                {/* Dynamic indicator bar based on KPI color */}
+                <div className={cn("absolute left-0 top-0 bottom-0 w-1.5", kpi.indicatorBg)} />
+
                 <div className="flex items-center justify-between w-full">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 select-none">
                     {kpi.label}
