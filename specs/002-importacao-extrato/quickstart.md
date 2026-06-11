@@ -17,7 +17,7 @@ Este guia apresenta o roteiro de validação local para importações de múltip
 ## 🧪 Roteiro de Testes Manuais
 
 ### Cenário 1: Importação de Conta Corrente via Arquivo OFX
-1.  Acesse a Dashboard e clique em **Importar Extrato** (rota `/dashboard/importacao`).
+1.  Acesse a Dashboard e clique em **Importar Extrato** (rota `/dashboard/importar`).
 2.  No formulário de importação, configure:
     - **Origem**: `Conta Corrente`
     - **Formato**: `OFX (Arquivo)`
