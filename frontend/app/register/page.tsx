@@ -5,11 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { register } from '@/services/auth.service';
-import { Loader2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { GlowCard, GlowInput, GlowLabel, GlowButton } from '@/components/custom/GlowUI';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -53,7 +49,7 @@ export default function RegisterPage() {
         if (result?.ok) {
           setTimeout(() => {
             router.push('/dashboard');
-          }, 1500);
+          }, 1200);
         } else {
           router.push('/login');
         }
@@ -68,103 +64,96 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold">MEI Finance</CardTitle>
-            <CardDescription>
-              Crie sua conta e organize suas finanças PJ e PF
-            </CardDescription>
-          </CardHeader>
+    <main className="min-h-screen flex items-center justify-center p-4 bg-zinc-50 dark:bg-zinc-900">
+      <div className="w-full max-w-sm space-y-6">
+        {/* Logo and Intro */}
+        <div className="text-center space-y-2 select-none">
+          <div className="inline-flex w-10 h-10 rounded-xl bg-emerald-500 text-white items-center justify-center font-bold text-base shadow-sm">
+            MF
+          </div>
+          <h1 className="text-xl font-bold tracking-tight text-gray-950 dark:text-white">Criar Nova Conta</h1>
+          <p className="text-xs text-zinc-400">
+            Gerencie suas finanças PJ e PF no mesmo lugar.
+          </p>
+        </div>
 
-          <CardContent>
-            {error && (
-              <div className="mb-4 text-sm text-red-500">
-                {error}
-              </div>
-            )}
+        <GlowCard className="p-6">
+          {error && (
+            <div className="mb-4 text-xs text-red-500 bg-red-50 dark:bg-red-950/20 px-3 py-2 rounded-lg border border-red-100 dark:border-red-900/50">
+              {error}
+            </div>
+          )}
 
-            {success && (
-              <div className="mb-4 text-sm text-green-500">
-                {success}
-              </div>
-            )}
+          {success && (
+            <div className="mb-4 text-xs text-green-500 bg-green-50 dark:bg-green-950/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-900/50">
+              {success}
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome Completo</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  required
-                  disabled={loading}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Ex: Carlos Silva"
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1">
+              <GlowLabel htmlFor="name">Nome Completo</GlowLabel>
+              <GlowInput
+                id="name"
+                type="text"
+                required
+                disabled={loading}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Carlos Silva"
+              />
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail de Acesso</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  disabled={loading}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Ex: carlos@email.com"
-                />
-              </div>
+            <div className="space-y-1">
+              <GlowLabel htmlFor="email">E-mail de Acesso</GlowLabel>
+              <GlowInput
+                id="email"
+                type="email"
+                required
+                disabled={loading}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="carlos@email.com"
+              />
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="cnpj">CNPJ (Opcional)</Label>
-                <Input
-                  id="cnpj"
-                  type="text"
-                  disabled={loading}
-                  value={cnpj}
-                  onChange={(e) => setCnpj(e.target.value)}
-                  placeholder="Ex: 12.345.678/0001-99"
-                />
-              </div>
+            <div className="space-y-1">
+              <GlowLabel htmlFor="cnpj">CNPJ (Opcional)</GlowLabel>
+              <GlowInput
+                id="cnpj"
+                type="text"
+                disabled={loading}
+                value={cnpj}
+                onChange={(e) => setCnpj(e.target.value)}
+                placeholder="12.345.678/0001-99"
+              />
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha (mínimo 6 dígitos)</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  disabled={loading}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                />
-              </div>
+            <div className="space-y-1">
+              <GlowLabel htmlFor="password">Senha (mínimo 6 dígitos)</GlowLabel>
+              <GlowInput
+                id="password"
+                type="password"
+                required
+                disabled={loading}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Cadastrando...
-                  </>
-                ) : (
-                  'Cadastrar'
-                )}
-              </Button>
-            </form>
-          </CardContent>
+            <GlowButton type="submit" className="w-full" loading={loading}>
+              Cadastrar Conta
+            </GlowButton>
+          </form>
+        </GlowCard>
 
-          <CardFooter className="flex justify-center border-t pt-4">
-            <p className="text-xs text-muted-foreground">
-              Já tem uma conta?{' '}
-              <Link href="/login" className="text-primary hover:underline font-semibold">
-                Entrar
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
+        <p className="text-center text-xs text-zinc-400 select-none">
+          Já possui cadastro?{' '}
+          <Link href="/login" className="text-emerald-500 hover:text-emerald-600 font-semibold underline">
+            Entrar
+          </Link>
+        </p>
       </div>
     </main>
   );

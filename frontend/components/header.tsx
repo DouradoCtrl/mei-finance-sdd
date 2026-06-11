@@ -2,20 +2,12 @@
 
 import React, { type ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 const BREADCRUMB_LABELS: Record<string, string> = {
   dashboard: 'Dashboard',
-  receitas: 'Receitas',
+  receitas: 'Fluxo de Caixa',
 };
 
 interface HeaderProps {
@@ -46,33 +38,28 @@ export function Header({ children }: HeaderProps) {
   ];
 
   return (
-    <header className="relative z-50 bg-background flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 lg:px-6">
+    <header className="relative bg-white dark:bg-zinc-950 flex h-16 shrink-0 items-center justify-between gap-2 border-b border-zinc-200/50 dark:border-zinc-800/80 px-6 select-none z-10">
       <div className="flex items-center gap-2">
-        <SidebarTrigger className="-ml-1" />
-        <Separator
-          orientation="vertical"
-          className="mx-2 data-[orientation=vertical]:h-4"
-        />
-        <Breadcrumb className="hidden sm:flex">
-          <BreadcrumbList>
+        <nav className="hidden sm:flex" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500 font-medium">
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={idx}>
-                {idx > 0 && <BreadcrumbSeparator />}
-                <BreadcrumbItem>
+                {idx > 0 && <ChevronRight className="size-3.5 text-zinc-300 dark:text-zinc-700" />}
+                <li>
                   {crumb.isLast ? (
-                    <BreadcrumbPage className="text-sm font-medium">
+                    <span className="text-zinc-900 dark:text-zinc-100 font-semibold">
                       {crumb.label}
-                    </BreadcrumbPage>
+                    </span>
                   ) : (
-                    <BreadcrumbLink href={crumb.href} className="text-sm">
+                    <Link href={crumb.href} className="hover:text-zinc-650 dark:hover:text-zinc-300 transition-colors">
                       {crumb.label}
-                    </BreadcrumbLink>
+                    </Link>
                   )}
-                </BreadcrumbItem>
+                </li>
               </React.Fragment>
             ))}
-          </BreadcrumbList>
-        </Breadcrumb>
+          </ol>
+        </nav>
       </div>
 
       {children && (

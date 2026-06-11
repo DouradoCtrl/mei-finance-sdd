@@ -4,11 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { Loader2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { GlowCard, GlowInput, GlowLabel, GlowButton } from '@/components/custom/GlowUI';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,7 +34,7 @@ export default function LoginPage() {
         setSuccess('Acesso concedido! Carregando painel...');
         setTimeout(() => {
           router.push('/dashboard');
-        }, 1500);
+        }, 1200);
       }
     } catch (err: any) {
       setError('Ocorreu um erro ao tentar acessar. Tente novamente.');
@@ -47,78 +43,71 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold">MEI Finance</CardTitle>
-            <CardDescription>
-              Gerencie suas contas PJ e PF de forma inteligente
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent>
-            {error && (
-              <div className="mb-4 text-sm text-red-500">
-                {error}
-              </div>
-            )}
+    <main className="min-h-screen flex items-center justify-center p-4 bg-zinc-50 dark:bg-zinc-900">
+      <div className="w-full max-w-sm space-y-6">
+        {/* Logo and Intro */}
+        <div className="text-center space-y-2 select-none">
+          <div className="inline-flex w-10 h-10 rounded-xl bg-emerald-500 text-white items-center justify-center font-bold text-base shadow-sm">
+            MF
+          </div>
+          <h1 className="text-xl font-bold tracking-tight text-gray-950 dark:text-white">Acessar MEI Finance</h1>
+          <p className="text-xs text-zinc-400">
+            Gerencie suas finanças PJ e PF no mesmo lugar.
+          </p>
+        </div>
 
-            {success && (
-              <div className="mb-4 text-sm text-green-500">
-                {success}
-              </div>
-            )}
+        <GlowCard className="p-6">
+          {error && (
+            <div className="mb-4 text-xs text-red-500 bg-red-50 dark:bg-red-950/20 px-3 py-2 rounded-lg border border-red-100 dark:border-red-900/50">
+              {error}
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  disabled={loading}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Ex: carlos@email.com"
-                />
-              </div>
+          {success && (
+            <div className="mb-4 text-xs text-green-500 bg-green-50 dark:bg-green-950/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-900/50">
+              {success}
+            </div>
+          )}
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  disabled={loading}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1">
+              <GlowLabel htmlFor="email">E-mail</GlowLabel>
+              <GlowInput
+                id="email"
+                type="email"
+                required
+                disabled={loading}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="carlos@email.com"
+              />
+            </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Acessando...
-                  </>
-                ) : (
-                  'Entrar'
-                )}
-              </Button>
-            </form>
-          </CardContent>
-          
-          <CardFooter className="flex justify-center border-t pt-4">
-            <p className="text-xs text-muted-foreground">
-              Ainda não tem cadastro?{' '}
-              <Link href="/register" className="text-primary hover:underline font-semibold">
-                Criar conta
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
+            <div className="space-y-1">
+              <GlowLabel htmlFor="password">Senha</GlowLabel>
+              <GlowInput
+                id="password"
+                type="password"
+                required
+                disabled={loading}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
+
+            <GlowButton type="submit" className="w-full" loading={loading}>
+              Entrar na Conta
+            </GlowButton>
+          </form>
+        </GlowCard>
+
+        <p className="text-center text-xs text-zinc-400 select-none">
+          Ainda não tem cadastro?{' '}
+          <Link href="/register" className="text-emerald-500 hover:text-emerald-600 font-semibold underline">
+            Criar conta
+          </Link>
+        </p>
       </div>
     </main>
   );
