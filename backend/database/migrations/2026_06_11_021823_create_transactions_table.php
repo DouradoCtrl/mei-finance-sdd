@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->string('source');
             $table->string('classification')->default('pending');
+            $table->string('bank_name')->nullable();
+            $table->string('alias')->nullable();
             $table->string('fit_id')->nullable();
             $table->timestamps();
 
