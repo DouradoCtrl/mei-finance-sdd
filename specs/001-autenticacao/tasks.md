@@ -1,93 +1,82 @@
-# Tasks: Cadastro e Login de Usuário (Laravel + Next.js)
+# Tasks: Cadastro e Login de Usuário (Refatoração de Validação)
 
 **Input**: Design documents from `/specs/001-autenticacao/`
 
-**Prerequisites**: plan.md (required), spec.md (required), data-model.md, contracts/auth-api.md, quickstart.md
-
-**Tests**: Testes manuais integrados conforme guia `quickstart.md`.
+**Organization**: As tarefas abaixo estão organizadas por histórias de usuário para permitir a refatoração e validação incrementais.
 
 ---
 
-## Phase 1: Setup (Infraestrutura Compartilhada)
+## Phase 1: Setup (Shared Infrastructure)
 
-**Purpose**: Inicialização dos subprojetos Frontend e Backend e instalação de dependências.
+**Purpose**: N/A - O projeto já está inicializado.
 
-- [x] T001 Inicializar o projeto Laravel API na pasta `backend/`
-- [x] T002 Inicializar o projeto Next.js (com TypeScript e App Router) na pasta `frontend/`
-
----
-
-## Phase 2: Foundational (Prerequisitos Bloqueantes)
-
-**Purpose**: Configuração do SQLite, migrações e ativação do Laravel Sanctum.
-
-**⚠️ CRITICAL**: Nenhuma tarefa das histórias de usuário pode começar até que esta fase termine.
-
-- [x] T003 Configurar conexão SQLite no arquivo `backend/.env` e ativar as dependências padrão do Laravel Sanctum
-- [x] T004 Criar migration para adicionar o campo `cnpj` (opcional) à tabela `users` do Laravel e rodar `php artisan migrate`
-
-**Checkpoint**: Banco de dados e autenticação Sanctum prontos no backend.
+- [x] T001 Estrutura do projeto inicializada e configurada
 
 ---
 
-## Phase 3: User Story 1 - Cadastro de Novo Usuário MEI (Priority: P1) 🎯 MVP
+## Phase 2: Foundational (Blocking Prerequisites)
 
-**Goal**: Permitir que novos usuários se cadastrem no sistema fornecendo Nome, E-mail, Senha e CNPJ.
+**Purpose**: N/A - Banco de dados e infraestrutura de rotas de API e middleware já integrados.
 
-**Independent Test**: Cadastrar um usuário via endpoint POST `/api/register` e verificar se a linha com o hash da senha foi criada na tabela `users` do SQLite e se o token é retornado.
+- [x] T002 Banco de dados PostgreSQL rodando via Docker
+- [x] T003 Rotas de API e middleware Sanctum configurados no backend
+
+---
+
+## Phase 3: User Story 1 - Cadastro de Novo Usuário (Priority: P1) 🎯 MVP
+
+**Goal**: Refatorar a página de Cadastro para remover validações client-side, permitindo que a API do Laravel valide os dados e exiba as mensagens sob os inputs correspondentes ou via toast.
+
+**Independent Test**: Tentar cadastrar um usuário com campos vazios, senhas menores de 6 dígitos ou CNPJ inválido e garantir que as mensagens de erro retornadas pela API aparecem debaixo de cada input específico.
 
 ### Implementation for User Story 1
 
-- [x] T005 [US1] Criar validação de dados usando Request Validator do Laravel em `backend/app/Http/Requests/RegisterRequest.php`
-- [x] T006 [US1] Criar o controlador de autenticação e implementar o método `register` (criando o usuário com hash de senha e retornando o token do Sanctum) em `backend/app/Http/Controllers/AuthController.php`
-- [x] T007 [US1] Mapear a rota pública `/api/register` em `backend/routes/api.php`
-- [x] T008 [US1] Criar a página Next.js de cadastro com formulário e validações em `frontend/src/app/register/page.tsx`
-- [x] T009 [US1] Implementar no Next.js o envio dos dados do formulário de cadastro para a API e redirecionamento de sucesso em `frontend/src/app/register/page.tsx`
+- [x] T004 [P] [US1] Remover validações locais de formato e atributo `required` dos inputs de formulário em `frontend/app/register/page.tsx`
+- [x] T005 [US1] Adicionar estado `fieldErrors` para capturar os erros da API em `frontend/app/register/page.tsx`
+- [x] T006 [US1] Ajustar o retorno de erros do formulário para exibir mensagens individuais de Form Request (`data.name`, `data.email`, `data.cnpj`, `data.password`) abaixo dos inputs correspondentes em `frontend/app/register/page.tsx`
+- [x] T007 [US1] Integrar alertas gerais de erro de cadastro com notificações flutuantes usando a biblioteca `sonner` em `frontend/app/register/page.tsx`
 
-**Checkpoint**: Cadastro de usuário está totalmente funcional e integrado ponta a ponta.
+**Checkpoint**: A página de cadastro está totalmente integrada à validação da API e renderizando erros abaixo dos campos de forma responsiva.
 
 ---
 
 ## Phase 4: User Story 2 - Login Seguro (Priority: P1)
 
-**Goal**: Autenticar o usuário cadastrado gerando um token do Sanctum e permitindo acesso à Dashboard.
+**Goal**: Refatorar a página de Login para remover atributos `required`, delegando a validação para o Laravel Form Request e renderizando erros abaixo dos campos e toasts para falhas gerais de credenciais.
 
-**Independent Test**: Fazer login pelo frontend, salvar o token no cookie/localStorage e verificar se a página `/dashboard` renderiza as informações do usuário.
+**Independent Test**: Tentar logar com dados vazios e verificar os avisos abaixo dos campos. Tentar logar com credenciais inválidas e verificar o surgimento do toast.
 
 ### Implementation for User Story 2
 
-- [x] T010 [US2] Implementar a validação de login e geração de token Sanctum em `backend/app/Http/Controllers/AuthController.php`
-- [x] T011 [US2] Mapear a rota pública `/api/login` em `backend/routes/api.php`
-- [x] T012 [US2] Criar a página de login no Next.js em `frontend/src/app/login/page.tsx`
-- [x] T013 [US2] Implementar lógica de envio de credenciais no Next.js, salvando o token recebido no cookie/localStorage in `frontend/src/app/login/page.tsx`
-- [x] T014 [US2] Criar a página de Dashboard protegida contra acessos não autenticados (verificando o token ativo) em `frontend/src/app/dashboard/page.tsx`
+- [x] T008 [P] [US2] Remover atributos `required` dos inputs de formulário em `frontend/app/login/page.tsx`
+- [x] T009 [US2] Adicionar estado `fieldErrors` para mapear erros estruturados em `frontend/app/login/page.tsx`
+- [x] T010 [US2] Alterar `handleSubmit` em `frontend/app/login/page.tsx` para chamar o serviço direto de `login` da API e interceptar `ApiError` com status 422 (erros de campo) ou 401 (erro de credenciais)
+- [x] T011 [US2] Mapear e exibir os erros individuais abaixo dos inputs de e-mail e senha em `frontend/app/login/page.tsx`
+- [x] T012 [US2] Exibir o erro de credenciais incorretas (mensagem geral vinda da API) via Toast da biblioteca `sonner` em `frontend/app/login/page.tsx`
 
-**Checkpoint**: Login e proteção de rotas funcionando em todo o sistema.
+**Checkpoint**: O formulário de login está refatorado e exibe erros específicos sob os inputs ou toasters flutuantes para falhas de credenciais gerais.
 
 ---
 
 ## Phase 5: User Story 3 - Logout (Priority: P2)
 
-**Goal**: Permitir que o usuário saia de sua conta de forma segura, invalidando o token no backend.
+**Goal**: Verificar o funcionamento correto do encerramento de sessão.
 
-**Independent Test**: Clicar no botão "Sair", verificar se o token é excluído da tabela `personal_access_tokens` do SQLite e garantir que a página `/dashboard` seja inacessível.
+**Independent Test**: Clicar no botão "Sair" e confirmar redirecionamento com revogação do token.
 
 ### Implementation for User Story 3
 
-- [x] T015 [US3] Implementar o método `logout` (excluindo o token atual do Sanctum) na rota protegida `/api/logout` em `backend/app/Http/Controllers/AuthController.php` e `backend/routes/api.php`
-- [x] T016 [US3] Adicionar botão de logout no Next.js que envia a requisição para a API de logout, limpa o token local e redireciona para `/login` em `frontend/src/app/dashboard/page.tsx`
-
-**Checkpoint**: Fluxo de logout completo e seguro.
+- [x] T013 [US3] Validar que o fluxo de logout destrói a sessão no NextAuth e realiza a chamada de revogação no backend sem interrupções
 
 ---
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-**Purpose**: Melhorias de estilo, responsividade, tratamento de erros elegante no Next.js e documentação.
+**Purpose**: Verificações de build e testes automatizados.
 
-- [x] T017 [P] Estilizar as telas de Login, Cadastro e Dashboard com um tema escuro moderno, transições suaves e alertas de feedback usando CSS Modules em `frontend/src/styles/`
-- [x] T018 Criar o arquivo `README.md` na raiz do projeto com as instruções de execução e inicialização do Laravel e do Next.js
-- [x] T019 Validar todos os cenários de teste descritos em `specs/001-autenticacao/quickstart.md`
+- [x] T014 Rodar suíte de testes de autenticação no backend: `docker compose exec backend php artisan test --filter=AuthAttributesTest`
+- [x] T015 Rodar verificação de tipos estáticos no frontend: `npx tsc --noEmit` na pasta `frontend`
+- [x] T016 Rodar linter no frontend: `npm run lint` na pasta `frontend`
 
 ---
 
@@ -95,21 +84,11 @@
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: Inicia imediatamente.
-- **Foundational (Phase 2)**: Depende de Phase 1 (configura pacotes e inicializa banco).
-- **User Story 1 (Phase 3)**: Depende de Phase 2.
-- **User Story 2 (Phase 4)**: Depende de Phase 3 (precisa de usuários cadastrados para poder logar).
-- **User Story 3 (Phase 5)**: Depende de Phase 4.
-- **Polish (Phase 6)**: Rodado ao final de todas as histórias.
+- **User Story 1 (Phase 3)** e **User Story 2 (Phase 4)** dependem apenas da execução das tarefas desta refatoração, sem bloqueio mútuo direto (podem rodar em paralelo ou sequencialmente).
+- **Polish (Phase 6)** depende da conclusão da refatoração das telas de cadastro e login.
 
 ---
 
-## Implementation Strategy
+## Parallel Opportunities
 
-### MVP First (User Story 1 & 2)
-
-1. Concluir Setup e Foundational (T001, T002, T003, T004).
-2. Concluir cadastro de usuário (T005 a T009) -> Testar.
-3. Concluir login e token Sanctum (T010 a T014) -> Testar.
-4. **VALIDAÇÃO MVP:** Testar se um usuário cadastrado consegue logar e ter acesso à página restrita.
-5. Finalizar Logout e Estilos.
+- As refatorações de login (`Phase 4`) e de cadastro (`Phase 3`) mexem em arquivos completamente diferentes e isolados, permitindo desenvolvimento em paralelo sem gerar conflitos de merge.
