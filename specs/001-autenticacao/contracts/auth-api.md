@@ -86,7 +86,7 @@ Este documento define os endpoints expostos pela API do Laravel para autenticaç
 ```json
 {
   "success": true,
-  "message": null,
+  "message": "Logado com sucesso",
   "data": {
     "token": "2|sanctum_token_value_abc...",
     "usuario": {
