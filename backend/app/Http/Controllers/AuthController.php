@@ -52,7 +52,7 @@ class AuthController extends Controller
         return $this->successResponse([
             'token' => $result['token'],
             'usuario' => new UserResource($result['user'])
-        ]);
+        ], 'Login realizado com sucesso.', 200);
     }
 
     /**
