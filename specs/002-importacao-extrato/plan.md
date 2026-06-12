@@ -96,6 +96,9 @@ frontend/                # Projeto Next.js
 #### [MODIFY] [TransactionResource.php](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/backend/app/Http/Resources/TransactionResource.php)
 - Incluir `bank_name` e `alias` no payload retornado para o frontend.
 
+#### [MODIFY] [ConfirmTransactionsRequest.php](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/backend/app/Http/Requests/ConfirmTransactionsRequest.php)
+- Adicionar regras de validação para `bank_name` (nullable|string) e `alias` (nullable|string) para evitar que o Laravel remova esses atributos nas operações de confirmação.
+
 #### [NEW] [AliasRequest.php](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/backend/app/Http/Requests/AliasRequest.php)
 - Criar validação para o campo `alias` (string, max 255, nullable).
 
