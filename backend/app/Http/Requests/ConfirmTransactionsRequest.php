@@ -27,6 +27,8 @@ class ConfirmTransactionsRequest extends FormRequest
             'transactions.*.source' => 'required|string|in:checking_account,credit_card',
             'transactions.*.classification' => 'required|string|in:pending,business_pj,personal_pf,transfer',
             'transactions.*.fit_id' => 'nullable|string',
+            'transactions.*.bank_name' => 'nullable|string',
+            'transactions.*.alias' => 'nullable|string',
         ];
     }
 }
