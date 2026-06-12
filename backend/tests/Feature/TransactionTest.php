@@ -248,4 +248,95 @@ OFX;
         $transaction->refresh();
         $this->assertEquals('personal_pf', $transaction->classification);
     }
+
+    public function test_user_can_filter_transactions(): void
+    {
+        $user = User::factory()->create();
+
+        // Transaction 1
+        Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-01',
+            'description' => 'SUPERMERCADO',
+            'amount' => -150.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+            'bank_name' => 'Nubank',
+        ]);
+
+        // Transaction 2
+        Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'SERVICO TI',
+            'amount' => 3000.00,
+            'source' => 'checking_account',
+            'classification' => 'business_pj',
+            'bank_name' => 'Itaú',
+            'alias' => 'Faturamento Web',
+        ]);
+
+        // Test filter by bank_name
+        $response = $this->actingAs($user)
+            ->getJson('/api/transactions?bank_name=Nubank');
+        $response->assertStatus(200);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.description', 'SUPERMERCADO');
+
+        // Test filter by search query (description)
+        $response = $this->actingAs($user)
+            ->getJson('/api/transactions?search=super');
+        $response->assertStatus(200);
+        $response->assertJsonCount(1, 'data');
+
+        // Test filter by search query (alias)
+        $response = $this->actingAs($user)
+            ->getJson('/api/transactions?search=Web');
+        $response->assertStatus(200);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.description', 'SERVICO TI');
+
+        // Test filter by start_date / end_date
+        $response = $this->actingAs($user)
+            ->getJson('/api/transactions?start_date=2026-06-05&end_date=2026-06-15');
+        $response->assertStatus(200);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.description', 'SERVICO TI');
+    }
+
+    public function test_user_can_update_transaction_alias(): void
+    {
+        $user = User::factory()->create();
+        $transaction = Transaction::create([
+            'user_id' => $user->id,
+            'transaction_date' => '2026-06-10',
+            'description' => 'CONTA DE AGUA',
+            'amount' => -80.00,
+            'source' => 'checking_account',
+            'classification' => 'personal_pf',
+        ]);
+
+        // Update alias
+        $response = $this->actingAs($user)
+            ->patchJson("/api/transactions/{$transaction->id}/alias", [
+                'alias' => 'SABESP Casa',
+            ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonPath('success', true);
+        $response->assertJsonPath('data.alias', 'SABESP Casa');
+
+        $transaction->refresh();
+        $this->assertEquals('SABESP Casa', $transaction->alias);
+
+        // Can also clear alias (set to null)
+        $response = $this->actingAs($user)
+            ->patchJson("/api/transactions/{$transaction->id}/alias", [
+                'alias' => null,
+            ]);
+
+        $response->assertStatus(200);
+        $transaction->refresh();
+        $this->assertNull($transaction->alias);
+    }
 }
