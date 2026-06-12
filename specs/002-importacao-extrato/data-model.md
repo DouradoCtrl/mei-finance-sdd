@@ -43,6 +43,8 @@ Armazena os registros individuais de transações extraídas de extratos bancár
 - `transactions.*.source`: obrigatório, string, deve ser `checking_account` ou `credit_card`.
 - `transactions.*.classification`: obrigatório, string, deve pertencer a [`pending`, `business_pj`, `personal_pf`, `transfer`].
 - `transactions.*.fit_id`: opcional, string.
+- `transactions.*.bank_name`: opcional, string, nullable.
+- `transactions.*.alias`: opcional, string, nullable.
 
 ### 3. Apelido (`PATCH /api/transactions/{id}/alias`):
 - `alias`: opcional, string, max 255, nullable.
