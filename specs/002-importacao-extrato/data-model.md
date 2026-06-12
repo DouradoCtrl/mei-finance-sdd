@@ -14,8 +14,10 @@ Armazena os registros individuais de transações extraídas de extratos bancár
 | `user_id` | foreignId | NOT NULL, FOREIGN KEY (`users`.`id`), CASCADE | Usuário proprietário |
 | `transaction_date` | date | NOT NULL | Data em que a transação ocorreu |
 | `description` | string | NOT NULL | Descrição da transação |
+| `alias` | string | NULL | Apelido amigável definido pelo usuário |
 | `amount` | decimal (15, 2) | NOT NULL | Valor monetário (positivo p/ receitas, negativo p/ despesas) |
 | `source` | string | NOT NULL | Origem do registro: `checking_account` ou `credit_card` |
+| `bank_name` | string | NULL | Nome da instituição financeira / banco extraído do OFX |
 | `classification` | string | NOT NULL, DEFAULT 'pending' | Classificação do item (`pending`, `business_pj`, `personal_pf`, `transfer`) |
 | `fit_id` | string | NULL | ID único fornecido no arquivo OFX (FITID) para evitar duplicidades |
 | `created_at` | timestamp | NULL | Data de criação do registro |
@@ -24,7 +26,6 @@ Armazena os registros individuais de transações extraídas de extratos bancár
 ### Índices:
 - `user_id`: para busca rápida e isolamento de dados por usuário.
 - `fit_id` (Index Único por Usuário): garante que o mesmo FITID do arquivo OFX nunca seja importado duas vezes para o mesmo usuário.
-- Índice composto de Fallback (`user_id`, `transaction_date`, `description`, `amount`): usado para detectar duplicidades em importações via texto bruto (onde o `fit_id` é nulo).
 
 ---
 
@@ -32,9 +33,7 @@ Armazena os registros individuais de transações extraídas de extratos bancár
 
 ### 1. Parsing (`POST /api/transactions/parse`):
 - `source`: obrigatório, string, valor deve ser `checking_account` ou `credit_card`.
-- `format`: obrigatório, string, valor deve ser `ofx` ou `text`.
-- `raw_text`: opcional (obrigatório se `format` for `text`), string.
-- `file`: opcional (obrigatório se `format` for `ofx`), arquivo `.ofx` válido (tamanho máx: 5MB).
+- `file`: obrigatório, arquivo `.ofx` válido (tamanho máx: 5MB).
 
 ### 2. Confirmação (`POST /api/transactions/confirm`):
 - `transactions`: obrigatório, array.
@@ -44,3 +43,6 @@ Armazena os registros individuais de transações extraídas de extratos bancár
 - `transactions.*.source`: obrigatório, string, deve ser `checking_account` ou `credit_card`.
 - `transactions.*.classification`: obrigatório, string, deve pertencer a [`pending`, `business_pj`, `personal_pf`, `transfer`].
 - `transactions.*.fit_id`: opcional, string.
+
+### 3. Apelido (`PATCH /api/transactions/{id}/alias`):
+- `alias`: opcional, string, max 255, nullable.
