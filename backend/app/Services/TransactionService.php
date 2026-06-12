@@ -38,8 +38,10 @@ class TransactionService
                     'user_id' => $user->id,
                     'transaction_date' => $txData['transaction_date'],
                     'description' => $txData['description'],
+                    'alias' => $txData['alias'] ?? null,
                     'amount' => $txData['amount'],
                     'source' => $txData['source'],
+                    'bank_name' => $txData['bank_name'] ?? null,
                     'classification' => $txData['classification'],
                     'fit_id' => $fitId,
                 ]);
@@ -74,6 +76,23 @@ class TransactionService
 
         if ($transaction) {
             $transaction->update(['classification' => $classification]);
+            return $transaction;
+        }
+
+        return null;
+    }
+
+    /**
+     * Atualiza o apelido (alias) de uma transação se ela pertencer ao usuário informado.
+     */
+    public function updateAlias(User $user, int $transactionId, ?string $alias): ?Transaction
+    {
+        $transaction = Transaction::where('user_id', $user->id)
+            ->where('id', $transactionId)
+            ->first();
+
+        if ($transaction) {
+            $transaction->update(['alias' => $alias]);
             return $transaction;
         }
 
