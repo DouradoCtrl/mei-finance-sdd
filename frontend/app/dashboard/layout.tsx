@@ -78,16 +78,20 @@ export default function DashboardLayout({
   }, [segments]);
 
   const handleLogout = async () => {
+    let message = 'Sessão encerrada com sucesso!';
     try {
       const token = (session as any)?.accessToken;
       if (token) {
-        await logout(token);
+        const response = await logout(token);
+        if (response && response.success && response.message) {
+          message = response.message;
+        }
       }
     } catch (e) {
       // Silenciosamente ignora erros de rede para assegurar que o logout no cliente ocorra de qualquer forma
     }
     await signOut({ redirect: false });
-    toast.success('Sessão encerrada com sucesso!');
+    toast.success(message);
     router.push('/login');
   };
 
