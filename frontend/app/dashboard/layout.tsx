@@ -24,6 +24,8 @@ const BREADCRUMB_LABELS: Record<string, string> = {
 };
 import { cn } from '@/lib/utils';
 import { GlowButton } from '@/components/custom/GlowUI';
+import { toast } from 'sonner';
+import { logout } from '@/services/auth.service';
 
 export default function DashboardLayout({
   children,
@@ -76,7 +78,16 @@ export default function DashboardLayout({
   }, [segments]);
 
   const handleLogout = async () => {
+    try {
+      const token = (session as any)?.accessToken;
+      if (token) {
+        await logout(token);
+      }
+    } catch (e) {
+      // Silenciosamente ignora erros de rede para assegurar que o logout no cliente ocorra de qualquer forma
+    }
     await signOut({ redirect: false });
+    toast.success('Sessão encerrada com sucesso!');
     router.push('/login');
   };
 
