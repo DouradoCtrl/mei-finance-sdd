@@ -41,6 +41,26 @@ class TransactionController extends Controller
             $query->where('classification', $request->query('classification'));
         }
 
+        if ($request->filled('start_date')) {
+            $query->whereDate('transaction_date', '>=', $request->query('start_date'));
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('transaction_date', '<=', $request->query('end_date'));
+        }
+
+        if ($request->filled('bank_name')) {
+            $query->where('bank_name', $request->query('bank_name'));
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->query('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('description', 'like', "%{$search}%")
+                  ->orWhere('alias', 'like', "%{$search}%");
+            });
+        }
+
         $transactions = $query->orderBy('transaction_date', 'desc')->get();
 
         return $this->successResponse(
@@ -124,6 +144,28 @@ class TransactionController extends Controller
         return $this->successResponse(
             new \App\Http\Resources\TransactionResource($transaction),
             'Transação reclassificada com sucesso.'
+        );
+    }
+
+    /**
+     * Atualiza o apelido (alias) de uma transação existente.
+     */
+    public function updateAlias(\App\Http\Requests\AliasRequest $request, int $id)
+    {
+        $validated = $request->validated();
+        $transaction = $this->transactionService->updateAlias(
+            $request->user(),
+            $id,
+            $validated['alias']
+        );
+
+        if (!$transaction) {
+            return $this->errorResponse('Transação não encontrada ou acesso não autorizado.', 404);
+        }
+
+        return $this->successResponse(
+            new \App\Http\Resources\TransactionResource($transaction),
+            'Apelido da transação atualizado com sucesso.'
         );
     }
 }

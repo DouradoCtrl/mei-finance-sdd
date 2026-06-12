@@ -15,6 +15,12 @@ class BankStatementParserService
     {
         $transactions = [];
 
+        // Extrai a organização / banco do extrato
+        $bankName = null;
+        if (preg_match('/<ORG>([^<\r\n]+)/i', $content, $bankMatch)) {
+            $bankName = html_entity_decode(trim($bankMatch[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        }
+
         // Encontra todos os blocos <STMTTRN>...</STMTTRN>
         preg_match_all('/<STMTTRN>(.*?)<\/STMTTRN>/is', $content, $matches);
 
@@ -39,8 +45,10 @@ class BankStatementParserService
             $transactions[] = [
                 'transaction_date' => $date,
                 'description' => html_entity_decode(trim($description), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                'alias' => null,
                 'amount' => $amount,
                 'source' => $source,
+                'bank_name' => $bankName,
                 'classification' => 'pending',
                 'fit_id' => $fitId,
                 'is_duplicate' => false,
