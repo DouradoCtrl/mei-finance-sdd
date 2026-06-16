@@ -70,10 +70,48 @@ Como testador ou usuário, eu quero que a rota inicial `/` sirva como um index c
 
 ---
 
+### User Story 5 - Menu Flutuante macOS Navigation Dock (Priority: P1)
+
+Como usuário autenticado, eu quero navegar pela aplicação utilizando um menu suspenso flutuante em formato de Dock semelhante ao do macOS no rodapé centralizado da tela, para que a navegação seja moderna, visualmente limpa (substituindo sidebars rígidas) e contenha micro-animações elegantes.
+
+**Independent Test**: Acessar o Dashboard e verificar a presença do Dock flutuante no rodapé centralizado, inspecionando visualmente se os ícones elevam e aumentam ao passar o mouse (hover) e se o ponto indicador (LED verde) é exibido apenas abaixo da rota correspondente ativa.
+
+**Acceptance Scenarios**:
+1. **Given** que o usuário está no Dashboard, **When** ele passa o cursor do mouse sobre os ícones do Dock, **Then** o ícone deve subir (`translateY(-6px)`) e aumentar (`scale(1.15)`) de tamanho de forma suave com um tooltip explicativo aparecendo acima dele.
+2. **Given** que o usuário está navegando na rota `/dashboard`, **When** o Dock é renderizado, **Then** deve aparecer um ponto luminoso verde (LED neon) centralizado sob o ícone de Dashboard.
+3. **Given** que o usuário clica no botão "Sair" do Dock, **When** a ação é disparada, **Then** a sessão deve ser destruída e o usuário redirecionado ao login de forma autônoma.
+
+---
+
+### User Story 6 - Toasts com Glassmorphism iOS e Margem Ampliada (Priority: P2)
+
+Como usuário do sistema, eu quero que as notificações Toasts flutuem no canto inferior direito com um visual glassmorphic (vidro translúcido) e um recuo generoso das bordas da tela, para que tenham um design alinhado ao ecossistema do macOS/iOS e não obstruam conteúdos colados aos limites da tela.
+
+**Independent Test**: Disparar um Toast de aviso e certificar-se de que ele renderiza com cantos redondos de 20px, fundo desfocado semi-transparente, e um distanciamento perceptível de 32px das bordas da tela.
+
+**Acceptance Scenarios**:
+1. **Given** que um Toast é disparado, **When** ele surge na tela, **Then** ele deve flutuar no canto inferior direito e ter um distanciamento de `32px` tanto da borda direita quanto da borda inferior.
+2. **Given** que o Toast está ativo, **When** o fundo da tela se move sob o Toast, **Then** deve ser perceptível o efeito de desfoque de vidro (`backdrop-blur`) com bordas finas com leve glow correspondente ao status (verde para sucesso, vermelho para erro).
+
+---
+
+### User Story 7 - Mensagens de Feedback Dinâmicas da API (Priority: P1)
+
+Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, login, logout) e as validações de campos venham em tempo real do backend Laravel, para que o front-end reflita com precisão o estado de validação de negócios e evite mensagens estáticas/hardcoded.
+
+**Independent Test**: Submeter formulários vazios (sem atributo `required`) e verificar que os Toasts e os textos de erro exibidos abaixo dos campos correspondem exatamente às mensagens do JSON de resposta HTTP retornado pelo Laravel.
+
+**Acceptance Scenarios**:
+1. **Given** que a API do Laravel retorna `"Sessão encerrada com sucesso."` no logout, **When** o usuário é redirecionado ao login, **Then** o Toast de login deve exibir essa mensagem exata capturada do backend.
+2. **Given** que o usuário tenta submeter o formulário de login em branco, **When** a requisição retorna da API, **Then** os erros de validação do Laravel para e-mail e senha devem ser exibidos sob cada campo correspondente.
+
+---
+
 ### Edge Cases
 
 - **Preferências do Sistema Operacional (Prefers Color Scheme)**: Se o usuário tiver uma preferência de cor nativa no sistema operacional, ela deve ser ignorada para forçar o tema escuro padrão do MEI Finance, a menos que uma opção explícita de troca de tema seja implementada futuramente.
 - **Contraste de Acessibilidade (WCAG)**: Ao utilizar o tema escuro com verde, as cores de texto sobrepostas ao verde (ex: texto dentro do botão primário) devem ter contraste suficiente para conformidade de leitura.
+- **Duplicação de Toasts no StrictMode**: O front-end deve usar técnicas de limpeza (ex: `window.history.replaceState`) ao ler mensagens de query strings para que remontagens do componente React em modo de desenvolvimento não causem disparos de Toasts duplicados.
 
 ---
 
@@ -88,6 +126,11 @@ Como testador ou usuário, eu quero que a rota inicial `/` sirva como um index c
 - **FR-005**: As variáveis de borda (`--border`), entrada (`--input`) e anel de foco (`--ring`) MUST ser adaptadas para harmonizar com a paleta escura e verde.
 - **FR-006**: Todas as reestilizações de cores e temas MUST ser declaradas estritamente nos arquivos de configuração global (`nextjs/app/globals.css` e `nextjs/tailwind.config.ts`), sem alterar os arquivos em `nextjs/components/ui/*`.
 - **FR-007**: A rota raiz `/` MUST exibir um portal de navegação contendo atalhos e cards elegantes para as páginas `/login`, `/register` e `/dashboard`.
+- **FR-008**: O painel principal (Dashboard) MUST utilizar um menu em formato de Dock flutuante no rodapé centralizado no estilo macOS para navegação interna e logout.
+- **FR-009**: O Dock MUST exibir animações de elevação (`translateY(-6px)`) e redimensionamento (`scale(1.15)`) no hover de cada item, tooltips superiores e um ponto luminoso de LED verde esmeralda sob o ícone ativo.
+- **FR-010**: Os Toasts do sistema MUST possuir design glassmorphic de alta transparência com desfoque de fundo (blur) e ser posicionados no canto inferior direito com um distanciamento de `32px` da borda do viewport e padding interno ampliado de `16px 24px`.
+- **FR-011**: O front-end MUST delegar a validação ao backend Laravel removendo atributos `required` HTML5 e exibindo dinamicamente as mensagens retornadas nos Toasts ou blocos de erro por campo.
+- **FR-012**: O front-end MUST limpar parâmetros da URL como `?message=...` imediatamente após lê-los para evitar Toasts duplicados no StrictMode do React.
 
 ---
 
@@ -97,6 +140,10 @@ Como testador ou usuário, eu quero que a rota inicial `/` sirva como um index c
 
 - **SC-001**: 100% das páginas da aplicação (`/`, `/login`, `/register`, `/dashboard`, etc.) carregam no tema escuro por padrão na primeira visita.
 - **SC-002**: A cor verde definida é exibida consistentemente em todos os botões primários, links ativos e estados de foco de inputs da aplicação.
-- **SC-003**: A taxa de conformidade de contraste WCAG AA (mínimo de 4.5:1 para texto normal e 3:1 para elementos gráficos) deve ser atendida em todas as combinações de cores principais (ex: texto sobre botão primário verde e texto claro sobre fundo escuro).
+- **SC-003**: A taxa de conformidade de contraste WCAG AA (mínimo de 4.5:1 para texto normal e 3:1 para elementos gráficos) deve ser atendida em todas as combinações de cores principais.
 - **SC-004**: Zero (0) linhas de código nos arquivos da pasta `components/ui/*` são alteradas para aplicar a identidade visual.
 - **SC-005**: A navegação da página inicial leva o usuário com sucesso a qualquer uma das páginas com apenas 1 clique.
+- **SC-006**: O Dock de navegação flutua centralizado no rodapé do Dashboard, responde a interações de hover de forma responsiva e indica a página ativa de forma inequívoca com um ponto de LED.
+- **SC-007**: Os Toasts de sucesso e erro utilizam 100% as mensagens dinâmicas retornadas da API do Laravel.
+- **SC-008**: Toasts são disparados uma única vez por fluxo, sem duplicidades na tela de login ou dashboard devido a remontagens de componentes.
+- **SC-009**: O Toaster exibe notificações no canto inferior direito com margem (offset) de 32px e padding interno de `16px 24px`, alinhado ao guia visual do macOS/iOS.

@@ -45,7 +45,12 @@ specs/002-identidade-visual/
 - **[MODIFY] [register/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/register/page.tsx)**: Reestruturação da tela de registro para layout de cartão único centralizado, glows verdes no background e inputs com foco neon verde.
 
 ### 4. Painel pós-autenticação
-- **[MODIFY] [dashboard/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/dashboard/page.tsx)**: Navbar semitransparente com desfoque de vidro, glows de fundo no painel e cards de dados com animação suave de elevação (`hover:-translate-y-0.5`).
+- **[MODIFY] [dashboard/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/dashboard/page.tsx)**: Header transparente com desfoque de vidro, glows de fundo no painel e cards de dados com animação suave de elevação. Inclusão da área de segurança inferior (`pb-28`) para o Dock.
+- **[NEW] [navigation-dock.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/components/navigation-dock.tsx)**: Componente de menu flutuante em formato de Dock no rodapé centralizado no estilo do macOS. Contém elevação interativa e tooltips no hover, ponto luminoso LED esmeralda sob o item da página ativa e botão de logout integrado.
+
+### 5. Sistema de Notificações (Toasts)
+- **[MODIFY] [providers.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/providers.tsx)**: Posicionamento do Toaster ajustado para o canto inferior direito (`bottom-right`).
+- **[MODIFY] [globals.css](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/globals.css)**: Estilização do Toast `.cn-toast` com design glassmorphic de alta transparência, cantos arredondados (20px), padding de `16px 24px` e offset das bordas do viewport de `32px` via `--toast-viewport-padding`.
 
 ---
 
@@ -58,5 +63,6 @@ specs/002-identidade-visual/
   ```
 
 ### Verificação Manual (no Navegador)
-- Confirmar as capturas de tela das páginas de login, registro, toast de sucesso e dashboard em tema verde com glows e gradientes.
+- Confirmar visualmente através de capturas de tela as páginas `/`, `/login`, `/register` e `/dashboard` no tema verde premium.
+- Validar se o Dock de navegação flutua corretamente e reflete a página atual, bem como se os Toasts de login, registro e logout do Laravel aparecem de forma única e limpa no estilo macOS no canto inferior direito.
 - Confirmar que nenhum arquivo em `nextjs/components/ui/*` foi modificado.
