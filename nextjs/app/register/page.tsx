@@ -48,10 +48,7 @@ export default function RegisterPage() {
 
     if (response.success) {
       const successMsg = response.message || "Cadastro realizado com sucesso.";
-      toast.success(successMsg);
-      setTimeout(() => {
-        router.push(`/login?message=${encodeURIComponent(successMsg)}`);
-      }, 1500);
+      router.push(`/login?message=${encodeURIComponent(successMsg)}`);
     } else {
       setLoading(false);
       if (response.data && typeof response.data === "object") {
