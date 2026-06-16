@@ -36,19 +36,24 @@ export default function DashboardPage() {
   const isAdmin = user.role === "admin";
 
   const handleLogout = async () => {
+    let apiMessage = "Sessão encerrada com sucesso.";
     try {
       // Invalidate Sanctum token on backend through BFF proxy
-      await fetch("/api/proxy/logout", {
+      const response = await fetch("/api/proxy/logout", {
         method: "POST",
         headers: {
           "Accept": "application/json",
         }
       });
+      const data = await response.json();
+      if (data && data.message) {
+        apiMessage = data.message;
+      }
     } catch (error) {
       console.error("Failed to invalidate token in backend:", error);
     } finally {
       // Clear session in frontend and redirect to login
-      signOut({ callbackUrl: "/login?loggedout=true" });
+      signOut({ callbackUrl: `/login?message=${encodeURIComponent(apiMessage)}` });
     }
   };
 

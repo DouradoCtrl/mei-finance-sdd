@@ -24,14 +24,9 @@ function LoginForm() {
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
   useEffect(() => {
-    if (searchParams.get("registered") === "true") {
-      toast.success("Cadastro realizado!", {
-        description: "Utilize suas credenciais para acessar a plataforma.",
-      });
-    } else if (searchParams.get("loggedout") === "true") {
-      toast.success("Sessão encerrada!", {
-        description: "Você saiu do sistema com sucesso.",
-      });
+    const message = searchParams.get("message");
+    if (message) {
+      toast.success(message);
     }
   }, [searchParams]);
 
@@ -65,9 +60,7 @@ function LoginForm() {
         if (response.data && typeof response.data === "object") {
           setErrors(response.data as { [key: string]: string[] });
         } else {
-          toast.error("Falha na Autenticação", {
-            description: response.message || "E-mail ou senha incorretos.",
-          });
+          toast.error(response.message || "E-mail ou senha incorretos.");
         }
         return;
       }

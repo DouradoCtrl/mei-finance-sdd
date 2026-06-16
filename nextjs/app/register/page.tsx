@@ -47,20 +47,17 @@ export default function RegisterPage() {
     const response = await registerAccountant(formData);
 
     if (response.success) {
-      toast.success("Cadastro Realizado!", {
-        description: "Conta de contador criada com sucesso. Redirecionando...",
-      });
+      const successMsg = response.message || "Cadastro realizado com sucesso.";
+      toast.success(successMsg);
       setTimeout(() => {
-        router.push("/login?registered=true");
+        router.push(`/login?message=${encodeURIComponent(successMsg)}`);
       }, 1500);
     } else {
       setLoading(false);
       if (response.data && typeof response.data === "object") {
         setErrors(response.data);
       } else {
-        toast.error("Erro no cadastro", {
-          description: response.message || "Erro inesperado ao realizar o cadastro.",
-        });
+        toast.error(response.message || "Erro inesperado ao realizar o cadastro.");
       }
     }
   };
