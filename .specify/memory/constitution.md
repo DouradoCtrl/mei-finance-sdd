@@ -1,17 +1,12 @@
 <!--
 SYNC IMPACT REPORT
-- Version Change: 1.2.0 -> 1.3.0 (MINOR)
-- Bump Rationale: Redefining Frontend Architecture to enforce Shadcn UI (Radix UI) and adopt a BFF (Backend-for-Frontend) flow with HttpOnly cookies, unidirectional flow, and delegated validation to Laravel API (preventing double validation).
+- Version Change: 1.3.0 -> 1.3.1 (PATCH)
+- Bump Rationale: Standardized frontend UX pattern for validation error placement (below inputs) and general API messages (as Shadcn UI toasts).
 - Modified Principles:
-  * IV. Arquitetura do Frontend Next.js e Consumo de API (Updated to enforce Shadcn UI, BFF route handlers, and delegated validation).
-  * VI. Fluxo de Trabalho Git e Padrões de Commit
-- Added Sections:
-  * V. Desenvolvimento Orientado a Especificações (SDD)
+  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Added validation error and toast feedback guideline)
+- Added Sections: None.
 - Removed Sections: None.
-- Templates requiring updates:
-  * .specify/templates/plan-template.md (✅ updated - verified)
-  * .specify/templates/spec-template.md (✅ updated - verified)
-  * .specify/templates/tasks-template.md (✅ updated - verified)
+- Templates requiring updates: None.
 - Follow-up TODOs: None.
 -->
 
@@ -71,6 +66,8 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 *   **Camada de Serviços (Services):** É estritamente proibido realizar chamadas HTTP diretas (como `fetch`, `axios`, etc.) dentro de arquivos de página (`page.tsx`). Toda comunicação entre o frontend e o backend ou APIs externas deve ser encapsulada e orquestrada de forma exclusiva dentro das classes de serviço correspondentes (`services/`), com as páginas consumindo apenas esses serviços.
 *   **Fluxo de Comunicação Unidirecional (BFF):** A arquitetura de comunicação deve seguir estritamente o fluxo sequencial: `Página (page.tsx)` ➔ `Serviço (service)` ➔ `API do Next.js (BFF / Route Handler)` ➔ `API do Laravel`.
 *   **Validação Delegada ao Laravel:** A API do Next.js (BFF) atua apenas como um proxy seguro. Não é necessário realizar validações adicionais de dados ou de resposta na camada da API do Next.js, pois a validação de regras de negócio e de entrada é responsabilidade exclusiva da API do Laravel. As respostas do Laravel (mensagens de erro, validações e dados) devem ser retornadas e repassadas diretamente pelo BFF para o frontend sem alterações.
+*   **Tratamento de Validação e Feedback Visual:** No frontend, as mensagens de erro de validação de formulários vindas das requests do Laravel (status 422) devem ser exibidas diretamente abaixo de seus respectivos inputs. Mensagens de feedback globais ou erros gerais da API devem ser exibidas na forma de alertas flutuantes temporários (toasts) utilizando o componente Toast do Shadcn UI.
+
 
 ### V. Desenvolvimento Orientado a Especificações (SDD)
 Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolvimento deve seguir estritamente o ciclo do Spec Kit (Especificação -> Planejamento Técnico -> Tarefas -> Implementação). As especificações guiarão a implementação arquitetural e toda a documentação técnica deve ser sempre escrita em **Português**.
@@ -96,4 +93,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 *   Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 *   As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou Models.
 
-**Version**: 1.3.0 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-15
+**Version**: 1.3.1 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-15
