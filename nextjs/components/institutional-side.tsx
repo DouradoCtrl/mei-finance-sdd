@@ -34,7 +34,7 @@ export function InstitutionalSide() {
   ];
 
   return (
-    <div className="hidden lg:flex lg:col-span-5 flex-col justify-between p-12 relative overflow-hidden bg-slate-900/10 dark:bg-white/2 border-r border-slate-900/5 dark:border-white/5 backdrop-blur-3xl min-h-screen">
+    <div className="hidden lg:flex lg:col-span-6 flex-col justify-between p-12 relative overflow-hidden bg-slate-900/10 dark:bg-white/2 border-r border-slate-900/5 dark:border-white/5 backdrop-blur-3xl min-h-screen">
       {/* Background radial glows inside side panel */}
       <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-emerald-500/5 dark:bg-emerald-500/8 rounded-full blur-[70px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-emerald-500/3 dark:bg-emerald-500/5 rounded-full blur-[70px] pointer-events-none" />
@@ -62,7 +62,7 @@ export function InstitutionalSide() {
 
         <ul className="space-y-3.5">
           {benefits.map((benefit, idx) => (
-            <li key={idx} className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-350">
+            <li key={idx} className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
               <div className="mt-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 p-1 text-emerald-600 dark:text-emerald-400">
                 <Check className="h-3.5 w-3.5" strokeWidth={3} />
               </div>

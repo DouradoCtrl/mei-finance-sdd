@@ -67,7 +67,7 @@ export default function RegisterPage() {
       <InstitutionalSide />
 
       {/* Form Panel (Occupies remaining space) */}
-      <div className="col-span-1 lg:col-span-7 flex flex-col justify-center items-center p-6 sm:p-12 relative">
+      <div className="col-span-1 lg:col-span-6 flex flex-col justify-center items-center p-6 sm:p-12 relative">
         {/* Floating Theme Switcher */}
         <div className="absolute top-6 right-6 z-50">
           <ThemeToggle />
