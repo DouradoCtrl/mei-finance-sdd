@@ -131,12 +131,36 @@
   }
 }
 
-/* Custom Premium Toaster Styling */
+/* Custom Premium Toaster Styling (iOS Glass Style) */
 .cn-toast {
-  background: rgba(9, 9, 11, 0.75) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  background: rgba(15, 23, 42, 0.6) !important; /* Slate escura bem transparente */
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: oklch(0.98 0.01 150) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.15) !important;
-  border-radius: 1rem !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset !important;
+  border-radius: 20px !important;
+  padding: 14px 20px !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+}
+
+/* Success iOS Toast */
+.cn-toast[data-type="success"] {
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 10px rgba(16, 185, 129, 0.1) !important;
+}
+
+.cn-toast[data-type="success"] svg {
+  color: oklch(0.65 0.18 145) !important; /* Emerald green */
+}
+
+/* Error iOS Toast */
+.cn-toast[data-type="error"] {
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 10px rgba(239, 68, 68, 0.1) !important;
+}
+
+.cn-toast[data-type="error"] svg {
+  color: oklch(0.6 0.18 25) !important; /* Red */
 }
