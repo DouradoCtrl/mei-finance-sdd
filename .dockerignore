@@ -1,0 +1,11 @@
+.git
+.docker
+node_modules
+vendor
+laravel/vendor
+laravel/.env
+nextjs/node_modules
+nextjs/.next
+nextjs/.env
+*.log
+.DS_Store

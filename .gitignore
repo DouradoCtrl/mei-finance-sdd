@@ -3,32 +3,32 @@
 
 # Environment files
 .env
-backend/.env
-frontend/.env.local
-frontend-nuxt/.env
-
+laravel/.env
+nextjs/.env
+nextjs/.env.local
+nextjs/.env.development.local
+nextjs/.env.test.local
+nextjs/.env.production.local
 
 # Dependency directories
 node_modules/
 vendor/
+laravel/vendor/
+nextjs/node_modules/
 
 # OS metadata
 .DS_Store
 Thumbs.db
 
 # Laravel specific
-backend/bootstrap/cache/
-backend/storage/
-backend/database/*.sqlite
+laravel/bootstrap/cache/
+laravel/storage/
+laravel/database/*.sqlite
 
 # Next.js specific
-frontend/.next/
-frontend/out/
+nextjs/.next/
+nextjs/out/
 
 # Reference Projects
 nextjs-spring-consumer/
 
-# Nuxt specific
-frontend-nuxt/.nuxt/
-frontend-nuxt/.output/
-frontend-nuxt/node_modules/
