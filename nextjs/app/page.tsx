@@ -11,13 +11,13 @@ export default function Home() {
       </div>
 
       {/* Background Liquid Blobs (Minimalist and subtle) */}
-      <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-sky-500/3 dark:bg-sky-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1 dark:opacity-0" />
+      <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-emerald-500/3 dark:bg-emerald-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2 dark:opacity-0" />
 
       <div className="max-w-4xl w-full space-y-12 relative z-10 text-center">
         {/* Header */}
         <div className="space-y-4">
-          <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/20 mb-2 select-none">
+          <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-600 text-white items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/20 mb-2 select-none">
             $
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">

@@ -46,11 +46,11 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
       <div className={cn(
         "flex items-center gap-3 px-4 py-3 rounded-3xl relative transition-all duration-300",
-        "bg-white/60 dark:bg-slate-950/35",
+        "bg-white/60 dark:bg-white/5",
         "backdrop-blur-2xl",
-        "border border-slate-900/5 dark:border-white/10",
+        "border border-slate-900/5 dark:border-white/8",
         "shadow-[0_12px_40px_rgba(12,28,20,0.06),_inset_0_1px_1px_rgba(255,255,255,0.8)]",
-        "dark:shadow-[0_12px_40px_rgba(0,0,0,0.7),_inset_0_1px_1px_rgba(255,255,255,0.15)]"
+        "dark:shadow-[0_12px_36px_rgba(0,0,0,0.12),_inset_0_1px_1px_rgba(255,255,255,0.08)]"
       )}>
         {items.map((item, idx) => {
           const Icon = item.icon;

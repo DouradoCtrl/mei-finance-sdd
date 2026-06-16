@@ -86,34 +86,34 @@
 }
 
 .dark {
-  --background: oklch(0.15 0.008 160); /* Less dark, smooth obsidian green background */
-  --foreground: oklch(0.98 0.003 160); /* Silver off-white text */
-  --card: oklch(0.18 0.008 160 / 0.35); /* Translucent dark emerald glass card */
-  --card-foreground: oklch(0.98 0.003 160);
-  --popover: oklch(0.18 0.008 160 / 0.85);
-  --popover-foreground: oklch(0.98 0.003 160);
-  --primary: oklch(0.78 0.12 160); /* Radiant shiny green */
-  --primary-foreground: oklch(0.06 0.002 160); /* Deep charcoal green text contrast */
-  --secondary: oklch(0.22 0.008 160 / 0.5);
-  --secondary-foreground: oklch(0.98 0.003 160);
-  --muted: oklch(0.20 0.008 160 / 0.4);
-  --muted-foreground: oklch(0.65 0.005 160);
-  --accent: oklch(0.25 0.01 160 / 0.5);
-  --accent-foreground: oklch(0.98 0.003 160);
+  --background: oklch(0.27 0.008 240); /* Discord dark mode background (#313338) */
+  --foreground: oklch(0.93 0.004 240); /* Discord light text */
+  --card: oklch(0.24 0.006 240 / 0.45); /* Discord dark sidebar glass card (#2b2d31) */
+  --card-foreground: oklch(0.93 0.004 240);
+  --popover: oklch(0.24 0.006 240 / 0.85);
+  --popover-foreground: oklch(0.93 0.004 240);
+  --primary: oklch(0.78 0.12 160); /* Shiny green highlight */
+  --primary-foreground: oklch(0.06 0.002 160);
+  --secondary: oklch(0.28 0 0 / 0.35);
+  --secondary-foreground: oklch(0.93 0 0);
+  --muted: oklch(0.28 0 0 / 0.25);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.28 0 0 / 0.3);
+  --accent-foreground: oklch(0.93 0 0);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.98 0.003 160 / 0.08);
-  --input: oklch(0.98 0.003 160 / 0.04);
-  --ring: oklch(0.78 0.12 160 / 0.5); /* Glowing silver-green focus ring */
-  --sidebar: oklch(0.18 0.008 160 / 0.4);
-  --sidebar-foreground: oklch(0.98 0.003 160);
+  --border: oklch(0.93 0 0 / 0.08);
+  --input: oklch(0.93 0 0 / 0.04);
+  --ring: oklch(0.78 0.12 160 / 0.5); /* Glowing emerald-green focus ring */
+  --sidebar: oklch(0.28 0 0 / 0.4);
+  --sidebar-foreground: oklch(0.93 0 0);
   --sidebar-primary: oklch(0.78 0.12 160);
   --sidebar-primary-foreground: oklch(0.06 0.002 160);
-  --sidebar-accent: oklch(0.22 0.008 160 / 0.5);
-  --sidebar-accent-foreground: oklch(0.98 0.003 160);
-  --sidebar-border: oklch(0.98 0.003 160 / 0.08);
+  --sidebar-accent: oklch(0.28 0 0 / 0.35);
+  --sidebar-accent-foreground: oklch(0.93 0 0);
+  --sidebar-border: oklch(0.93 0 0 / 0.08);
   --sidebar-ring: oklch(0.78 0.12 160 / 0.5);
-  --shadow-card: 0 12px 45px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25); /* Deep dark shadow */
+  --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1); /* Minimalist dark shadow */
 }
 
 @layer base {
@@ -182,10 +182,10 @@
 }
 
 .dark .cn-toast {
-  background: rgba(15, 23, 42, 0.5) !important; /* Frosted slate glass in dark mode */
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  color: oklch(0.98 0.003 160) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08) inset !important;
+  background: rgba(30, 31, 34, 0.65) !important; /* Discord dark glass (#1e1f22) */
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: oklch(0.93 0.004 240) !important; /* Discord light text */
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.06) inset !important;
 }
 
 /* Ajustar distanciamento do Toaster das bordas da tela */
@@ -200,8 +200,8 @@
 }
 
 .dark .cn-toast[data-type="success"] {
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45), 0 0 10px rgba(16, 185, 129, 0.08) !important;
 }
 
 .cn-toast[data-type="success"] svg {
@@ -209,7 +209,7 @@
 }
 
 .dark .cn-toast[data-type="success"] svg {
-  color: oklch(0.92 0.005 160) !important; /* Silver highlight */
+  color: oklch(0.78 0.12 160) !important; /* Emerald green highlight */
 }
 
 /* Error iOS Toast */
@@ -355,27 +355,27 @@ textarea:focus-visible {
 .dark .btn-liquid-glass {
   background: linear-gradient(
     135deg,
-    rgba(52, 211, 153, 0.9) 0%,
-    rgba(16, 185, 129, 0.78) 100%
+    rgba(16, 185, 129, 0.92) 0%,
+    rgba(5, 150, 105, 0.85) 100%
   ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  color: #061a10 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.2),
-    0 2px 4px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    0 4px 10px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 
 .dark .btn-liquid-glass:hover {
   background: linear-gradient(
     135deg,
-    rgba(52, 211, 153, 1) 0%,
-    rgba(16, 185, 129, 0.9) 100%
+    rgba(16, 185, 129, 1) 0%,
+    rgba(4, 120, 87, 0.95) 100%
   ) !important;
   box-shadow: 
-    0 8px 24px rgba(52, 211, 153, 0.25),
-    0 4px 8px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    0 8px 20px rgba(16, 185, 129, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
 .btn-liquid-glass:active {

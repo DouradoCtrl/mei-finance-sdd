@@ -53,14 +53,14 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col relative overflow-hidden transition-colors duration-300">
       {/* Background Liquid Blobs */}
-      <div className="absolute top-0 right-1/4 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[90px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-0 left-1/4 w-[350px] h-[350px] bg-sky-500/3 dark:bg-sky-500/4 rounded-full blur-[90px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-0 right-1/4 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[90px] pointer-events-none liquid-blob-1 dark:opacity-0" />
+      <div className="absolute bottom-0 left-1/4 w-[350px] h-[350px] bg-emerald-500/3 dark:bg-emerald-500/4 rounded-full blur-[90px] pointer-events-none liquid-blob-2 dark:opacity-0" />
 
       {/* Top Navbar */}
       <header className="border-b border-slate-900/5 dark:border-white/5 bg-background/60 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-emerald-500/20 select-none">
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-emerald-500/20 select-none">
               $
             </div>
             <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
@@ -70,7 +70,7 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-4">
             <div className="flex flex-col text-right">
-              <span className="text-sm font-medium text-slate-800 dark:text-slate-250">{user.name}</span>
+              <span className="text-sm font-medium text-slate-800 dark:text-emerald-400">{user.name}</span>
               <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">{user.role}</span>
             </div>
             <div className="w-px h-6 bg-slate-900/10 dark:bg-white/10 mx-1" />

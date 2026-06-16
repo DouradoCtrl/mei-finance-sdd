@@ -68,13 +68,13 @@ export default function RegisterPage() {
       </div>
 
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-sky-500/3 dark:bg-sky-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1 dark:opacity-0" />
+      <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-emerald-500/3 dark:bg-emerald-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2 dark:opacity-0" />
 
       <div className="w-full max-w-lg space-y-6 relative z-10">
         {/* Logo and title */}
         <div className="text-center space-y-2 select-none">
-          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white items-center justify-center font-bold text-xl shadow-lg shadow-emerald-500/20 mb-2">
+          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-600 text-white items-center justify-center font-bold text-xl shadow-lg shadow-emerald-500/20 mb-2">
             $
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">MEI Finance</h1>
