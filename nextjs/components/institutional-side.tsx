@@ -29,7 +29,7 @@ export function InstitutionalSide() {
   const ActiveIcon = BENEFITS[currentIndex].icon;
 
   return (
-    <div className="hidden lg:flex lg:col-span-6 flex-col justify-between p-12 relative overflow-hidden bg-slate-900/10 dark:bg-white/2 border-r border-slate-900/5 dark:border-white/5 backdrop-blur-3xl min-h-screen">
+    <div className="hidden lg:flex lg:col-span-6 flex-col justify-between p-12 relative overflow-hidden bg-slate-900/10 dark:bg-black/25 border-r border-slate-900/5 dark:border-white/5 backdrop-blur-3xl min-h-screen">
       {/* Background radial glows inside side panel */}
       <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-emerald-500/5 dark:bg-emerald-500/8 rounded-full blur-[70px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-emerald-500/3 dark:bg-emerald-500/5 rounded-full blur-[70px] pointer-events-none" />
@@ -58,7 +58,7 @@ export function InstitutionalSide() {
       </div>
 
       {/* Bottom Carousel of Benefits */}
-      <div className="relative z-10 bg-white/40 dark:bg-white/5 border border-black/5 dark:border-white/8 rounded-2xl p-8 shadow-md shadow-black/5 dark:shadow-black/20 backdrop-blur-xl backdrop-saturate-[180%] min-h-[160px] flex flex-col justify-center">
+      <div className="relative z-10 liquid-glass-card rounded-2xl p-8 min-h-[160px] flex flex-col justify-center">
         <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-4 select-none">
           Destaques e Benefícios
         </span>

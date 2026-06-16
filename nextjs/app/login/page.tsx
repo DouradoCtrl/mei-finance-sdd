@@ -118,7 +118,21 @@ function LoginForm() {
 
       {/* Password */}
       <div className="grid gap-1.5 text-left">
-        <Label htmlFor="password" className="text-slate-700 dark:text-slate-300 text-xs font-semibold uppercase tracking-wider">Senha</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="password" className="text-slate-700 dark:text-slate-300 text-xs font-semibold uppercase tracking-wider">Senha</Label>
+          <Link
+            href="#"
+            className="text-xs font-semibold text-emerald-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-slate-200 transition-colors hover:underline"
+            onClick={(e) => {
+              e.preventDefault();
+              toast.info("Recuperação de senha", {
+                description: "O fluxo de recuperação de senha está em desenvolvimento."
+              });
+            }}
+          >
+            Esqueceu a senha?
+          </Link>
+        </div>
         <Input
           id="password"
           type="password"
@@ -171,7 +185,7 @@ export default function LoginPage() {
         <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1 dark:opacity-0" />
         <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-emerald-500/3 dark:bg-emerald-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2 dark:opacity-0" />
 
-        <div className="w-full max-w-md space-y-6 relative z-10">
+        <div className="w-full max-w-lg space-y-6 relative z-10">
           {/* Logo and title (Only visible on mobile/tablet) */}
           <div className="text-center space-y-2 select-none lg:hidden">
             <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-600 text-white items-center justify-center font-bold text-xl shadow-lg shadow-emerald-500/20 mb-2">
