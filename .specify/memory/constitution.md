@@ -1,9 +1,9 @@
 <!--
 SYNC IMPACT REPORT
-- Version Change: 1.3.0 -> 1.3.1 (PATCH)
-- Bump Rationale: Standardized frontend UX pattern for validation error placement (below inputs) and general API messages (as Shadcn UI toasts).
+- Version Change: 1.3.1 -> 1.3.2 (PATCH)
+- Bump Rationale: Adicionadas diretrizes de estilo para a Identidade Visual Verde Premium com tema escuro padrão, gradientes, radial glows, glassmorphism e estilização customizada não-invasiva no Toaster.
 - Modified Principles:
-  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Added validation error and toast feedback guideline)
+  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Adicionado item de Identidade Visual Verde e Guia de Estilo Glassmorphic)
 - Added Sections: None.
 - Removed Sections: None.
 - Templates requiring updates: None.
@@ -67,6 +67,13 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 *   **Fluxo de Comunicação Unidirecional (BFF):** A arquitetura de comunicação deve seguir estritamente o fluxo sequencial: `Página (page.tsx)` ➔ `Serviço (service)` ➔ `API do Next.js (BFF / Route Handler)` ➔ `API do Laravel`.
 *   **Validação Delegada ao Laravel:** A API do Next.js (BFF) atua apenas como um proxy seguro. Não é necessário realizar validações adicionais de dados ou de resposta na camada da API do Next.js, pois a validação de regras de negócio e de entrada é responsabilidade exclusiva da API do Laravel. As respostas do Laravel (mensagens de erro, validações e dados) devem ser retornadas e repassadas diretamente pelo BFF para o frontend sem alterações.
 *   **Tratamento de Validação e Feedback Visual:** No frontend, as mensagens de erro de validação de formulários vindas das requests do Laravel (status 422) devem ser exibidas diretamente abaixo de seus respectivos inputs. Mensagens de feedback globais ou erros gerais da API devem ser exibidas na forma de alertas flutuantes temporários (toasts) utilizando o componente Toast do Shadcn UI.
+*   **Identidade Visual e Guia de Estilo (Tema Escuro e Verde Premium):**
+    - A aplicação possui tema escuro por padrão habilitado no `<html>` via classe `dark`.
+    - Toda a estilização deve seguir a paleta verde/esmeralda e cinza escuro florestal baseada estritamente nas variáveis do `globals.css` (como `--background`, `--foreground`, `--primary`, `--border`, `--ring`).
+    - Componentes atômicos e cartões devem possuir visual glassmorphic (vidro) semitransparente (`bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl shadow-xl shadow-emerald-500/2 transition-all hover:border-emerald-500/20 hover:-translate-y-0.5`).
+    - Os botões primários devem utilizar gradiente (`bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 hover:shadow-emerald-500/20 transition-all duration-300 active:scale-[0.98]`).
+    - Páginas devem conter glows radiais de fundo (`absolute bg-emerald-500/10 rounded-full blur-3xl pointer-events-none`).
+    - Toasts globais (Sonner Toaster) devem herdar o visual glassmorphic com glow verde através da classe `.cn-toast`.
 
 
 ### V. Desenvolvimento Orientado a Especificações (SDD)
@@ -93,4 +100,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 *   Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 *   As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou Models.
 
-**Version**: 1.3.1 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-15
+**Version**: 1.3.2 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-16
