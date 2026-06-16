@@ -28,6 +28,10 @@ function LoginForm() {
       toast.success("Cadastro realizado!", {
         description: "Utilize suas credenciais para acessar a plataforma.",
       });
+    } else if (searchParams.get("loggedout") === "true") {
+      toast.success("Sessão encerrada!", {
+        description: "Você saiu do sistema com sucesso.",
+      });
     }
   }, [searchParams]);
 

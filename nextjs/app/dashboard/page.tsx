@@ -48,7 +48,7 @@ export default function DashboardPage() {
       console.error("Failed to invalidate token in backend:", error);
     } finally {
       // Clear session in frontend and redirect to login
-      signOut({ callbackUrl: "/login" });
+      signOut({ callbackUrl: "/login?loggedout=true" });
     }
   };
 
