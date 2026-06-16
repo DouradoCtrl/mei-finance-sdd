@@ -1,9 +1,9 @@
 <!--
 SYNC IMPACT REPORT
-- Version Change: 1.3.1 -> 1.3.2 (PATCH)
-- Bump Rationale: Adicionadas diretrizes de estilo para a Identidade Visual Verde Premium com tema escuro padrão, gradientes, radial glows, glassmorphism e estilização customizada não-invasiva no Toaster.
+- Version Change: 1.3.2 -> 1.3.3 (PATCH)
+- Bump Rationale: Atualizadas diretrizes de estilo para adotar o fundo cinza do Discord no Dark Mode, botões/elementos em verde esmeralda, Toasts estilo Discord e ocultação de blobs secundários azuis.
 - Modified Principles:
-  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Adicionado item de Identidade Visual Verde e Guia de Estilo Glassmorphic)
+  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Atualização do Guia de Estilo para Discord Dark Mode e Verde Esmeralda)
 - Added Sections: None.
 - Removed Sections: None.
 - Templates requiring updates: None.
@@ -67,13 +67,13 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 *   **Fluxo de Comunicação Unidirecional (BFF):** A arquitetura de comunicação deve seguir estritamente o fluxo sequencial: `Página (page.tsx)` ➔ `Serviço (service)` ➔ `API do Next.js (BFF / Route Handler)` ➔ `API do Laravel`.
 *   **Validação Delegada ao Laravel:** A API do Next.js (BFF) atua apenas como um proxy seguro. Não é necessário realizar validações adicionais de dados ou de resposta na camada da API do Next.js, pois a validação de regras de negócio e de entrada é responsabilidade exclusiva da API do Laravel. As respostas do Laravel (mensagens de erro, validações e dados) devem ser retornadas e repassadas diretamente pelo BFF para o frontend sem alterações.
 *   **Tratamento de Validação e Feedback Visual:** No frontend, as mensagens de erro de validação de formulários vindas das requests do Laravel (status 422) devem ser exibidas diretamente abaixo de seus respectivos inputs. Mensagens de feedback globais ou erros gerais da API devem ser exibidas na forma de alertas flutuantes temporários (toasts) utilizando o componente Toast do Shadcn UI.
-*   **Identidade Visual e Guia de Estilo (Tema Escuro e Verde Premium):**
-    - A aplicação possui tema escuro por padrão habilitado no `<html>` via classe `dark`.
-    - Toda a estilização deve seguir a paleta verde/esmeralda e cinza escuro florestal baseada estritamente nas variáveis do `globals.css` (como `--background`, `--foreground`, `--primary`, `--border`, `--ring`).
-    - Componentes atômicos e cartões devem possuir visual glassmorphic (vidro) semitransparente (`bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl shadow-xl shadow-emerald-500/2 transition-all hover:border-emerald-500/20 hover:-translate-y-0.5`).
-    - Os botões primários devem utilizar gradiente (`bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 hover:shadow-emerald-500/20 transition-all duration-300 active:scale-[0.98]`).
-    - Páginas devem conter glows radiais de fundo (`absolute bg-emerald-500/10 rounded-full blur-3xl pointer-events-none`).
-    - Toasts globais (Sonner Toaster) devem herdar o visual glassmorphic com glow verde através da classe `.cn-toast`.
+*   **Identidade Visual e Guia de Estilo (Multitema com Fundo Discord e Verde Esmeralda):**
+    - A aplicação possui suporte a multitema gerenciado por `next-themes`, com tema escuro habilitado por padrão inicial.
+    - O Dark Mode utiliza a cor de fundo cinza escuro do Discord (`#313338` / `oklch(0.27 0.008 240)`) e os cartões de dados (Cards) seguem o estilo de vidro translúcido baseado na sidebar do Discord (`#2b2d31` com opacidade/blur) de forma minimalista.
+    - Toda a estilização e destaque primário devem seguir a paleta verde esmeralda financeiro (`oklch(0.48 0.15 160)` no claro e `oklch(0.78 0.12 160)` no escuro), aplicando-se consistentemente em botões principais, links ativos, estados de foco de inputs, indicador ativo do Dock e nome do usuário logado no cabeçalho.
+    - É terminantemente proibido o uso de tons e matizes de azul, ciano ou índigo na interface gráfica, com exceção do matiz cinza-azulado do Discord apenas para fundo e vidro.
+    - Os blobs coloridos flutuantes de background do Light Mode devem ser ocultados no Dark Mode (usando a classe `dark:opacity-0`) para manter um visual escuro limpo e focado.
+    - Toasts globais (Sonner Toaster) devem utilizar desfoque de vidro e herdar o fundo cinza Discord em modo escuro com bordas e ícone de sucesso em verde esmeralda.
 
 
 ### V. Desenvolvimento Orientado a Especificações (SDD)
@@ -100,4 +100,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 *   Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 *   As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou Models.
 
-**Version**: 1.3.2 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-16
+**Version**: 1.3.3 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-16

@@ -121,20 +121,20 @@ Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, lo
 ### Functional Requirements
 
 - **FR-001**: O sistema MUST integrar o `next-themes` com suporte a classes de tema (`attribute="class"`), definindo o Dark Mode como padrão inicial.
-- **FR-002**: O fundo da aplicação (`--background`) MUST ser configurado com tom carvão-esmeralda escuro no Dark Mode (`oklch(0.08 0.006 160)`) e prata-menta claro no Light Mode (`oklch(0.97 0.003 160)`).
-- **FR-003**: A cor primária (`--primary`) MUST ser definida com um tom de prata brilhante (`oklch(0.92 0.005 240)`) para destaques e botões primários.
+- **FR-002**: O fundo da aplicação (`--background`) MUST ser configurado com o tom cinza escuro do Discord no Dark Mode (`oklch(0.27 0.008 240)` / `#313338`) e prata-menta claro no Light Mode (`oklch(0.98 0.002 160)`).
+- **FR-003**: A cor primária (`--primary`) MUST ser definida com um tom verde esmeralda financeiro vibrante (`oklch(0.48 0.15 160)` em Light Mode e `oklch(0.78 0.12 160)` em Dark Mode) para botões principais unificados, links ativos, ícone de lua no switcher de tema e nome do administrador logado no header.
 - **FR-004**: O texto principal MUST ter contraste WCAG em ambos os temas.
-- **FR-005**: Os cartões de dados (Cards) MUST ser estilizados globalmente com efeito glassmorphic (vidro escurecido no Dark Mode e vidro branco brilhante no Light Mode) com desfoque de fundo de alta definição e bordas finas refletivas.
+- **FR-005**: Os cartões de dados (Cards) MUST ser estilizados globalmente com efeito glassmorphic (vidro baseado na sidebar do Discord no Dark Mode e vidro branco brilhante no Light Mode) com desfoque de fundo de alta definição e bordas finas refletivas.
 - **FR-006**: Todas as reestilizações de cores e temas MUST ser declaradas estritamente nos arquivos de configuração global (`nextjs/app/globals.css`), sem alterar os componentes originais de `nextjs/components/ui/*`.
 - **FR-007**: A rota raiz `/` MUST exibir um portal de navegação contendo atalhos e cards elegantes em vidro para as páginas `/login`, `/register` e `/dashboard`.
 - **FR-008**: O painel principal (Dashboard) MUST utilizar um menu em formato de Dock flutuante no rodapé centralizado no estilo macOS para navegação interna e logout.
-- **FR-009**: O Dock MUST exibir animações de elevação (`translateY(-6px)`) e redimensionamento (`scale(1.15)`) no hover, tooltips superiores e um ponto luminoso LED verde esmeralda sob o item ativo.
+- **FR-009**: O Dock MUST exibir animações de elevação (`translateY(-6px)`) e redimensionamento (`scale(1.15)`) no hover, tooltips superiores e um ponto luminoso LED verde esmeralda (`dark:bg-emerald-400` com glow correspondente) sob o item ativo.
 - **FR-010**: Os Toasts do sistema MUST possuir design glassmorphic de alta transparência e ser posicionados no canto inferior direito com offset de 32px e padding de `16px 24px`.
 - **FR-011**: O front-end MUST delegar a validação ao backend Laravel removendo atributos `required` HTML5 e exibindo dinamicamente as mensagens retornadas nos Toasts ou blocos de erro por campo.
 - **FR-012**: O front-end MUST limpar parâmetros da URL como `?message=...` imediatamente após lê-los para evitar Toasts duplicados no StrictMode do React.
-- **FR-013**: O sistema MUST exibir formas fluidas orgânicas no background (verde esmeralda e prata metálico/azul-celeste), animadas em câmera lenta (Liquid Wallpaper).
-- **FR-014**: Os inputs de formulários MUST adotar uma borda prateada nítida e um anel glow prateado líquido ao receberem o foco ou serem selecionados.
-- **FR-015**: O sistema MUST renderizar um botão de vidro flutuante de alternância de tema (Theme Toggle) contendo ícones dinâmicos de sol/lua no canto superior direito de todas as telas.
+- **FR-013**: O sistema MUST exibir formas fluidas orgânicas no background (verde esmeralda suave em Light Mode, ocultadas em Dark Mode com `dark:opacity-0` para manter o minimalismo limpo), eliminando qualquer uso de matiz azul (`sky`, `indigo` ou `cyan`).
+- **FR-014**: Os inputs de formulários MUST adotar uma borda nítida e um anel glow líquido verde esmeralda/prateado ao receberem o foco ou serem selecionados.
+- **FR-015**: O sistema MUST renderizar um botão de vidro flutuante de alternância de tema (Theme Toggle) contendo ícones dinâmicos de sol/lua (onde a lua acende em verde esmeralda no modo escuro) no canto superior direito de todas as telas.
 
 ---
 
@@ -143,7 +143,7 @@ Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, lo
 ### Measurable Outcomes
 
 - **SC-001**: 100% das páginas da aplicação (`/`, `/login`, `/register`, `/dashboard`, etc.) carregam no tema escuro por padrão na primeira visita.
-- **SC-002**: A cor prata definida é exibida consistentemente em todos os botões primários, links ativos e estados de foco de inputs da aplicação.
+- **SC-002**: A cor verde esmeralda financeira é exibida consistentemente em todos os botões primários, links ativos e destaques de foco de inputs da aplicação.
 - **SC-003**: A taxa de conformidade de contraste WCAG AA (mínimo de 4.5:1 para texto normal e 3:1 para elementos gráficos) deve ser atendida em todas as combinações de cores principais.
 - **SC-004**: Zero (0) linhas de código nos arquivos da pasta `components/ui/*` são alteradas para aplicar a identidade visual.
 - **SC-005**: A navegação da página inicial leva o usuário com sucesso a qualquer uma das páginas com apenas 1 clique.
@@ -154,4 +154,4 @@ Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, lo
 - **SC-010**: Os inputs de todas as telas exibem o destaque de borda e ring brilhante de foco ao serem selecionados por teclado ou clique.
 - **SC-011**: As formas fluidas no background são renderizadas e animadas continuamente sem causar lags ou problemas de performance na renderização.
 - **SC-012**: O usuário consegue alternar o tema do app clicando no botão flutuante, refletindo as alterações no background, cards, textos, inputs e toaster instantaneamente.
-- **SC-013**: A paleta de cores verde esmeralda e prata metálico é exibida de forma harmônica e integrada em ambos os temas.
+- **SC-013**: A paleta de cores verde esmeralda (primária) e cinza escuro Discord (background do dark mode) é exibida de forma harmônica e integrada em ambos os temas.
