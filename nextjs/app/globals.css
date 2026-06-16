@@ -49,69 +49,69 @@
 }
 
 :root {
-  --background: oklch(0.07 0.003 240); /* Deep obsidian Space Gray background */
-  --foreground: oklch(0.98 0.003 240); /* Silver off-white text */
-  --card: oklch(0.14 0.005 240 / 0.35); /* Translucent space gray glass card */
-  --card-foreground: oklch(0.98 0.003 240);
-  --popover: oklch(0.14 0.005 240 / 0.85);
-  --popover-foreground: oklch(0.98 0.003 240);
-  --primary: oklch(0.92 0.005 240); /* Shiny silver highlight */
-  --primary-foreground: oklch(0.06 0.002 240); /* Deep obsidian for contrast */
-  --secondary: oklch(0.16 0.005 240 / 0.5); /* Semi-transparent medium gray */
-  --secondary-foreground: oklch(0.98 0.003 240);
-  --muted: oklch(0.15 0.005 240 / 0.4);
-  --muted-foreground: oklch(0.65 0.005 240);
-  --accent: oklch(0.20 0.008 240 / 0.5);
-  --accent-foreground: oklch(0.98 0.003 240);
+  --background: oklch(0.97 0.003 160); /* Light mint/silver background */
+  --foreground: oklch(0.12 0.005 160); /* Deep charcoal green text */
+  --card: oklch(1 0 0 / 0.5); /* Frosted white glass card */
+  --card-foreground: oklch(0.12 0.005 160);
+  --popover: oklch(1 0 0 / 0.85);
+  --popover-foreground: oklch(0.12 0.005 160);
+  --primary: oklch(0.12 0.005 160); /* Deep charcoal green primary */
+  --primary-foreground: oklch(0.98 0.003 160);
+  --secondary: oklch(0.15 0.005 160 / 0.08);
+  --secondary-foreground: oklch(0.12 0.005 160);
+  --muted: oklch(0.15 0.005 160 / 0.05);
+  --muted-foreground: oklch(0.45 0.005 160);
+  --accent: oklch(0.12 0.005 160 / 0.08);
+  --accent-foreground: oklch(0.12 0.005 160);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.98 0.003 240 / 0.08); /* 8% white/silver border */
-  --input: oklch(0.98 0.003 240 / 0.04); /* 4% white/silver input background */
-  --ring: oklch(0.98 0.003 240 / 0.4); /* Glowing focus ring */
-  --chart-1: oklch(0.92 0.005 240);
-  --chart-2: oklch(0.75 0.005 240);
-  --chart-3: oklch(0.60 0.005 240);
-  --chart-4: oklch(0.45 0.005 240);
-  --chart-5: oklch(0.30 0.005 240);
+  --border: oklch(0.12 0.005 160 / 0.08); /* 8% dark border */
+  --input: oklch(0.12 0.005 160 / 0.03); /* 3% dark input bg */
+  --ring: oklch(0.65 0.15 160 / 0.4); /* Glowing emerald green focus ring */
+  --chart-1: oklch(0.65 0.15 160);
+  --chart-2: oklch(0.55 0.12 160);
+  --chart-3: oklch(0.45 0.09 160);
+  --chart-4: oklch(0.35 0.06 160);
+  --chart-5: oklch(0.25 0.03 160);
   --radius: 0.75rem;
-  --sidebar: oklch(0.14 0.005 240 / 0.4);
-  --sidebar-foreground: oklch(0.98 0.003 240);
-  --sidebar-primary: oklch(0.92 0.005 240);
-  --sidebar-primary-foreground: oklch(0.06 0.002 240);
-  --sidebar-accent: oklch(0.20 0.008 240 / 0.5);
-  --sidebar-accent-foreground: oklch(0.98 0.003 240);
-  --sidebar-border: oklch(0.98 0.003 240 / 0.08);
-  --sidebar-ring: oklch(0.98 0.003 240 / 0.4);
+  --sidebar: oklch(1 0 0 / 0.4);
+  --sidebar-foreground: oklch(0.12 0.005 160);
+  --sidebar-primary: oklch(0.12 0.005 160);
+  --sidebar-primary-foreground: oklch(0.98 0.003 160);
+  --sidebar-accent: oklch(0.12 0.005 160 / 0.08);
+  --sidebar-accent-foreground: oklch(0.12 0.005 160);
+  --sidebar-border: oklch(0.12 0.005 160 / 0.08);
+  --sidebar-ring: oklch(0.65 0.15 160 / 0.4);
 }
 
 .dark {
-  --background: oklch(0.07 0.003 240);
-  --foreground: oklch(0.98 0.003 240);
-  --card: oklch(0.14 0.005 240 / 0.35);
-  --card-foreground: oklch(0.98 0.003 240);
-  --popover: oklch(0.14 0.005 240 / 0.85);
-  --popover-foreground: oklch(0.98 0.003 240);
-  --primary: oklch(0.92 0.005 240);
-  --primary-foreground: oklch(0.06 0.002 240);
-  --secondary: oklch(0.16 0.005 240 / 0.5);
-  --secondary-foreground: oklch(0.98 0.003 240);
-  --muted: oklch(0.15 0.005 240 / 0.4);
-  --muted-foreground: oklch(0.65 0.005 240);
-  --accent: oklch(0.20 0.008 240 / 0.5);
-  --accent-foreground: oklch(0.98 0.003 240);
+  --background: oklch(0.08 0.006 160); /* Deep obsidian Charcoal Green background */
+  --foreground: oklch(0.98 0.003 160); /* Silver off-white text */
+  --card: oklch(0.12 0.005 160 / 0.35); /* Translucent dark emerald glass card */
+  --card-foreground: oklch(0.98 0.003 160);
+  --popover: oklch(0.12 0.005 160 / 0.85);
+  --popover-foreground: oklch(0.98 0.003 160);
+  --primary: oklch(0.92 0.005 160); /* Shiny silver highlight */
+  --primary-foreground: oklch(0.06 0.002 160); /* Deep charcoal green text contrast */
+  --secondary: oklch(0.16 0.005 160 / 0.5);
+  --secondary-foreground: oklch(0.98 0.003 160);
+  --muted: oklch(0.15 0.005 160 / 0.4);
+  --muted-foreground: oklch(0.65 0.005 160);
+  --accent: oklch(0.20 0.008 160 / 0.5);
+  --accent-foreground: oklch(0.98 0.003 160);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.98 0.003 240 / 0.08);
-  --input: oklch(0.98 0.003 240 / 0.04);
-  --ring: oklch(0.98 0.003 240 / 0.4);
-  --sidebar: oklch(0.14 0.005 240 / 0.4);
-  --sidebar-foreground: oklch(0.98 0.003 240);
-  --sidebar-primary: oklch(0.92 0.005 240);
-  --sidebar-primary-foreground: oklch(0.06 0.002 240);
-  --sidebar-accent: oklch(0.20 0.008 240 / 0.5);
-  --sidebar-accent-foreground: oklch(0.98 0.003 240);
-  --sidebar-border: oklch(0.98 0.003 240 / 0.08);
-  --sidebar-ring: oklch(0.98 0.003 240 / 0.4);
+  --border: oklch(0.98 0.003 160 / 0.08);
+  --input: oklch(0.98 0.003 160 / 0.04);
+  --ring: oklch(0.92 0.005 160 / 0.5); /* Glowing silver focus ring */
+  --sidebar: oklch(0.12 0.005 160 / 0.4);
+  --sidebar-foreground: oklch(0.98 0.003 160);
+  --sidebar-primary: oklch(0.92 0.005 160);
+  --sidebar-primary-foreground: oklch(0.06 0.002 160);
+  --sidebar-accent: oklch(0.20 0.008 160 / 0.5);
+  --sidebar-accent-foreground: oklch(0.98 0.003 160);
+  --sidebar-border: oklch(0.98 0.003 160 / 0.08);
+  --sidebar-ring: oklch(0.92 0.005 160 / 0.5);
 }
 
 @layer base {
@@ -155,35 +155,56 @@
 
 /* Custom Premium Toaster Styling (iOS Glass Style) */
 .cn-toast {
-  background: rgba(15, 23, 42, 0.5) !important; /* Slate escura bem transparente */
+  background: rgba(255, 255, 255, 0.75) !important; /* Frosted white glass in light mode */
   backdrop-filter: blur(20px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  color: oklch(0.98 0.003 240) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08) inset !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  color: oklch(0.08 0.005 160) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(255, 255, 255, 0.8) inset !important;
   border-radius: 20px !important;
   padding: 16px 24px !important; /* Padding interno amplo */
   font-family: inherit !important;
   font-weight: 500 !important;
 }
 
-/* Ajustar distanciamento do Toaster das bordas da tela (macOS/iOS Style no canto inferior direito) */
-[data-sonner-toaster] {
-  --toast-viewport-padding: 32px !important; /* Aumenta o distanciamento das bordas da tela */
+.dark .cn-toast {
+  background: rgba(15, 23, 42, 0.5) !important; /* Frosted slate glass in dark mode */
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: oklch(0.98 0.003 160) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08) inset !important;
 }
 
-/* Success iOS Toast (Silver Glass Edition) */
+/* Ajustar distanciamento do Toaster das bordas da tela */
+[data-sonner-toaster] {
+  --toast-viewport-padding: 32px !important;
+}
+
+/* Success iOS Toast (Silver/Emerald Glass Edition) */
 .cn-toast[data-type="success"] {
+  border: 1px solid rgba(16, 185, 129, 0.18) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08), 0 0 10px rgba(16, 185, 129, 0.05) !important;
+}
+
+.dark .cn-toast[data-type="success"] {
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.1) !important;
 }
 
 .cn-toast[data-type="success"] svg {
-  color: oklch(0.88 0.005 240) !important; /* Prata brilhante */
+  color: oklch(0.65 0.15 160) !important; /* Emerald green */
+}
+
+.dark .cn-toast[data-type="success"] svg {
+  color: oklch(0.92 0.005 160) !important; /* Silver highlight */
 }
 
 /* Error iOS Toast */
 .cn-toast[data-type="error"] {
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08), 0 0 10px rgba(239, 68, 68, 0.05) !important;
+}
+
+.dark .cn-toast[data-type="error"] {
   border: 1px solid rgba(239, 68, 68, 0.25) !important;
   box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 10px rgba(239, 68, 68, 0.1) !important;
 }
@@ -232,12 +253,12 @@
 
 /* Polished Liquid Glass Card */
 .liquid-glass-card {
-  background: rgba(15, 23, 42, 0.35) !important;
+  background: var(--card) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--border) !important;
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 12px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.12),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04) !important;
   position: relative;
@@ -253,7 +274,7 @@
   height: 50%;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.035) 0%,
     rgba(255, 255, 255, 0) 100%
   );
   pointer-events: none;
@@ -269,17 +290,55 @@ input[data-slot="input"]:focus,
 input[data-slot="input"]:focus-visible,
 textarea:focus,
 textarea:focus-visible {
-  border-color: rgba(255, 255, 255, 0.45) !important;
+  border-color: var(--ring) !important;
   box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.3),
-    0 0 16px rgba(255, 255, 255, 0.18),
-    inset 0 1.5px 3px rgba(0, 0, 0, 0.8) !important;
-  background-color: rgba(2, 6, 23, 0.75) !important;
+    0 0 0 1px var(--ring),
+    0 0 20px var(--ring),
+    inset 0 1.5px 3px rgba(0, 0, 0, 0.08) !important;
+  background-color: var(--card) !important;
   outline: none !important;
 }
 
-/* Glass Buttons with Silver Highlights */
+.dark input[data-slot="input"]:focus,
+.dark input[data-slot="input"]:focus-visible,
+.dark textarea:focus,
+.dark textarea:focus-visible {
+  box-shadow: 
+    0 0 0 1px var(--ring),
+    0 0 20px var(--ring),
+    inset 0 1.5px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Glass Buttons with Silver/Mint highlights */
 .btn-liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(240, 245, 250, 0.88) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  color: #0c1c14 !important;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.04),
+    0 4px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-liquid-glass:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(245, 250, 255, 0.95) 100%
+  ) !important;
+  box-shadow: 
+    0 12px 35px rgba(16, 185, 129, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  transform: translateY(-1px);
+}
+
+.dark .btn-liquid-glass {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.92) 0%,
@@ -291,10 +350,9 @@ textarea:focus-visible {
     0 8px 30px rgba(255, 255, 255, 0.06),
     0 4px 6px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.btn-liquid-glass:hover {
+.dark .btn-liquid-glass:hover {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 1) 0%,
@@ -304,7 +362,6 @@ textarea:focus-visible {
     0 12px 35px rgba(255, 255, 255, 0.12),
     0 4px 12px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-  transform: translateY(-1px);
 }
 
 .btn-liquid-glass:active {

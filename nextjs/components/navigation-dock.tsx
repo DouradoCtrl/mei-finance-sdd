@@ -76,7 +76,7 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
 
               {/* Active Indicator (macOS style dot below) */}
               {isActive && (
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               )}
             </button>
           );

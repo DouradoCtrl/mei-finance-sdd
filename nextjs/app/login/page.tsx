@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function LoginForm() {
   const router = useRouter();
@@ -154,10 +155,15 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300">
+      {/* Floating Theme Switcher */}
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-sky-500/6 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-500/8 dark:bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-sky-500/5 dark:bg-sky-500/8 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Logo and title */}

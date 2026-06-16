@@ -1,12 +1,18 @@
 import React from "react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-center items-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-center items-center p-6 relative overflow-hidden transition-colors duration-300">
+      {/* Floating Theme Switcher */}
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-slate-400/5 rounded-full blur-[100px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-[100px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/8 dark:bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-sky-500/5 dark:bg-sky-500/8 rounded-full blur-[100px] pointer-events-none liquid-blob-2" />
 
       <div className="max-w-4xl w-full space-y-12 relative z-10 text-center">
         {/* Header */}

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { NavigationDock } from "@/components/navigation-dock";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -50,10 +51,10 @@ export default function DashboardPage() {
   const isAdmin = user.role === "admin";
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col relative overflow-hidden transition-colors duration-300">
       {/* Background Liquid Blobs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[140px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-500/6 rounded-full blur-[140px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/8 dark:bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-500/5 dark:bg-sky-500/8 rounded-full blur-[140px] pointer-events-none liquid-blob-2" />
 
       {/* Top Navbar */}
       <header className="border-b border-white/5 bg-background/60 backdrop-blur-md sticky top-0 z-50">
@@ -69,9 +70,11 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-4">
             <div className="flex flex-col text-right">
-              <span className="text-sm font-medium text-slate-200">{user.name}</span>
+              <span className="text-sm font-medium text-slate-200 dark:text-slate-200">{user.name}</span>
               <span className="text-xs text-slate-400 capitalize">{user.role}</span>
             </div>
+            <div className="w-px h-6 bg-white/10 mx-1" />
+            <ThemeToggle />
           </div>
         </div>
       </header>
