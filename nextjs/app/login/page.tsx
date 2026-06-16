@@ -100,7 +100,6 @@ function LoginForm() {
         <Input
           id="email"
           type="email"
-          required
           placeholder="nome@empresa.com"
           value={email}
           onChange={(e) => handleFieldChange("email", e.target.value)}
@@ -117,7 +116,6 @@ function LoginForm() {
         <Input
           id="password"
           type="password"
-          required
           placeholder="••••••••"
           value={password}
           onChange={(e) => handleFieldChange("password", e.target.value)}
