@@ -101,14 +101,14 @@ function LoginForm() {
     <form onSubmit={handleSubmit} className="grid gap-4 pt-2">
       {/* Email */}
       <div className="grid gap-1.5 text-left">
-        <Label htmlFor="email" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Endereço de E-mail</Label>
+        <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 text-xs font-semibold uppercase tracking-wider">Endereço de E-mail</Label>
         <Input
           id="email"
           type="email"
           placeholder="nome@empresa.com"
           value={email}
           onChange={(e) => handleFieldChange("email", e.target.value)}
-          className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
+          className="w-full px-4 py-6 text-sm"
         />
         {errors.email && (
           <p className="text-red-500 text-xs font-medium">{errors.email[0]}</p>
@@ -117,14 +117,14 @@ function LoginForm() {
 
       {/* Password */}
       <div className="grid gap-1.5 text-left">
-        <Label htmlFor="password" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Senha</Label>
+        <Label htmlFor="password" className="text-slate-700 dark:text-slate-300 text-xs font-semibold uppercase tracking-wider">Senha</Label>
         <Input
           id="password"
           type="password"
           placeholder="••••••••"
           value={password}
           onChange={(e) => handleFieldChange("password", e.target.value)}
-          className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
+          className="w-full px-4 py-6 text-sm"
         />
         {errors.password && (
           <p className="text-red-500 text-xs font-medium">{errors.password[0]}</p>
@@ -139,7 +139,7 @@ function LoginForm() {
       >
         {loading ? (
           <>
-            <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-5 w-5 text-current" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
@@ -162,8 +162,8 @@ export default function LoginPage() {
       </div>
 
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-500/8 dark:bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-sky-500/5 dark:bg-sky-500/8 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/3 w-[350px] h-[350px] bg-emerald-500/4 dark:bg-emerald-500/6 rounded-full blur-[80px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-sky-500/3 dark:bg-sky-500/4 rounded-full blur-[80px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Logo and title */}
@@ -171,23 +171,23 @@ export default function LoginPage() {
           <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-400 to-slate-200 text-slate-950 items-center justify-center font-bold text-lg shadow-lg shadow-slate-500/20 mb-2">
             MF
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">MEI Finance</h1>
-          <p className="text-sm text-slate-400">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">MEI Finance</h1>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             Gerencie suas finanças PJ e PF no mesmo lugar.
           </p>
         </div>
 
-        <Card className="liquid-glass-card rounded-2xl p-6 sm:p-8 hover:border-white/20 transition-all duration-300">
+        <Card className="liquid-glass-card rounded-2xl p-6 sm:p-8 hover:border-slate-900/10 dark:hover:border-white/10 transition-all duration-300">
           <div className="space-y-4">
             <div className="space-y-1.5 text-center">
-              <h2 className="text-2xl font-bold tracking-tight text-white">
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Acesse sua Conta
               </h2>
-              <p className="text-slate-400 text-xs">
+              <p className="text-slate-600 dark:text-slate-400 text-xs">
                 Não tem uma conta de contador?{" "}
                 <Link
                   href="/register"
-                  className="font-semibold text-slate-300 hover:text-slate-200 transition-colors hover:underline"
+                  className="font-semibold text-emerald-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-slate-200 transition-colors hover:underline"
                 >
                   Cadastre-se grátis
                 </Link>

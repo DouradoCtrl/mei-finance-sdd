@@ -49,25 +49,25 @@
 }
 
 :root {
-  --background: oklch(0.97 0.003 160); /* Light mint/silver background */
+  --background: oklch(0.98 0.002 160); /* Minimalist light mint/silver background */
   --foreground: oklch(0.12 0.005 160); /* Deep charcoal green text */
-  --card: oklch(1 0 0 / 0.5); /* Frosted white glass card */
+  --card: oklch(1 0 0 / 0.55); /* Frosted white glass card */
   --card-foreground: oklch(0.12 0.005 160);
   --popover: oklch(1 0 0 / 0.85);
   --popover-foreground: oklch(0.12 0.005 160);
-  --primary: oklch(0.12 0.005 160); /* Deep charcoal green primary */
+  --primary: oklch(0.25 0.08 160); /* Emerald green primary */
   --primary-foreground: oklch(0.98 0.003 160);
-  --secondary: oklch(0.15 0.005 160 / 0.08);
+  --secondary: oklch(0.12 0.005 160 / 0.05);
   --secondary-foreground: oklch(0.12 0.005 160);
-  --muted: oklch(0.15 0.005 160 / 0.05);
+  --muted: oklch(0.12 0.005 160 / 0.04);
   --muted-foreground: oklch(0.45 0.005 160);
-  --accent: oklch(0.12 0.005 160 / 0.08);
-  --accent-foreground: oklch(0.12 0.005 160);
+  --accent: oklch(0.25 0.08 160 / 0.06);
+  --accent-foreground: oklch(0.25 0.08 160);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
   --border: oklch(0.12 0.005 160 / 0.08); /* 8% dark border */
   --input: oklch(0.12 0.005 160 / 0.03); /* 3% dark input bg */
-  --ring: oklch(0.65 0.15 160 / 0.4); /* Glowing emerald green focus ring */
+  --ring: oklch(0.25 0.08 160 / 0.4); /* Emerald green focus ring */
   --chart-1: oklch(0.65 0.15 160);
   --chart-2: oklch(0.55 0.12 160);
   --chart-3: oklch(0.45 0.09 160);
@@ -81,13 +81,14 @@
   --sidebar-accent: oklch(0.12 0.005 160 / 0.08);
   --sidebar-accent-foreground: oklch(0.12 0.005 160);
   --sidebar-border: oklch(0.12 0.005 160 / 0.08);
-  --sidebar-ring: oklch(0.65 0.15 160 / 0.4);
+  --sidebar-ring: oklch(0.25 0.08 160 / 0.4);
+  --shadow-card: 0 12px 40px rgba(12, 28, 20, 0.05), 0 4px 12px rgba(12, 28, 20, 0.03); /* Soft light shadow */
 }
 
 .dark {
   --background: oklch(0.08 0.006 160); /* Deep obsidian Charcoal Green background */
   --foreground: oklch(0.98 0.003 160); /* Silver off-white text */
-  --card: oklch(0.12 0.005 160 / 0.35); /* Translucent dark emerald glass card */
+  --card: oklch(0.12 0.005 160 / 0.3); /* Translucent dark emerald glass card */
   --card-foreground: oklch(0.98 0.003 160);
   --popover: oklch(0.12 0.005 160 / 0.85);
   --popover-foreground: oklch(0.98 0.003 160);
@@ -112,6 +113,7 @@
   --sidebar-accent-foreground: oklch(0.98 0.003 160);
   --sidebar-border: oklch(0.98 0.003 160 / 0.08);
   --sidebar-ring: oklch(0.92 0.005 160 / 0.5);
+  --shadow-card: 0 12px 45px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25); /* Deep dark shadow */
 }
 
 @layer base {
@@ -130,7 +132,7 @@
     -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
     border: 1px solid var(--border) !important;
     box-shadow: 
-      0 12px 40px rgba(0, 0, 0, 0.5),
+      var(--shadow-card),
       inset 0 1px 1px rgba(255, 255, 255, 0.12),
       inset 0 -1px 1px rgba(255, 255, 255, 0.04) !important;
     border-radius: 20px !important;
@@ -150,6 +152,18 @@
       rgba(255, 255, 255, 0) 100%
     );
     pointer-events: none;
+  }
+  input[data-slot="input"],
+  textarea {
+    background-color: var(--input) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--foreground) !important;
+    border-radius: 12px !important;
+  }
+  input[data-slot="input"]::placeholder,
+  textarea::placeholder {
+    color: var(--muted-foreground) !important;
+    opacity: 0.6;
   }
 }
 
@@ -254,11 +268,11 @@
 /* Polished Liquid Glass Card */
 .liquid-glass-card {
   background: var(--card) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border: 1px solid var(--border) !important;
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.4),
+    var(--shadow-card),
     inset 0 1px 1px rgba(255, 255, 255, 0.12),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04) !important;
   position: relative;
@@ -283,7 +297,7 @@
 /* Refined selected (focused) border for forms inputs and textareas */
 input[data-slot="input"],
 textarea {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 input[data-slot="input"]:focus,
@@ -293,8 +307,8 @@ textarea:focus-visible {
   border-color: var(--ring) !important;
   box-shadow: 
     0 0 0 1px var(--ring),
-    0 0 20px var(--ring),
-    inset 0 1.5px 3px rgba(0, 0, 0, 0.08) !important;
+    0 0 10px var(--ring),
+    inset 0 1px 2px rgba(12, 28, 20, 0.05) !important;
   background-color: var(--card) !important;
   outline: none !important;
 }
@@ -305,51 +319,51 @@ textarea:focus-visible {
 .dark textarea:focus-visible {
   box-shadow: 
     0 0 0 1px var(--ring),
-    0 0 20px var(--ring),
-    inset 0 1.5px 3px rgba(0, 0, 0, 0.8) !important;
+    0 0 12px var(--ring),
+    inset 0 1px 2px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Glass Buttons with Silver/Mint highlights */
+/* Glass Buttons with Silver/Mint highlights (Minimalist primary button) */
 .btn-liquid-glass {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.95) 0%,
-    rgba(240, 245, 250, 0.88) 100%
+    rgba(240, 245, 250, 0.9) 100%
   ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
   color: #0c1c14 !important;
   box-shadow: 
-    0 8px 30px rgba(0, 0, 0, 0.04),
-    0 4px 6px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    0 4px 12px rgba(12, 28, 20, 0.04),
+    0 2px 4px rgba(12, 28, 20, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .btn-liquid-glass:hover {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 1) 0%,
-    rgba(245, 250, 255, 0.95) 100%
+    rgba(245, 250, 255, 0.98) 100%
   ) !important;
   box-shadow: 
-    0 12px 35px rgba(16, 185, 129, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 8px 20px rgba(25, 135, 84, 0.1),
+    0 4px 8px rgba(12, 28, 20, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-  transform: translateY(-1px);
+  transform: translateY(-0.5px);
 }
 
 .dark .btn-liquid-glass {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.92) 0%,
-    rgba(240, 240, 240, 0.82) 100%
+    rgba(235, 235, 235, 0.82) 100%
   ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
   color: #020617 !important;
   box-shadow: 
-    0 8px 30px rgba(255, 255, 255, 0.06),
-    0 4px 6px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
 .dark .btn-liquid-glass:hover {
@@ -359,11 +373,42 @@ textarea:focus-visible {
     rgba(245, 245, 245, 0.95) 100%
   ) !important;
   box-shadow: 
-    0 12px 35px rgba(255, 255, 255, 0.12),
-    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
 }
 
 .btn-liquid-glass:active {
+  transform: scale(0.98);
+}
+
+/* Minimalist Secondary Button */
+.btn-liquid-glass-secondary {
+  background: rgba(12, 28, 20, 0.04) !important;
+  border: 1px solid rgba(12, 28, 20, 0.08) !important;
+  color: var(--foreground) !important;
+  box-shadow: 0 2px 6px rgba(12, 28, 20, 0.02) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-liquid-glass-secondary:hover {
+  background: rgba(12, 28, 20, 0.08) !important;
+  border: 1px solid rgba(12, 28, 20, 0.15) !important;
+  transform: translateY(-0.5px);
+}
+
+.dark .btn-liquid-glass-secondary {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: var(--foreground) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dark .btn-liquid-glass-secondary:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.btn-liquid-glass-secondary:active {
   transform: scale(0.98);
 }
