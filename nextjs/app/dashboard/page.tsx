@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { NavigationDock } from "@/components/navigation-dock";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -49,28 +49,6 @@ export default function DashboardPage() {
   const user = session.user;
   const isAdmin = user.role === "admin";
 
-  const handleLogout = async () => {
-    let apiMessage = "Sessão encerrada com sucesso.";
-    try {
-      // Invalidate Sanctum token on backend through BFF proxy
-      const response = await fetch("/api/proxy/logout", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-        }
-      });
-      const data = await response.json();
-      if (data && data.message) {
-        apiMessage = data.message;
-      }
-    } catch (error) {
-      console.error("Failed to invalidate token in backend:", error);
-    } finally {
-      // Clear session in frontend and redirect to login
-      signOut({ callbackUrl: `/login?message=${encodeURIComponent(apiMessage)}` });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col relative overflow-hidden">
       {/* Background Glows */}
@@ -90,18 +68,10 @@ export default function DashboardPage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex flex-col text-right hidden sm:flex">
+            <div className="flex flex-col text-right">
               <span className="text-sm font-medium text-slate-200">{user.name}</span>
               <span className="text-xs text-slate-400 capitalize">{user.role}</span>
             </div>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              size="sm"
-              className="border-slate-800 text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer transition-colors"
-            >
-              Sair
-            </Button>
           </div>
         </div>
       </header>
@@ -190,9 +160,12 @@ export default function DashboardPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900/60 py-6 text-center text-xs text-slate-500 bg-slate-950 mt-auto relative z-10">
+      <footer className="border-t border-slate-900/60 py-6 pb-28 text-center text-xs text-slate-500 bg-slate-950 mt-auto relative z-10">
         &copy; {new Date().getFullYear()} MEI Finance. Todos os direitos reservados.
       </footer>
+
+      {/* macOS Navigation Dock */}
+      <NavigationDock activePage="dashboard" />
     </div>
   );
 }
