@@ -140,9 +140,14 @@
   color: oklch(0.98 0.01 150) !important;
   box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset !important;
   border-radius: 20px !important;
-  padding: 14px 20px !important;
+  padding: 16px 24px !important; /* Aumentado o padding interno do Toast */
   font-family: inherit !important;
   font-weight: 500 !important;
+}
+
+/* Ajustar distanciamento do Toaster das bordas da tela (macOS/iOS Style no canto inferior direito) */
+[data-sonner-toaster] {
+  --toast-viewport-padding: 32px !important; /* Aumenta o distanciamento das bordas da tela */
 }
 
 /* Success iOS Toast */
