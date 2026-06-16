@@ -1,15 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const message = params.get("message");
+      if (message) {
+        toast.success(message);
+        // Limpa a query string da URL imediatamente para evitar duplicação do Toast
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+    }
+  }, []);
 
   if (status === "loading") {
     return (

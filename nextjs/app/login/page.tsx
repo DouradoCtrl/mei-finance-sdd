@@ -24,11 +24,17 @@ function LoginForm() {
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
   useEffect(() => {
-    const message = searchParams.get("message");
-    if (message) {
-      toast.success(message);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const message = params.get("message");
+      if (message) {
+        toast.success(message);
+        // Limpa a query string da URL imediatamente para evitar duplicação do Toast
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, "", cleanUrl);
+      }
     }
-  }, [searchParams]);
+  }, []);
 
   const handleFieldChange = (
     field: "email" | "password",
@@ -78,7 +84,8 @@ function LoginForm() {
           description: "Erro ao iniciar sessão local. Tente novamente.",
         });
       } else {
-        router.push("/dashboard");
+        const successMsg = response.message || "Autenticação realizada com sucesso.";
+        router.push(`/dashboard?message=${encodeURIComponent(successMsg)}`);
         router.refresh();
       }
     } catch (err) {
