@@ -56,7 +56,7 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
               onClick={item.action}
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="relative p-3 rounded-2xl text-slate-400 hover:text-emerald-400 hover:bg-slate-800/35 transition-all duration-300 group cursor-pointer active:scale-95"
+              className="relative p-3 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-800/35 transition-all duration-300 group cursor-pointer active:scale-95"
               style={{
                 transform: isHovered ? "translateY(-6px) scale(1.15)" : "none",
               }}
@@ -72,11 +72,11 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
               </span>
 
               {/* Icon */}
-              <Icon className={cn("h-5 w-5 transition-colors", isActive && "text-emerald-400")} />
+              <Icon className={cn("h-5 w-5 transition-colors", isActive && "text-white")} />
 
               {/* Active Indicator (macOS style dot below) */}
               {isActive && (
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
               )}
             </button>
           );

@@ -49,74 +49,74 @@
 }
 
 :root {
-  --background: oklch(0.12 0.015 150);
-  --foreground: oklch(0.98 0.01 150);
-  --card: oklch(0.15 0.015 150);
-  --card-foreground: oklch(0.98 0.01 150);
-  --popover: oklch(0.15 0.015 150);
-  --popover-foreground: oklch(0.98 0.01 150);
-  --primary: oklch(0.65 0.18 145);
-  --primary-foreground: oklch(0.10 0.05 145);
-  --secondary: oklch(0.22 0.02 150);
-  --secondary-foreground: oklch(0.98 0.01 150);
-  --muted: oklch(0.22 0.02 150);
-  --muted-foreground: oklch(0.7 0.015 150);
-  --accent: oklch(0.22 0.02 150);
-  --accent-foreground: oklch(0.98 0.01 150);
+  --background: oklch(0.10 0.005 240); /* Cinza carvão/espaço profundo */
+  --foreground: oklch(0.98 0.003 240); /* Prata off-white claro */
+  --card: oklch(0.13 0.005 240); /* Cinza metálico um pouco mais claro */
+  --card-foreground: oklch(0.98 0.003 240);
+  --popover: oklch(0.13 0.005 240);
+  --popover-foreground: oklch(0.98 0.003 240);
+  --primary: oklch(0.88 0.005 240); /* Prata brilhante metálico */
+  --primary-foreground: oklch(0.08 0.005 240); /* Chumbo muito escuro para legibilidade */
+  --secondary: oklch(0.18 0.005 240); /* Cinza médio escuro */
+  --secondary-foreground: oklch(0.98 0.003 240);
+  --muted: oklch(0.16 0.005 240);
+  --muted-foreground: oklch(0.65 0.005 240);
+  --accent: oklch(0.20 0.008 240);
+  --accent-foreground: oklch(0.98 0.003 240);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.22 0.02 150);
-  --input: oklch(0.22 0.02 150);
-  --ring: oklch(0.65 0.18 145);
-  --chart-1: oklch(0.65 0.18 145);
-  --chart-2: oklch(0.55 0.15 145);
-  --chart-3: oklch(0.45 0.12 145);
-  --chart-4: oklch(0.35 0.10 145);
-  --chart-5: oklch(0.25 0.08 145);
+  --border: oklch(0.18 0.005 240);
+  --input: oklch(0.18 0.005 240);
+  --ring: oklch(0.88 0.005 240);
+  --chart-1: oklch(0.88 0.005 240);
+  --chart-2: oklch(0.75 0.005 240);
+  --chart-3: oklch(0.60 0.005 240);
+  --chart-4: oklch(0.45 0.005 240);
+  --chart-5: oklch(0.30 0.005 240);
   --radius: 0.75rem;
-  --sidebar: oklch(0.15 0.015 150);
-  --sidebar-foreground: oklch(0.98 0.01 150);
-  --sidebar-primary: oklch(0.65 0.18 145);
-  --sidebar-primary-foreground: oklch(0.10 0.05 145);
-  --sidebar-accent: oklch(0.22 0.02 150);
-  --sidebar-accent-foreground: oklch(0.98 0.01 150);
-  --sidebar-border: oklch(0.22 0.02 150);
-  --sidebar-ring: oklch(0.65 0.18 145);
+  --sidebar: oklch(0.13 0.005 240);
+  --sidebar-foreground: oklch(0.98 0.003 240);
+  --sidebar-primary: oklch(0.88 0.005 240);
+  --sidebar-primary-foreground: oklch(0.08 0.005 240);
+  --sidebar-accent: oklch(0.20 0.008 240);
+  --sidebar-accent-foreground: oklch(0.98 0.003 240);
+  --sidebar-border: oklch(0.18 0.005 240);
+  --sidebar-ring: oklch(0.88 0.005 240);
 }
 
 .dark {
-  --background: oklch(0.12 0.015 150);
-  --foreground: oklch(0.98 0.01 150);
-  --card: oklch(0.15 0.015 150);
-  --card-foreground: oklch(0.98 0.01 150);
-  --popover: oklch(0.15 0.015 150);
-  --popover-foreground: oklch(0.98 0.01 150);
-  --primary: oklch(0.65 0.18 145);
-  --primary-foreground: oklch(0.10 0.05 145);
-  --secondary: oklch(0.22 0.02 150);
-  --secondary-foreground: oklch(0.98 0.01 150);
-  --muted: oklch(0.22 0.02 150);
-  --muted-foreground: oklch(0.7 0.015 150);
-  --accent: oklch(0.22 0.02 150);
-  --accent-foreground: oklch(0.98 0.01 150);
+  --background: oklch(0.10 0.005 240);
+  --foreground: oklch(0.98 0.003 240);
+  --card: oklch(0.13 0.005 240);
+  --card-foreground: oklch(0.98 0.003 240);
+  --popover: oklch(0.13 0.005 240);
+  --popover-foreground: oklch(0.98 0.003 240);
+  --primary: oklch(0.88 0.005 240);
+  --primary-foreground: oklch(0.08 0.005 240);
+  --secondary: oklch(0.18 0.005 240);
+  --secondary-foreground: oklch(0.98 0.003 240);
+  --muted: oklch(0.16 0.005 240);
+  --muted-foreground: oklch(0.65 0.005 240);
+  --accent: oklch(0.20 0.008 240);
+  --accent-foreground: oklch(0.98 0.003 240);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.22 0.02 150);
-  --input: oklch(0.22 0.02 150);
-  --ring: oklch(0.65 0.18 145);
-  --chart-1: oklch(0.65 0.18 145);
-  --chart-2: oklch(0.55 0.15 145);
-  --chart-3: oklch(0.45 0.12 145);
-  --chart-4: oklch(0.35 0.10 145);
-  --chart-5: oklch(0.25 0.08 145);
-  --sidebar: oklch(0.15 0.015 150);
-  --sidebar-foreground: oklch(0.98 0.01 150);
-  --sidebar-primary: oklch(0.65 0.18 145);
-  --sidebar-primary-foreground: oklch(0.10 0.05 145);
-  --sidebar-accent: oklch(0.22 0.02 150);
-  --sidebar-accent-foreground: oklch(0.98 0.01 150);
-  --sidebar-border: oklch(0.22 0.02 150);
-  --sidebar-ring: oklch(0.65 0.18 145);
+  --border: oklch(0.18 0.005 240);
+  --input: oklch(0.18 0.005 240);
+  --ring: oklch(0.88 0.005 240);
+  --chart-1: oklch(0.88 0.005 240);
+  --chart-2: oklch(0.75 0.005 240);
+  --chart-3: oklch(0.60 0.005 240);
+  --chart-4: oklch(0.45 0.005 240);
+  --chart-5: oklch(0.30 0.005 240);
+  --sidebar: oklch(0.13 0.005 240);
+  --sidebar-foreground: oklch(0.98 0.003 240);
+  --sidebar-primary: oklch(0.88 0.005 240);
+  --sidebar-primary-foreground: oklch(0.08 0.005 240);
+  --sidebar-accent: oklch(0.20 0.008 240);
+  --sidebar-accent-foreground: oklch(0.98 0.003 240);
+  --sidebar-border: oklch(0.18 0.005 240);
+  --sidebar-ring: oklch(0.88 0.005 240);
 }
 
 @layer base {
@@ -133,14 +133,14 @@
 
 /* Custom Premium Toaster Styling (iOS Glass Style) */
 .cn-toast {
-  background: rgba(15, 23, 42, 0.6) !important; /* Slate escura bem transparente */
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: oklch(0.98 0.01 150) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset !important;
+  background: rgba(15, 23, 42, 0.5) !important; /* Slate escura bem transparente */
+  backdrop-filter: blur(20px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: oklch(0.98 0.003 240) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08) inset !important;
   border-radius: 20px !important;
-  padding: 16px 24px !important; /* Aumentado o padding interno do Toast */
+  padding: 16px 24px !important; /* Padding interno amplo */
   font-family: inherit !important;
   font-weight: 500 !important;
 }
@@ -150,14 +150,14 @@
   --toast-viewport-padding: 32px !important; /* Aumenta o distanciamento das bordas da tela */
 }
 
-/* Success iOS Toast */
+/* Success iOS Toast (Silver Glass Edition) */
 .cn-toast[data-type="success"] {
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 10px rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.1) !important;
 }
 
 .cn-toast[data-type="success"] svg {
-  color: oklch(0.65 0.18 145) !important; /* Emerald green */
+  color: oklch(0.88 0.005 240) !important; /* Prata brilhante */
 }
 
 /* Error iOS Toast */
