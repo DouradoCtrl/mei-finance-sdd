@@ -13,13 +13,15 @@ export default function DashboardPage() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center text-foreground font-sans">
-        <div className="flex flex-col items-center gap-3">
-          <svg className="animate-spin h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24">
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-100 font-sans relative overflow-hidden">
+        {/* Loader background glow */}
+        <div className="absolute w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex flex-col items-center gap-3 relative z-10">
+          <svg className="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
-          <span className="text-muted-foreground text-sm">Carregando painel...</span>
+          <span className="text-slate-400 text-sm">Carregando painel...</span>
         </div>
       </div>
     );
@@ -51,28 +53,33 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Top Navbar */}
-      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-slate-900/60 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center font-bold text-primary-foreground">
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-green-600 flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-500/20">
               MF
             </div>
-            <span className="text-lg font-bold tracking-tight text-foreground">
+            <span className="text-lg font-bold tracking-tight text-white">
               MEI Finance
             </span>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="flex flex-col text-right hidden sm:flex">
-              <span className="text-sm font-medium text-foreground">{user.name}</span>
-              <span className="text-xs text-muted-foreground capitalize">{user.role}</span>
+              <span className="text-sm font-medium text-slate-200">{user.name}</span>
+              <span className="text-xs text-slate-400 capitalize">{user.role}</span>
             </div>
             <Button
               onClick={handleLogout}
               variant="outline"
               size="sm"
+              className="border-slate-800 text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer transition-colors"
             >
               Sair
             </Button>
@@ -81,15 +88,15 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Dashboard Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
         {/* Welcome Section */}
-        <Card className="p-8">
+        <Card className="p-8 bg-gradient-to-br from-emerald-950/20 via-slate-900/30 to-slate-950/40 border border-emerald-500/15 shadow-xl shadow-emerald-500/2 backdrop-blur-md">
           <div className="space-y-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Painel Principal</span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-tight">
+            <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Painel Principal</span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent leading-tight">
               Olá, {user.name}!
             </h1>
-            <p className="text-muted-foreground max-w-xl text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-400 max-w-xl text-sm sm:text-base leading-relaxed">
               Bem-vindo ao MEI Finance. Sua sessão está autenticada de forma segura e protegida por cookies criptografados.
             </p>
           </div>
@@ -98,24 +105,24 @@ export default function DashboardPage() {
         {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* User Details Card */}
-          <Card>
-            <CardHeader className="border-b border-border/50 pb-3">
-              <CardTitle className="text-lg font-bold text-foreground">
+          <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl hover:border-emerald-500/20 shadow-lg shadow-emerald-500/2 hover:shadow-emerald-500/5 transition-all duration-300 hover:-translate-y-0.5">
+            <CardHeader className="border-b border-slate-800/50 pb-3">
+              <CardTitle className="text-lg font-bold text-white">
                 Informações do Perfil
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Nome:</span>
-                <span className="text-foreground font-medium">{user.name}</span>
+                <span className="text-slate-400">Nome:</span>
+                <span className="text-slate-200 font-medium">{user.name}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">E-mail:</span>
-                <span className="text-foreground font-medium">{user.email}</span>
+                <span className="text-slate-400">E-mail:</span>
+                <span className="text-slate-200 font-medium">{user.email}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Perfil:</span>
-                <Badge variant="secondary" className="capitalize">
+                <span className="text-slate-400">Perfil:</span>
+                <Badge variant="secondary" className="capitalize bg-slate-800 text-slate-300 border border-slate-700/50 hover:bg-slate-700">
                   {user.role}
                 </Badge>
               </div>
@@ -123,36 +130,36 @@ export default function DashboardPage() {
           </Card>
 
           {/* Account Details / Specific Módulos */}
-          <Card>
-            <CardHeader className="border-b border-border/50 pb-3">
-              <CardTitle className="text-lg font-bold text-foreground">
+          <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl hover:border-emerald-500/20 shadow-lg shadow-emerald-500/2 hover:shadow-emerald-500/5 transition-all duration-300 hover:-translate-y-0.5">
+            <CardHeader className="border-b border-slate-800/50 pb-3">
+              <CardTitle className="text-lg font-bold text-white">
                 {isAdmin ? "Status Administrativo" : "Dados Profissionais"}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
               {isAdmin ? (
                 <div className="flex flex-col items-center justify-center py-6 text-center space-y-2">
-                  <div className="h-10 w-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold">
+                  <div className="h-10 w-10 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center font-bold">
                     🛡️
                   </div>
-                  <h4 className="font-semibold text-foreground text-sm">Administrador Global</h4>
-                  <p className="text-xs text-muted-foreground max-w-xs leading-relaxed">
+                  <h4 className="font-semibold text-slate-200 text-sm">Administrador Global</h4>
+                  <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
                     Você possui permissão de suporte global para todos os escritórios e MEIs.
                   </p>
                 </div>
               ) : (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">CRC Ativo:</span>
-                    <span className="text-foreground font-medium">{user.crc}</span>
+                    <span className="text-slate-400">CRC Ativo:</span>
+                    <span className="text-slate-200 font-medium">{user.crc}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Escritório:</span>
-                    <span className="text-foreground font-medium">{user.office_name}</span>
+                    <span className="text-slate-400">Escritório:</span>
+                    <span className="text-slate-200 font-medium">{user.office_name}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Status Profissional:</span>
-                    <Badge variant="outline" className="text-emerald-500 border-emerald-500/30 bg-emerald-500/10">
+                    <span className="text-slate-400">Status Profissional:</span>
+                    <Badge variant="outline" className="text-emerald-400 border border-emerald-500/35 bg-emerald-500/10 shadow-[0_0_15px_-3px_rgba(16,185,129,0.2)]">
                       Ativo
                     </Badge>
                   </div>
@@ -164,10 +171,9 @@ export default function DashboardPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground bg-background mt-auto">
+      <footer className="border-t border-slate-900/60 py-6 text-center text-xs text-slate-500 bg-slate-950 mt-auto relative z-10">
         &copy; {new Date().getFullYear()} MEI Finance. Todos os direitos reservados.
       </footer>
     </div>
   );
 }
-

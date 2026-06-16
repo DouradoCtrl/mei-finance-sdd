@@ -7,12 +7,12 @@ import { registerAccountant } from "@/services/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 
 export default function RegisterPage() {
   const router = useRouter();
-  
+
   // Form state
   const [formData, setFormData] = useState({
     name: "",
@@ -65,182 +65,161 @@ export default function RegisterPage() {
     }
   };
 
-
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans">
-      {/* Left Column: Visual/Marketing Side */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-muted/40 border-r border-border justify-center items-center p-12">
-        <div className="relative z-10 max-w-md">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center font-bold text-primary-foreground">
-              MF
-            </div>
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              MEI Finance
-            </span>
-          </div>
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground mb-4 leading-tight">
+      <div className="w-full max-w-lg space-y-6 relative z-10">
+        {/* Logo and title */}
+        <div className="text-center space-y-2 select-none">
+          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-green-600 text-white items-center justify-center font-bold text-lg shadow-lg shadow-emerald-500/20 mb-2">
+            MF
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-white">MEI Finance</h1>
+          <p className="text-sm text-slate-400">
             A plataforma definitiva para contadores de MEIs.
-          </h1>
-          <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-            Gerencie múltiplos clientes, importe extratos OFX automaticamente e mantenha as finanças dos microempreendedores organizadas em um só lugar.
           </p>
+        </div>
 
+        <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-emerald-500/2 hover:border-emerald-500/20 transition-all duration-300">
           <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="h-6 w-6 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-xs mt-0.5">
-                ✓
-              </div>
-              <div>
-                <h3 className="font-medium text-foreground">Painel Unificado</h3>
-                <p className="text-muted-foreground text-sm">Acompanhe todos os seus clientes em um único dashboard intuitivo.</p>
-              </div>
+            <div className="space-y-1.5 text-center">
+              <h2 className="text-2xl font-bold tracking-tight text-white">
+                Criar Nova Conta
+              </h2>
+              <p className="text-slate-400 text-xs">
+                Já possui uma conta?{" "}
+                <Link
+                  href="/login"
+                  className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors hover:underline"
+                >
+                  Faça login
+                </Link>
+              </p>
             </div>
 
-            <div className="flex items-start gap-3">
-              <div className="h-6 w-6 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-xs mt-0.5">
-                ✓
+            <form onSubmit={handleSubmit} className="grid gap-4 pt-2">
+              {/* Name */}
+              <div className="grid gap-1.5 text-left">
+                <Label htmlFor="name" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Nome Completo</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="Seu nome completo"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                />
+                {errors.name && (
+                  <p className="text-destructive text-xs font-medium">{errors.name[0]}</p>
+                )}
               </div>
-              <div>
-                <h3 className="font-medium text-foreground">Segurança de Nível Bancário</h3>
-                <p className="text-muted-foreground text-sm">Seus tokens e dados estão sempre protegidos por criptografia de ponta.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Right Column: Form Side */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-6">
-          <div className="space-y-1.5">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground">
-              Criar Nova Conta
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              Já possui uma conta?{" "}
-              <Link
-                href="/login"
-                className="font-medium text-primary hover:underline transition-colors"
+              {/* Email */}
+              <div className="grid gap-1.5 text-left">
+                <Label htmlFor="email" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Endereço de E-mail</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="nome@empresa.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                />
+                {errors.email && (
+                  <p className="text-destructive text-xs font-medium">{errors.email[0]}</p>
+                )}
+              </div>
+
+              {/* CRC and Office Name in 2 columns */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* CRC */}
+                <div className="grid gap-1.5 text-left">
+                  <Label htmlFor="crc" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Registro CRC</Label>
+                  <Input
+                    id="crc"
+                    name="crc"
+                    type="text"
+                    required
+                    placeholder="UF-000000/O"
+                    value={formData.crc}
+                    onChange={handleChange}
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                  />
+                  {errors.crc && (
+                    <p className="text-destructive text-xs font-medium">{errors.crc[0]}</p>
+                  )}
+                </div>
+
+                {/* Office Name */}
+                <div className="grid gap-1.5 text-left">
+                  <Label htmlFor="office_name" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Nome do Escritório</Label>
+                  <Input
+                    id="office_name"
+                    name="office_name"
+                    type="text"
+                    required
+                    placeholder="Escritório Contábil"
+                    value={formData.office_name}
+                    onChange={handleChange}
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                  />
+                  {errors.office_name && (
+                    <p className="text-destructive text-xs font-medium">{errors.office_name[0]}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Password */}
+              <div className="grid gap-1.5 text-left">
+                <Label htmlFor="password" className="text-slate-300 text-xs font-semibold uppercase tracking-wider">Senha</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="Mínimo 8 caracteres"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                />
+                {errors.password && (
+                  <p className="text-destructive text-xs font-medium">{errors.password[0]}</p>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full mt-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-semibold rounded-xl py-6 transition-all flex items-center justify-center gap-2 text-sm focus-visible:ring-emerald-500/20 shadow-lg shadow-emerald-500/10 cursor-pointer active:scale-[0.98]"
               >
-                Faça login
-              </Link>
-            </p>
+                {loading ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    <span>Processando...</span>
+                  </>
+                ) : (
+                  <span>Criar minha conta</span>
+                )}
+              </Button>
+            </form>
           </div>
+        </Card>
 
-          <form onSubmit={handleSubmit} className="grid gap-4">
-            {/* Name */}
-            <div className="grid gap-2">
-              <Label htmlFor="name">Nome Completo</Label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                required
-                placeholder="Seu nome completo"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              {errors.name && (
-                <p className="text-destructive text-xs">{errors.name[0]}</p>
-              )}
-            </div>
-
-            {/* Email */}
-            <div className="grid gap-2">
-              <Label htmlFor="email">Endereço de E-mail</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                required
-                placeholder="nome@empresa.com"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              {errors.email && (
-                <p className="text-destructive text-xs">{errors.email[0]}</p>
-              )}
-            </div>
-
-            {/* CRC and Office Name in 2 columns */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* CRC */}
-              <div className="grid gap-2">
-                <Label htmlFor="crc">Registro CRC</Label>
-                <Input
-                  id="crc"
-                  name="crc"
-                  type="text"
-                  required
-                  placeholder="UF-000000/O"
-                  value={formData.crc}
-                  onChange={handleChange}
-                />
-                {errors.crc && (
-                  <p className="text-destructive text-xs">{errors.crc[0]}</p>
-                )}
-              </div>
-
-              {/* Office Name */}
-              <div className="grid gap-2">
-                <Label htmlFor="office_name">Nome do Escritório</Label>
-                <Input
-                  id="office_name"
-                  name="office_name"
-                  type="text"
-                  required
-                  placeholder="Escritório Contábil"
-                  value={formData.office_name}
-                  onChange={handleChange}
-                />
-                {errors.office_name && (
-                  <p className="text-destructive text-xs">{errors.office_name[0]}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Password */}
-            <div className="grid gap-2">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                placeholder="Mínimo 8 caracteres"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <p className="text-destructive text-xs">{errors.password[0]}</p>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-2"
-            >
-              {loading ? (
-                <>
-                  <svg className="animate-spin h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  Processando...
-                </>
-              ) : (
-                "Criar minha conta"
-              )}
-            </Button>
-          </form>
-        </div>
+        <p className="text-center text-xs text-slate-500 select-none">
+          &copy; {new Date().getFullYear()} MEI Finance. Todos os direitos reservados.
+        </p>
       </div>
     </div>
   );
 }
-
-
