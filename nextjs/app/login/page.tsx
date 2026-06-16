@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { loginUser } from "@/services/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +21,7 @@ function LoginForm() {
 
   // UI state
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
   useEffect(() => {
     if (searchParams.get("registered") === "true") {
@@ -29,11 +31,44 @@ function LoginForm() {
     }
   }, [searchParams]);
 
+  const handleFieldChange = (
+    field: "email" | "password",
+    value: string
+  ) => {
+    if (field === "email") setEmail(value);
+    if (field === "password") setPassword(value);
+
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({});
 
     try {
+      // 1. Pre-flight login check to get validation errors/messages from Laravel
+      const response = await loginUser(email, password);
+
+      if (!response.success) {
+        setLoading(false);
+        if (response.data && typeof response.data === "object") {
+          setErrors(response.data as { [key: string]: string[] });
+        } else {
+          toast.error("Falha na Autenticação", {
+            description: response.message || "E-mail ou senha incorretos.",
+          });
+        }
+        return;
+      }
+
+      // 2. Credentials are correct, establish session via NextAuth
       const result = await signIn("credentials", {
         email,
         password,
@@ -42,8 +77,8 @@ function LoginForm() {
 
       if (result?.error) {
         setLoading(false);
-        toast.error("Falha na Autenticação", {
-          description: "E-mail ou senha incorretos, ou conta desativada.",
+        toast.error("Falha no login", {
+          description: "Erro ao iniciar sessão local. Tente novamente.",
         });
       } else {
         router.push("/dashboard");
@@ -68,9 +103,12 @@ function LoginForm() {
           required
           placeholder="nome@empresa.com"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleFieldChange("email", e.target.value)}
           className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
         />
+        {errors.email && (
+          <p className="text-red-500 text-xs font-medium">{errors.email[0]}</p>
+        )}
       </div>
 
       {/* Password */}
@@ -82,9 +120,12 @@ function LoginForm() {
           required
           placeholder="••••••••"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => handleFieldChange("password", e.target.value)}
           className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
         />
+        {errors.password && (
+          <p className="text-red-500 text-xs font-medium">{errors.password[0]}</p>
+        )}
       </div>
 
       {/* Submit Button */}

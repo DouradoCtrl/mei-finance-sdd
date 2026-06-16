@@ -108,7 +108,6 @@ export default function RegisterPage() {
                   id="name"
                   name="name"
                   type="text"
-                  required
                   placeholder="Seu nome completo"
                   value={formData.name}
                   onChange={handleChange}
@@ -126,7 +125,6 @@ export default function RegisterPage() {
                   id="email"
                   name="email"
                   type="email"
-                  required
                   placeholder="nome@empresa.com"
                   value={formData.email}
                   onChange={handleChange}
@@ -146,7 +144,6 @@ export default function RegisterPage() {
                     id="crc"
                     name="crc"
                     type="text"
-                    required
                     placeholder="UF-000000/O"
                     value={formData.crc}
                     onChange={handleChange}
@@ -164,7 +161,6 @@ export default function RegisterPage() {
                     id="office_name"
                     name="office_name"
                     type="text"
-                    required
                     placeholder="Escritório Contábil"
                     value={formData.office_name}
                     onChange={handleChange}
@@ -183,7 +179,6 @@ export default function RegisterPage() {
                   id="password"
                   name="password"
                   type="password"
-                  required
                   placeholder="Mínimo 8 caracteres"
                   value={formData.password}
                   onChange={handleChange}
