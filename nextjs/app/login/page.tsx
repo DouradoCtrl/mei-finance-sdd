@@ -107,7 +107,7 @@ function LoginForm() {
           placeholder="nome@empresa.com"
           value={email}
           onChange={(e) => handleFieldChange("email", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+          className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
         />
         {errors.email && (
           <p className="text-red-500 text-xs font-medium">{errors.email[0]}</p>
@@ -123,7 +123,7 @@ function LoginForm() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => handleFieldChange("password", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+          className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
         />
         {errors.password && (
           <p className="text-red-500 text-xs font-medium">{errors.password[0]}</p>
@@ -154,10 +154,10 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-slate-400/5 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-slate-500/5 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-sky-500/6 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Logo and title */}

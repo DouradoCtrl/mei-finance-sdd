@@ -50,13 +50,13 @@ export default function DashboardPage() {
   const isAdmin = user.role === "admin";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col relative overflow-hidden">
       {/* Background Liquid Blobs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-400/4 rounded-full blur-[140px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-500/4 rounded-full blur-[140px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[140px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-500/6 rounded-full blur-[140px] pointer-events-none liquid-blob-2" />
 
       {/* Top Navbar */}
-      <header className="border-b border-slate-900/60 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-white/5 bg-background/60 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-slate-400 to-slate-200 flex items-center justify-center font-bold text-slate-950 shadow-lg shadow-slate-500/20">
@@ -160,7 +160,7 @@ export default function DashboardPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900/60 py-6 pb-28 text-center text-xs text-slate-500 bg-slate-950 mt-auto relative z-10">
+      <footer className="border-t border-white/5 py-6 pb-28 text-center text-xs text-slate-500 bg-background/40 mt-auto relative z-10">
         &copy; {new Date().getFullYear()} MEI Finance. Todos os direitos reservados.
       </footer>
 

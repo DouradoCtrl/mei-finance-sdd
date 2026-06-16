@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col justify-center items-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-center items-center p-6 relative overflow-hidden">
       {/* Background Liquid Blobs */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-slate-400/5 rounded-full blur-[100px] pointer-events-none liquid-blob-1" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-[100px] pointer-events-none liquid-blob-2" />

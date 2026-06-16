@@ -60,10 +60,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Liquid Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-slate-400/5 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-slate-500/5 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-sky-500/6 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-lg space-y-6 relative z-10">
         {/* Logo and title */}
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   placeholder="Seu nome completo"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+                  className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
                 />
                 {errors.name && (
                   <p className="text-destructive text-xs font-medium">{errors.name[0]}</p>
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                   placeholder="nome@empresa.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+                  className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
                 />
                 {errors.email && (
                   <p className="text-destructive text-xs font-medium">{errors.email[0]}</p>
@@ -141,7 +141,7 @@ export default function RegisterPage() {
                     placeholder="UF-000000/O"
                     value={formData.crc}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+                    className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
                   />
                   {errors.crc && (
                     <p className="text-destructive text-xs font-medium">{errors.crc[0]}</p>
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                     placeholder="Escritório Contábil"
                     value={formData.office_name}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+                    className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
                   />
                   {errors.office_name && (
                     <p className="text-destructive text-xs font-medium">{errors.office_name[0]}</p>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                   placeholder="Mínimo 8 caracteres"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
+                  className="w-full bg-white/[0.04] border-white/[0.06] rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all hover:bg-white/[0.06] hover:border-white/10"
                 />
                 {errors.password && (
                   <p className="text-destructive text-xs font-medium">{errors.password[0]}</p>
