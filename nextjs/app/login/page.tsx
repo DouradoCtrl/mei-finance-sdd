@@ -107,7 +107,7 @@ function LoginForm() {
           placeholder="nome@empresa.com"
           value={email}
           onChange={(e) => handleFieldChange("email", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
         />
         {errors.email && (
           <p className="text-red-500 text-xs font-medium">{errors.email[0]}</p>
@@ -123,7 +123,7 @@ function LoginForm() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => handleFieldChange("password", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
         />
         {errors.password && (
           <p className="text-red-500 text-xs font-medium">{errors.password[0]}</p>
@@ -134,7 +134,7 @@ function LoginForm() {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full mt-2 bg-gradient-to-r from-slate-200 to-zinc-300 hover:from-white hover:to-slate-200 text-slate-950 font-bold rounded-xl py-6 transition-all flex items-center justify-center gap-2 text-sm focus-visible:ring-slate-500/20 shadow-lg shadow-slate-500/10 cursor-pointer active:scale-[0.98]"
+        className="w-full mt-2 btn-liquid-glass font-bold rounded-xl py-6 flex items-center justify-center gap-2 text-sm"
       >
         {loading ? (
           <>
@@ -155,9 +155,9 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-3xl animate-pulse pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-400/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Liquid Blobs */}
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-slate-400/5 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-slate-500/5 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Logo and title */}
@@ -171,7 +171,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-500/2 hover:border-slate-500/20 transition-all duration-300">
+        <Card className="liquid-glass-card rounded-2xl p-6 sm:p-8 hover:border-white/20 transition-all duration-300">
           <div className="space-y-4">
             <div className="space-y-1.5 text-center">
               <h2 className="text-2xl font-bold tracking-tight text-white">

@@ -1,10 +1,10 @@
-# Plano de Implementação: Identidade Visual Verde Premium com Gradientes e Glows
+# Plano de Implementação: Identidade Visual Prata, Cinza Espacial e iPhone Liquid Glass com Tema Escuro
 
 **Branch**: `002-identidade-visual` | **Date**: 2026-06-16 | **Spec**: [spec.md](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/specs/002-identidade-visual/spec.md)
 
 ## Resumo do Objetivo
 
-Implementação da identidade visual verde esmeralda com tema escuro (Dark Mode) padrão e estilo visual premium (similar ao GlowUI anterior) com efeitos de vidro (glassmorphism), glows e degrades. 
+Implementação da identidade visual cinza espacial/prata escuro com tema escuro (Dark Mode) padrão e estilo visual premium iPhone Liquid Glass, contendo efeitos de vidro polido altamente transparente (glassmorphism), bolhas líquidas dinâmicas flutuantes no fundo em câmera lenta e destaque prateado/brilhante de foco para inputs de formulários selecionados. 
 
 As modificações de design abrangem a página inicial de navegação (`/`), páginas de autenticação (`/login` e `/register`), notificações de toast e o painel pós-autenticação (`/dashboard`). Toda a integridade dos componentes originais do Shadcn UI (`components/ui/*`) será mantida intocada através de reestilização com CSS variáveis e classes utilitárias no Tailwind CSS v4.
 
@@ -35,22 +35,21 @@ specs/002-identidade-visual/
 ## Modificações Propostas
 
 ### 1. Configurações Globais
-- **[MODIFY] [globals.css](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/globals.css)**: Estilos globais e variáveis de cores OKLCH ajustadas para tema escuro e verde. Inclusão da classe `.cn-toast` com efeito glassmorphic e sombra brilhante verde.
+- **[MODIFY] [globals.css](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/globals.css)**: Estilos globais e variáveis de cores OKLCH ajustadas para tema escuro, prata e cinza espacial. Inclusão das animações de bolhas de fluidos dinâmicos (`@keyframes float-liquid`), classe `.liquid-glass-card` (vidro polido altamente reflexivo), classe `.btn-liquid-glass` (botões com degradê metálico) e a definição global de foco de inputs com borda prateada brilhante e anel de brilho suave.
 
 ### 2. Portal de Navegação Inicial
-- **[MODIFY] [page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/page.tsx)**: Transformação da página raiz em um portal de navegação premium contendo links rápidos e cartões glassmorphic para as rotas `/login`, `/register` e `/dashboard`.
+- **[MODIFY] [page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/page.tsx)**: Substituição dos fundos estáticos por bolhas de líquido fluidas animadas no background e atualização dos cartões de atalho para adotar o estilo `.liquid-glass-card` e o botão principal para `.btn-liquid-glass`.
 
 ### 3. Telas de Login e Registro
-- **[MODIFY] [login/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/login/page.tsx)**: Reestruturação da tela de login para adotar o layout de cartão único centralizado, glows verdes no background e inputs com foco neon verde.
-- **[MODIFY] [register/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/register/page.tsx)**: Reestruturação da tela de registro para layout de cartão único centralizado, glows verdes no background e inputs com foco neon verde.
+- **[MODIFY] [login/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/login/page.tsx)**: Substituição do fundo por bolhas de líquido fluidas animadas, aplicação da classe `.liquid-glass-card` no painel centralizado, botão submeter com `.btn-liquid-glass` e remoção dos overrides de foco inline dos inputs para aplicar o visual global de foco de vidro líquido.
+- **[MODIFY] [register/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/register/page.tsx)**: Substituição do fundo por bolhas de líquido fluidas animadas, aplicação da classe `.liquid-glass-card`, botão com `.btn-liquid-glass` e remoção dos overrides inline de foco dos inputs.
 
 ### 4. Painel pós-autenticação
-- **[MODIFY] [dashboard/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/dashboard/page.tsx)**: Header transparente com desfoque de vidro, glows de fundo no painel e cards de dados com animação suave de elevação. Inclusão da área de segurança inferior (`pb-28`) para o Dock.
-- **[NEW] [navigation-dock.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/components/navigation-dock.tsx)**: Componente de menu flutuante em formato de Dock no rodapé centralizado no estilo do macOS. Contém elevação interativa e tooltips no hover, ponto luminoso LED esmeralda sob o item da página ativa e botão de logout integrado.
+- **[MODIFY] [dashboard/page.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/dashboard/page.tsx)**: Remoção das referências estáticas esmeralda na tela de carregamento, inclusão de bolhas fluidas animadas no background e aplicação de cartões `.liquid-glass-card` nos painéis de estatísticas e perfil contábil.
+- **[MODIFY] [navigation-dock.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/components/navigation-dock.tsx)**: Refinamento visual da bandeja do Dock para vidro de alta definição com borda fina branca semitransparente refletiva (`border-white/10`) e sombra líquida.
 
 ### 5. Sistema de Notificações (Toasts)
-- **[MODIFY] [providers.tsx](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/providers.tsx)**: Posicionamento do Toaster ajustado para o canto inferior direito (`bottom-right`).
-- **[MODIFY] [globals.css](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/globals.css)**: Estilização do Toast `.cn-toast` com design glassmorphic de alta transparência, cantos arredondados (20px), padding de `16px 24px` e offset das bordas do viewport de `32px` via `--toast-viewport-padding`.
+- **[MODIFY] [globals.css](file:///home/dourado-dev/Documentos/git-projects/git-sdd/mei-finance-sdd/nextjs/app/globals.css)**: Estilização do Toast `.cn-toast` com design glassmorphic de alta transparência, cantos arredondados (20px), padding de `16px 24px` e offset das bordas do viewport de `32px` via `--toast-viewport-padding`, com glow prateado metálico.
 
 ---
 

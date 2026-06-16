@@ -61,9 +61,9 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-400/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Liquid Blobs */}
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-slate-400/5 rounded-full blur-[120px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-slate-500/5 rounded-full blur-[120px] pointer-events-none liquid-blob-2" />
 
       <div className="w-full max-w-lg space-y-6 relative z-10">
         {/* Logo and title */}
@@ -77,7 +77,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-500/2 hover:border-slate-500/20 transition-all duration-300">
+        <Card className="liquid-glass-card rounded-2xl p-6 sm:p-8 hover:border-white/20 transition-all duration-300">
           <div className="space-y-4">
             <div className="space-y-1.5 text-center">
               <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   placeholder="Seu nome completo"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
                 />
                 {errors.name && (
                   <p className="text-destructive text-xs font-medium">{errors.name[0]}</p>
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                   placeholder="nome@empresa.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
                 />
                 {errors.email && (
                   <p className="text-destructive text-xs font-medium">{errors.email[0]}</p>
@@ -141,7 +141,7 @@ export default function RegisterPage() {
                     placeholder="UF-000000/O"
                     value={formData.crc}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
                   />
                   {errors.crc && (
                     <p className="text-destructive text-xs font-medium">{errors.crc[0]}</p>
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                     placeholder="Escritório Contábil"
                     value={formData.office_name}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
                   />
                   {errors.office_name && (
                     <p className="text-destructive text-xs font-medium">{errors.office_name[0]}</p>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                   placeholder="Mínimo 8 caracteres"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 text-sm transition-all"
                 />
                 {errors.password && (
                   <p className="text-destructive text-xs font-medium">{errors.password[0]}</p>
@@ -187,7 +187,7 @@ export default function RegisterPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 bg-gradient-to-r from-slate-200 to-zinc-300 hover:from-white hover:to-slate-200 text-slate-950 font-bold rounded-xl py-6 transition-all flex items-center justify-center gap-2 text-sm focus-visible:ring-slate-500/20 shadow-lg shadow-slate-500/10 cursor-pointer active:scale-[0.98]"
+                className="w-full mt-2 btn-liquid-glass font-bold rounded-xl py-6 flex items-center justify-center gap-2 text-sm"
               >
                 {loading ? (
                   <>

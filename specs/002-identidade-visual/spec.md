@@ -1,4 +1,4 @@
-# Feature Specification: Identidade Visual Prata e Cinza Espacial Premium com Tema Escuro
+# Feature Specification: Identidade Visual Prata, Cinza Espacial e iPhone Liquid Glass com Tema Escuro
 
 **Feature Branch**: `002-identidade-visual`
 
@@ -6,7 +6,7 @@
 
 **Status**: Approved
 
-**Input**: User description: "criar uma identidade visual, cor prata/cinza e tema dark como padrao, similar ao de glass do iphone, com gradientes e glows na autenticacao, toaster, registro e dashboard, com portal de navegação na rota raiz e dock do macOS"
+**Input**: User description: "criar uma identidade visual, cor prata/cinza e tema dark como padrao, similar ao de glass do iphone, com gradientes e glows na autenticacao, toaster, registro e dashboard, com portal de navegação na rota raiz e dock do macOS, com foco líquido e bordas prateadas selecionadas nos inputs de formulários"
 
 ---
 
@@ -27,18 +27,19 @@ Como usuário do MEI Finance (visitante ou autenticado), eu quero que a platafor
 
 ---
 
-### User Story 2 - Identidade Visual Prata, Cinza Espacial e Glows (Priority: P1)
+### User Story 2 - Estética iPhone Liquid Glass e Foco Líquido (Priority: P1)
 
-Como usuário, eu quero que os elementos interativos, estados ativos, backgrounds e componentes de destaque utilizem tonalidades de cinza metálico, prata e branco brilhante com degrades e glows prateados frios, para que a marca da aplicação seja reconhecível e transmita profissionalismo, modernidade e se assemelhe ao design industrial da Apple.
+Como usuário, eu quero que a plataforma exiba um design "liquid glass" inspirado nos wallpapers e acabamentos dinâmicos do iPhone, com formas fluidas orgânicas que se movem lentamente no plano de fundo, cartões com efeito de vidro polido altamente transparente e reflexivo, e campos de entrada de formulários (Inputs) que ao serem selecionados revelem uma borda prateada nítida envolta por um glow prateado de luz neon.
 
-**Why this priority**: Crucial para dar a "personalidade" visual ao sistema. Os tons prateados metálicos e o cinza espacial compõem a nova paleta de cores premium definida pelo usuário.
+**Why this priority**: Crucial para dar a "personalidade" visual premium definida pelo usuário. A estética de vidro líquido e o feedback nítido de foco nos inputs tornam a experiência interativa extremamente fluida e sofisticada.
 
-**Independent Test**: Pode ser testado inspecionando elementos interativos (como o botão de submissão do formulário, links e inputs focados) e verificando visualmente que eles usam o tom prata/cinza metálico definido no guia de estilos.
+**Independent Test**: Testar visualmente a aplicação no navegador passando e focando o cursor nos inputs para ver a borda prateada brilhante, e observar os elementos fluidos em câmera lenta flutuando sob os cartões glassmorphic.
 
 **Acceptance Scenarios**:
 
-1. **Given** que o botão de login/registro está visível, **When** o usuário olha para o botão, **Then** ele deve ter o fundo com gradiente prateado escovado metálico (`from-slate-200 to-zinc-300`).
-2. **Given** que o usuário foca em um campo de texto (Input), **When** o campo recebe o foco, **Then** a borda de foco (ring/outline) deve adotar um contorno prateado brilhante.
+1. **Given** que o botão de login/registro está visível, **When** o usuário passa o mouse ou o pressiona, **Then** ele deve se comportar como um botão de vidro metálico do iPhone (linear gradient metálico brilhante e sombra reflexiva).
+2. **Given** que o usuário clica ou foca em qualquer campo de texto (Input), **When** o campo recebe o foco, **Then** a sua borda deve se tornar prateada/branca brilhante e um anel (ring) de glow sutil prateado deve surgir em volta dele.
+3. **Given** que a página é carregada, **When** o usuário visualiza o fundo, **Then** bolhas fluidas e orgânicas (degrade cinza metálico e azul escuro) devem se mover lentamente em rotações e transições tridimensionais suaves.
 
 ---
 
@@ -131,6 +132,8 @@ Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, lo
 - **FR-010**: Os Toasts do sistema MUST possuir design glassmorphic de alta transparência com desfoque de fundo (blur) e ser posicionados no canto inferior direito com um distanciamento de `32px` da borda do viewport e padding interno ampliado de `16px 24px`.
 - **FR-011**: O front-end MUST delegar a validação ao backend Laravel removendo atributos `required` HTML5 e exibindo dinamicamente as mensagens retornadas nos Toasts ou blocos de erro por campo.
 - **FR-012**: O front-end MUST limpar parâmetros da URL como `?message=...` imediatamente após lê-los para evitar Toasts duplicados no StrictMode do React.
+- **FR-013**: O sistema MUST exibir formas fluidas orgânicas no background de login, cadastro, home e dashboard, animadas em câmera lenta (Liquid Wallpaper).
+- **FR-014**: Os inputs de formulários MUST adotar uma borda prateada nítida e um anel glow prateado líquido ao receberem o foco ou serem selecionados.
 
 ---
 
@@ -147,3 +150,5 @@ Como usuário, eu quero que todas as mensagens exibidas nos Toasts (registro, lo
 - **SC-007**: Os Toasts de sucesso e erro utilizam 100% as mensagens dinâmicas retornadas da API do Laravel.
 - **SC-008**: Toasts são disparados uma única vez por fluxo, sem duplicidades na tela de login ou dashboard devido a remontagens de componentes.
 - **SC-009**: O Toaster exibe notificações no canto inferior direito com margem (offset) de 32px e padding interno de `16px 24px`, alinhado ao guia visual do macOS/iOS.
+- **SC-010**: Os inputs de todas as telas exibem o destaque de borda e ring brilhante de foco ao serem selecionados por teclado ou clique.
+- **SC-011**: As formas fluidas no background são renderizadas e animadas continuamente sem causar lags ou problemas de performance na renderização.

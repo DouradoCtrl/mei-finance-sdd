@@ -169,3 +169,122 @@
 .cn-toast[data-type="error"] svg {
   color: oklch(0.6 0.18 25) !important; /* Red */
 }
+
+/* --- iPhone Liquid Glass Aesthetic --- */
+
+/* Smooth organic fluid floating animations */
+@keyframes float-liquid-1 {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15) rotate(120deg);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9) rotate(240deg);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1) rotate(360deg);
+  }
+}
+
+@keyframes float-liquid-2 {
+  0% {
+    transform: translate(0px, 0px) scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50px, 50px) scale(1.2) rotate(-180deg);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1.05) rotate(-360deg);
+  }
+}
+
+.liquid-blob-1 {
+  animation: float-liquid-1 22s ease-in-out infinite;
+}
+
+.liquid-blob-2 {
+  animation: float-liquid-2 26s ease-in-out infinite;
+}
+
+/* Polished Liquid Glass Card */
+.liquid-glass-card {
+  background: rgba(15, 23, 42, 0.35) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.04) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* Refined selected (focused) border for forms inputs and textareas */
+input[data-slot="input"],
+textarea {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+input[data-slot="input"]:focus,
+input[data-slot="input"]:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 0 16px rgba(255, 255, 255, 0.18),
+    inset 0 1.5px 3px rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(2, 6, 23, 0.75) !important;
+  outline: none !important;
+}
+
+/* Glass Buttons with Silver Highlights */
+.btn-liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(240, 240, 240, 0.82) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  color: #020617 !important;
+  box-shadow: 
+    0 8px 30px rgba(255, 255, 255, 0.06),
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-liquid-glass:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(245, 245, 245, 0.95) 100%
+  ) !important;
+  box-shadow: 
+    0 12px 35px rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  transform: translateY(-1px);
+}
+
+.btn-liquid-glass:active {
+  transform: scale(0.98);
+}

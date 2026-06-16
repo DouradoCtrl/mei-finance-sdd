@@ -29,9 +29,9 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-100 font-sans relative overflow-hidden">
         {/* Loader background glow */}
-        <div className="absolute w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute w-80 h-80 bg-slate-400/5 rounded-full blur-3xl pointer-events-none" />
         <div className="flex flex-col items-center gap-3 relative z-10">
-          <svg className="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24">
+          <svg className="animate-spin h-8 w-8 text-slate-300" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
@@ -51,9 +51,9 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-slate-500/3 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-400/3 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Liquid Blobs */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-400/4 rounded-full blur-[140px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-500/4 rounded-full blur-[140px] pointer-events-none liquid-blob-2" />
 
       {/* Top Navbar */}
       <header className="border-b border-slate-900/60 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
@@ -79,7 +79,7 @@ export default function DashboardPage() {
       {/* Main Dashboard Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
         {/* Welcome Section */}
-        <Card className="p-8 bg-gradient-to-br from-slate-900/20 via-slate-900/30 to-slate-950/40 border border-slate-800/80 shadow-xl shadow-slate-500/2 backdrop-blur-md">
+        <Card className="p-8 liquid-glass-card rounded-2xl hover:border-white/20 transition-all duration-300">
           <div className="space-y-2">
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Painel Principal</span>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-tight">
@@ -94,7 +94,7 @@ export default function DashboardPage() {
         {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* User Details Card */}
-          <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl hover:border-slate-500/20 shadow-lg shadow-slate-500/2 hover:shadow-slate-500/5 transition-all duration-300 hover:-translate-y-0.5">
+          <Card className="liquid-glass-card rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-0.5">
             <CardHeader className="border-b border-slate-800/50 pb-3">
               <CardTitle className="text-lg font-bold text-white">
                 Informações do Perfil
@@ -119,7 +119,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* Account Details / Specific Módulos */}
-          <Card className="bg-slate-900/35 backdrop-blur-md border border-slate-800/80 rounded-2xl hover:border-slate-500/20 shadow-lg shadow-slate-500/2 hover:shadow-slate-500/5 transition-all duration-300 hover:-translate-y-0.5">
+          <Card className="liquid-glass-card rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-0.5">
             <CardHeader className="border-b border-slate-800/50 pb-3">
               <CardTitle className="text-lg font-bold text-white">
                 {isAdmin ? "Status Administrativo" : "Dados Profissionais"}

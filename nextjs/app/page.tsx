@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col justify-center items-center p-6 relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-slate-500/5 rounded-full blur-3xl animate-pulse pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-slate-400/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Liquid Blobs */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-slate-400/5 rounded-full blur-[100px] pointer-events-none liquid-blob-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-500/5 rounded-full blur-[100px] pointer-events-none liquid-blob-2" />
 
       <div className="max-w-4xl w-full space-y-12 relative z-10 text-center">
         {/* Header */}
@@ -25,7 +25,7 @@ export default function Home() {
         {/* Navigation Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {/* Card 1: Login */}
-          <div className="bg-slate-900/30 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-slate-500/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.03)] flex flex-col justify-between h-64 group">
+          <div className="liquid-glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_40px_rgba(255,255,255,0.06)] flex flex-col justify-between h-64 group">
             <div className="space-y-2">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Acesso</span>
               <h2 className="text-xl font-bold text-white group-hover:text-slate-200 transition-colors">Acessar Conta</h2>
@@ -35,14 +35,14 @@ export default function Home() {
             </div>
             <Link
               href="/login"
-              className="w-full bg-gradient-to-r from-slate-200 to-zinc-300 hover:from-white hover:to-slate-200 text-slate-950 font-bold rounded-xl py-3 text-center transition-all shadow-lg shadow-slate-500/10 hover:shadow-slate-500/20 cursor-pointer active:scale-[0.98] text-sm"
+              className="w-full btn-liquid-glass font-bold rounded-xl py-3 text-center text-sm flex items-center justify-center"
             >
               Entrar no Sistema
             </Link>
           </div>
 
           {/* Card 2: Register */}
-          <div className="bg-slate-900/30 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-slate-500/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.03)] flex flex-col justify-between h-64 group">
+          <div className="liquid-glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_40px_rgba(255,255,255,0.06)] flex flex-col justify-between h-64 group">
             <div className="space-y-2">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Registro</span>
               <h2 className="text-xl font-bold text-white group-hover:text-slate-200 transition-colors">Criar Nova Conta</h2>
@@ -52,14 +52,14 @@ export default function Home() {
             </div>
             <Link
               href="/register"
-              className="w-full bg-slate-900/50 hover:bg-slate-900 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-500/30 font-semibold rounded-xl py-3 text-center transition-all cursor-pointer active:scale-[0.98] text-sm"
+              className="w-full bg-slate-900/40 hover:bg-slate-900 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-500/20 font-semibold rounded-xl py-3 text-center transition-all cursor-pointer active:scale-[0.98] text-sm flex items-center justify-center"
             >
               Registrar Contador
             </Link>
           </div>
 
           {/* Card 3: Dashboard */}
-          <div className="bg-slate-900/30 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-slate-500/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.03)] flex flex-col justify-between h-64 group">
+          <div className="liquid-glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_40px_rgba(255,255,255,0.06)] flex flex-col justify-between h-64 group">
             <div className="space-y-2">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Painel</span>
               <h2 className="text-xl font-bold text-white group-hover:text-slate-200 transition-colors">Área Logada</h2>
@@ -69,7 +69,7 @@ export default function Home() {
             </div>
             <Link
               href="/dashboard"
-              className="w-full bg-slate-900/50 hover:bg-slate-900 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-500/30 font-semibold rounded-xl py-3 text-center transition-all cursor-pointer active:scale-[0.98] text-sm"
+              className="w-full bg-slate-900/40 hover:bg-slate-900 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-500/20 font-semibold rounded-xl py-3 text-center transition-all cursor-pointer active:scale-[0.98] text-sm flex items-center justify-center"
             >
               Ver Dashboard
             </Link>

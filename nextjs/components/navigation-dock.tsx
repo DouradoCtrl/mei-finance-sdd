@@ -44,7 +44,7 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-      <div className="flex items-center gap-3 px-4 py-3 bg-slate-900/35 backdrop-blur-xl border border-slate-800/80 rounded-3xl shadow-2xl shadow-black/80 relative">
+      <div className="flex items-center gap-3 px-4 py-3 bg-slate-950/35 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.7),_inset_0_1px_1px_rgba(255,255,255,0.15)] relative">
         {items.map((item, idx) => {
           const Icon = item.icon;
           const isActive = activePage === item.id;
