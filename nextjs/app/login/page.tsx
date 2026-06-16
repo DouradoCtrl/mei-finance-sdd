@@ -168,8 +168,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Logo and title */}
         <div className="text-center space-y-2 select-none">
-          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-400 to-slate-200 text-slate-950 items-center justify-center font-bold text-lg shadow-lg shadow-slate-500/20 mb-2">
-            MF
+          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white items-center justify-center font-bold text-xl shadow-lg shadow-emerald-500/20 mb-2">
+            $
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">MEI Finance</h1>
           <p className="text-sm text-slate-600 dark:text-slate-400">

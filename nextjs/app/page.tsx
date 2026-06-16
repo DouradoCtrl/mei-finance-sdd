@@ -17,8 +17,8 @@ export default function Home() {
       <div className="max-w-4xl w-full space-y-12 relative z-10 text-center">
         {/* Header */}
         <div className="space-y-4">
-          <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-tr from-slate-400 to-slate-200 text-slate-950 items-center justify-center font-bold text-xl shadow-lg shadow-slate-500/20 mb-2">
-            MF
+          <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/20 mb-2 select-none">
+            $
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
             MEI Finance

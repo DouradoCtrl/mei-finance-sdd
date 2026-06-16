@@ -60,8 +60,8 @@ export default function DashboardPage() {
       <header className="border-b border-slate-900/5 dark:border-white/5 bg-background/60 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-slate-400 to-slate-200 flex items-center justify-center font-bold text-slate-950 shadow-lg shadow-slate-500/20">
-              MF
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-emerald-500/20 select-none">
+              $
             </div>
             <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
               MEI Finance
