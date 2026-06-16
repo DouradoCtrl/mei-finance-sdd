@@ -107,7 +107,7 @@ function LoginForm() {
           placeholder="nome@empresa.com"
           value={email}
           onChange={(e) => handleFieldChange("email", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
         />
         {errors.email && (
           <p className="text-red-500 text-xs font-medium">{errors.email[0]}</p>
@@ -123,7 +123,7 @@ function LoginForm() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => handleFieldChange("password", e.target.value)}
-          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+          className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
         />
         {errors.password && (
           <p className="text-red-500 text-xs font-medium">{errors.password[0]}</p>

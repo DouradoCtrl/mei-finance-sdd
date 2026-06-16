@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   placeholder="Seu nome completo"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
                 />
                 {errors.name && (
                   <p className="text-destructive text-xs font-medium">{errors.name[0]}</p>
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                   placeholder="nome@empresa.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
                 />
                 {errors.email && (
                   <p className="text-destructive text-xs font-medium">{errors.email[0]}</p>
@@ -141,7 +141,7 @@ export default function RegisterPage() {
                     placeholder="UF-000000/O"
                     value={formData.crc}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
                   />
                   {errors.crc && (
                     <p className="text-destructive text-xs font-medium">{errors.crc[0]}</p>
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                     placeholder="Escritório Contábil"
                     value={formData.office_name}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                    className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
                   />
                   {errors.office_name && (
                     <p className="text-destructive text-xs font-medium">{errors.office_name[0]}</p>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                   placeholder="Mínimo 8 caracteres"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 text-sm transition-all"
+                  className="w-full bg-slate-950/60 border-slate-800 rounded-xl px-4 py-6 text-white placeholder-slate-500 focus-visible:border-primary focus-visible:ring-primary/20 text-sm transition-all"
                 />
                 {errors.password && (
                   <p className="text-destructive text-xs font-medium">{errors.password[0]}</p>
