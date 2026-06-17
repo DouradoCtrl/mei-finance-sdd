@@ -22,6 +22,8 @@ class UserResource extends JsonResource
             'crc' => $this->crc,
             'office_name' => $this->office_name,
             'active' => (bool) $this->active,
+            'created_at' => $this->created_at?->toIso8601String(),
+            'updated_at' => $this->updated_at?->toIso8601String(),
         ];
     }
 }
