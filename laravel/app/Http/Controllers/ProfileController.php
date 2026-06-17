@@ -12,7 +12,7 @@ class ProfileController extends Controller
     use ApiResponse;
 
     /**
-     * Get the authenticated user profile.
+     * Obter o perfil do usuário autenticado.
      *
      * @param Request $request
      * @return JsonResponse

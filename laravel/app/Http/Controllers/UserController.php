@@ -24,7 +24,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listar e pesquisar usuários de forma paginada.
      */
     public function index(Request $request): JsonResponse
     {
@@ -38,7 +38,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Criar um novo usuário (administrador ou contador).
      */
     public function store(UserStoreRequest $request): JsonResponse
     {
@@ -52,7 +52,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibir os detalhes de um usuário específico.
      */
     public function show(User $user): JsonResponse
     {
@@ -63,7 +63,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualizar os dados de um usuário existente.
      */
     public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
@@ -80,7 +80,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Excluir um usuário do sistema.
      */
     public function destroy(User $user): JsonResponse
     {

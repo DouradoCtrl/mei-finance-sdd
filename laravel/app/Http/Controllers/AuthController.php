@@ -28,7 +28,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Register a new accountant user.
+     * Cadastrar um novo usuário contador.
      *
      * @param RegisterRequest $request
      * @return JsonResponse
@@ -43,7 +43,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Authenticate a user and return a Sanctum token.
+     * Autenticar usuário e retornar token de acesso Sanctum.
      *
      * @param LoginRequest $request
      * @return JsonResponse
@@ -65,7 +65,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log the user out (revoke token).
+     * Encerrar a sessão do usuário (revogar token).
      *
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse
