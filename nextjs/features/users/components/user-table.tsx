@@ -16,7 +16,7 @@ interface UserTableProps {
 
 export function UserTable({ users, currentUserId, onEdit, onDelete }: UserTableProps) {
   return (
-    <div className="rounded-2xl border border-slate-900/5 dark:border-white/5 overflow-hidden bg-white/40 dark:bg-slate-950/20 backdrop-blur-md">
+    <div className="rounded-2xl border border-slate-900/5 dark:border-white/5 overflow-hidden bg-white/85 dark:bg-slate-950/80 backdrop-blur-md">
       <Table>
         <TableHeader className="bg-slate-900/10 dark:bg-white/3">
           <TableRow className="hover:bg-transparent border-b border-slate-900/5 dark:border-white/5">

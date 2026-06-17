@@ -51,9 +51,9 @@
 :root {
   --background: oklch(0.98 0.002 160); /* Minimalist light mint/silver background */
   --foreground: oklch(0.12 0.005 160); /* Deep charcoal green text */
-  --card: oklch(1 0 0 / 0.55); /* Frosted white glass card */
+  --card: oklch(1 0 0 / 0.85); /* Frosted white glass card (more opaque for better A11y) */
   --card-foreground: oklch(0.12 0.005 160);
-  --popover: oklch(1 0 0 / 0.85);
+  --popover: oklch(1 0 0 / 0.95);
   --popover-foreground: oklch(0.12 0.005 160);
   --primary: oklch(0.48 0.15 160); /* Vibrant finance emerald green */
   --primary-foreground: oklch(0.98 0.003 160);
@@ -88,9 +88,9 @@
 .dark {
   --background: oklch(0.27 0.008 240); /* Discord dark mode background (#313338) */
   --foreground: oklch(0.93 0.004 240); /* Discord light text */
-  --card: oklch(0.24 0.006 240 / 0.45); /* Discord dark sidebar glass card (#2b2d31) */
+  --card: oklch(0.24 0.006 240 / 0.82); /* Discord dark sidebar glass card (#2b2d31, more opaque for better A11y) */
   --card-foreground: oklch(0.93 0.004 240);
-  --popover: oklch(0.24 0.006 240 / 0.85);
+  --popover: oklch(0.24 0.006 240 / 0.92);
   --popover-foreground: oklch(0.93 0.004 240);
   --primary: oklch(0.78 0.12 160); /* Shiny green highlight */
   --primary-foreground: oklch(0.06 0.002 160);
