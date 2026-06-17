@@ -11,7 +11,12 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 ## Telas do Sistema
 
 ### 1. Página Inicial (Portal de Acesso)
-![Página Inicial do Sistema](images/landing_page.png)
+
+#### Tema Claro
+![Página Inicial - Tema Claro](images/landing_light.png)
+
+#### Tema Escuro
+![Página Inicial - Tema Escuro](images/landing_dark.png)
 
 ---
 
@@ -35,7 +40,17 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ---
 
-### 4. Painel de Controle de Usuários (Administrativo)
+### 4. Dashboard Principal (Página Inicial Logada)
+
+#### Tema Claro
+![Dashboard - Tema Claro](images/dashboard_home_light.png)
+
+#### Tema Escuro
+![Dashboard - Tema Escuro](images/dashboard_home_dark.png)
+
+---
+
+### 5. Controle de Usuários (Administrativo)
 
 #### Tema Claro
 ![Controle de Usuários - Tema Claro](images/dashboard_light.png)
@@ -45,7 +60,7 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ---
 
-### 5. Documentação Automatizada da API (Scramble)
+### 6. Documentação Automatizada da API (Scramble)
 
 A API possui documentação interativa integrada ao Scramble, com suporte completo a autenticação Bearer Token para testes diretos de endpoints protegidos no próprio navegador.
 
