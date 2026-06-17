@@ -169,14 +169,14 @@ A API possui documentação interativa integrada ao Scramble, com suporte comple
 
 ### Backend (Laravel API)
 *   **Linguagem:** PHP 8.3+
-*   **Framework:** Laravel 11+
+*   **Framework:** Laravel 13.8+
 *   **Segurança:** Laravel Sanctum (autenticação por Bearer Token)
 *   **Banco de Dados:** PostgreSQL 16 (rodando via container Docker)
 *   **Documentação:** Dedoc Scramble (documentação OpenAPI automática baseada em PHPDocs)
 *   **Testes:** Pest PHP (testes de integração e unitários de alta velocidade)
 
 ### Frontend (Next.js App)
-*   **Estrutura:** Next.js 14+ (com App Router)
+*   **Estrutura:** Next.js 16.2.9 (com App Router)
 *   **Linguagem:** TypeScript
 *   **Estilização:** Tailwind CSS v4, Vanilla CSS (vidro translúcido / glassmorphism)
 *   **Gerenciador de Estado de Autenticação:** NextAuth.js
