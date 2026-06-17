@@ -86,10 +86,10 @@ class UserService
      */
     public function update(User $user, array $data): User
     {
-        // Impede a inativação do próprio administrador logado
-        if (auth()->id() === $user->id && isset($data['active']) && !$data['active']) {
+        // Impede a atualização do próprio administrador logado por esta rota
+        if (auth()->id() === $user->id) {
             throw ValidationException::withMessages([
-                'active' => ['Não é permitido inativar o seu próprio usuário logado.']
+                'email' => ['Os dados de si mesmo só podem ser atualizados através da seção de perfil.']
             ]);
         }
 

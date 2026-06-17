@@ -116,6 +116,9 @@ export function UserDialog({ open, onOpenChange, user, onSuccess }: UserDialogPr
             validationErrors.officeName = validationErrors.office_name;
           }
           setErrors(validationErrors);
+          if (response.message) {
+            toast.error(response.message);
+          }
         } else {
           toast.error(response.message || "Ocorreu um erro ao salvar o usuário.");
         }

@@ -113,6 +113,29 @@ test('admin can update a user and promotions clear professional data', function 
     ]);
 });
 
+test('admin cannot update themselves', function () {
+    $admin = User::factory()->create(['role' => 'admin', 'name' => 'Original Name']);
+
+    $payload = [
+        'name' => 'Attempted Update',
+        'email' => $admin->email,
+        'role' => 'admin',
+        'active' => true
+    ];
+
+    $response = $this->actingAs($admin)->putJson("/api/users/{$admin->id}", $payload);
+    $response->assertStatus(422)
+        ->assertJson([
+            'success' => false,
+            'message' => 'Os dados de si mesmo só podem ser atualizados através da seção de perfil.'
+        ]);
+
+    $this->assertDatabaseHas('users', [
+        'id' => $admin->id,
+        'name' => 'Original Name'
+    ]);
+});
+
 test('admin cannot delete themselves', function () {
     $admin = User::factory()->create(['role' => 'admin']);
 
