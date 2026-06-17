@@ -6,7 +6,7 @@ Este documento define as rotas da API expostas pelo Laravel para o CRUD de usuá
 
 ## 1. Listagem de Usuários
 
-*   **Endpoint:** `GET /api/users`
+*   **Endpoint:** `GET /api/v1/users`
 *   **Autenticação:** Bearer Token (Sanctum) + Role `admin`
 *   **Parâmetros de Query (Opcional):**
     *   `search`: String de busca para filtrar por nome ou e-mail.
@@ -42,8 +42,8 @@ Este documento define as rotas da API expostas pelo Laravel para o CRUD de usuá
       }
     ],
     "links": {
-      "first": "http://localhost:8001/api/users?page=1",
-      "last": "http://localhost:8001/api/users?page=1",
+      "first": "http://localhost:8001/api/v1/users?page=1",
+      "last": "http://localhost:8001/api/v1/users?page=1",
       "prev": null,
       "next": null
     },
@@ -63,7 +63,7 @@ Este documento define as rotas da API expostas pelo Laravel para o CRUD de usuá
 
 ## 2. Criação de Usuário
 
-*   **Endpoint:** `POST /api/users`
+*   **Endpoint:** `POST /api/v1/users`
 *   **Autenticação:** Bearer Token (Sanctum) + Role `admin`
 
 ### Corpo da Requisição (JSON)
@@ -112,7 +112,7 @@ Este documento define as rotas da API expostas pelo Laravel para o CRUD de usuá
 
 ## 3. Atualização de Usuário
 
-*   **Endpoint:** `PUT /api/users/{id}`
+*   **Endpoint:** `PUT /api/v1/users/{id}`
 *   **Autenticação:** Bearer Token (Sanctum) + Role `admin`
 
 ### Corpo da Requisição (JSON)
@@ -151,7 +151,7 @@ Este documento define as rotas da API expostas pelo Laravel para o CRUD de usuá
 
 ## 4. Exclusão de Usuário
 
-*   **Endpoint:** `DELETE /api/users/{id}`
+*   **Endpoint:** `DELETE /api/v1/users/{id}`
 *   **Autenticação:** Bearer Token (Sanctum) + Role `admin`
 
 ### Resposta de Sucesso (HTTP 200)

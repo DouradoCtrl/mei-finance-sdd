@@ -38,7 +38,7 @@ export function NavigationDock({ activePage }: NavigationDockProps) {
   const handleLogout = async () => {
     let apiMessage = "Sessão encerrada com sucesso.";
     try {
-      const response = await fetch("/api/proxy/logout", {
+      const response = await fetch("/api/proxy/v1/logout", {
         method: "POST",
         headers: {
           "Accept": "application/json",

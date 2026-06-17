@@ -14,7 +14,7 @@ test('pode realizar logout revogando o token', function () {
     ]);
 
     // Generate token by hitting login
-    $loginResponse = $this->postJson('/api/login', [
+    $loginResponse = $this->postJson('/api/v1/auth/login', [
         'email' => 'contador@teste.com',
         'password' => 'senha12345',
     ]);
@@ -22,12 +22,12 @@ test('pode realizar logout revogando o token', function () {
     $token = $loginResponse->json('data.token');
 
     // Access protected route
-    $this->getJson('/api/user', [
+    $this->getJson('/api/v1/profile/me', [
         'Authorization' => 'Bearer ' . $token,
     ])->assertStatus(200);
 
     // Hit logout
-    $logoutResponse = $this->postJson('/api/logout', [], [
+    $logoutResponse = $this->postJson('/api/v1/logout', [], [
         'Authorization' => 'Bearer ' . $token,
     ]);
 
@@ -40,12 +40,12 @@ test('pode realizar logout revogando o token', function () {
     $this->app['auth']->forgetGuards();
 
     // Access protected route again (should fail)
-    $this->getJson('/api/user', [
+    $this->getJson('/api/v1/profile/me', [
         'Authorization' => 'Bearer ' . $token,
     ])->assertStatus(401);
 });
 
 test('nao pode realizar logout se nao autenticado', function () {
-    $response = $this->postJson('/api/logout');
+    $response = $this->postJson('/api/v1/logout');
     $response->assertStatus(401);
 });

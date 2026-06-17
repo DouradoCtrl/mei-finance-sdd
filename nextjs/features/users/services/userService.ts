@@ -19,7 +19,7 @@ export async function listUsers(search?: string, page?: number): Promise<ApiResp
     if (search) params.append("search", search);
     if (page) params.append("page", String(page));
 
-    const response = await fetch(`/api/proxy/users?${params.toString()}`, {
+    const response = await fetch(`/api/proxy/v1/users?${params.toString()}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -45,7 +45,7 @@ export async function listUsers(search?: string, page?: number): Promise<ApiResp
  */
 export async function createUser(payload: UserFormPayload): Promise<ApiResponse> {
   try {
-    const response = await fetch("/api/proxy/users", {
+    const response = await fetch("/api/proxy/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export async function createUser(payload: UserFormPayload): Promise<ApiResponse>
  */
 export async function updateUser(id: number, payload: UserFormPayload): Promise<ApiResponse> {
   try {
-    const response = await fetch(`/api/proxy/users/${id}`, {
+    const response = await fetch(`/api/proxy/v1/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export async function updateUser(id: number, payload: UserFormPayload): Promise<
  */
 export async function deleteUser(id: number): Promise<ApiResponse> {
   try {
-    const response = await fetch(`/api/proxy/users/${id}`, {
+    const response = await fetch(`/api/proxy/v1/users/${id}`, {
       method: "DELETE",
       headers: {
         "Accept": "application/json",

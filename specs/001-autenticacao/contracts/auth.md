@@ -8,7 +8,7 @@ Este documento especifica os contratos de API entre o frontend Next.js (via BFF)
 
 Cria uma nova conta de contador no sistema.
 
-- **URL**: `/api/register` (Laravel) ➔ Exposta pelo BFF em `/api/proxy/register`
+- **URL**: `/api/v1/auth/register` (Laravel) ➔ Exposta pelo BFF em `/api/proxy/v1/auth/register`
 - **Método**: `POST`
 - **Cabeçalhos**:
   - `Content-Type: application/json`
@@ -66,7 +66,7 @@ Cria uma nova conta de contador no sistema.
 
 Valida as credenciais do usuário e retorna o token de acesso Sanctum.
 
-- **URL**: `/api/login` (Laravel) ➔ Chamada internamente pelo NextAuth Credentials Provider
+- **URL**: `/api/v1/auth/login` (Laravel) ➔ Chamada internamente pelo NextAuth Credentials Provider
 - **Método**: `POST`
 - **Cabeçalhos**:
   - `Content-Type: application/json`
@@ -114,7 +114,7 @@ Valida as credenciais do usuário e retorna o token de acesso Sanctum.
 
 Revoga o token de acesso atual do Sanctum.
 
-- **URL**: `/api/logout` (Laravel) ➔ Chamada pelo BFF em `/api/proxy/logout` ao realizar signout no NextAuth
+- **URL**: `/api/v1/logout` (Laravel) ➔ Chamada pelo BFF em `/api/proxy/v1/logout` ao realizar signout no NextAuth
 - **Método**: `POST`
 - **Cabeçalhos**:
   - `Content-Type: application/json`
@@ -144,7 +144,7 @@ Revoga o token de acesso atual do Sanctum.
 
 Obtém as informações do perfil do usuário atualmente autenticado.
 
-- **URL**: `/api/me` (Laravel) ➔ Exposta pelo BFF em `/api/proxy/me`
+- **URL**: `/api/v1/profile/me` (Laravel) ➔ Exposta pelo BFF em `/api/proxy/v1/profile/me`
 - **Método**: `GET`
 - **Cabeçalhos**:
   - `Accept: application/json`

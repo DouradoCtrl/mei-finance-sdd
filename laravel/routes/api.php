@@ -1,18 +1,23 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::prefix('v1')->group(function () {
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    Route::prefix('auth')->group(function () {
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+    });
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/profile/me', [ProfileController::class, 'me']);
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::apiResource('users', \App\Http\Controllers\UserController::class);
+        Route::middleware('admin')->group(function () {
+            Route::apiResource('users', \App\Http\Controllers\UserController::class);
+        });
+    });
 });

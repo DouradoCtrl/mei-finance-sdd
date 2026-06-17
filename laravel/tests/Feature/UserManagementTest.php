@@ -6,14 +6,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('guest cannot access user management endpoints', function () {
-    $response = $this->getJson('/api/users');
+    $response = $this->getJson('/api/v1/users');
     $response->assertStatus(401);
 });
 
 test('accountant cannot access user management endpoints', function () {
     $accountant = User::factory()->create(['role' => 'accountant']);
 
-    $response = $this->actingAs($accountant)->getJson('/api/users');
+    $response = $this->actingAs($accountant)->getJson('/api/v1/users');
     $response->assertStatus(403);
 });
 
@@ -21,7 +21,7 @@ test('admin can list users with pagination', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     User::factory()->count(20)->create(['role' => 'accountant']);
 
-    $response = $this->actingAs($admin)->getJson('/api/users');
+    $response = $this->actingAs($admin)->getJson('/api/v1/users');
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -48,7 +48,7 @@ test('admin can create a new admin user', function () {
         'role' => 'admin',
     ];
 
-    $response = $this->actingAs($admin)->postJson('/api/users', $payload);
+    $response = $this->actingAs($admin)->postJson('/api/v1/users', $payload);
     $response->assertStatus(201)
         ->assertJson([
             'success' => true,
@@ -75,7 +75,7 @@ test('admin can create a new accountant user', function () {
         'office_name' => 'RS Contadores'
     ];
 
-    $response = $this->actingAs($admin)->postJson('/api/users', $payload);
+    $response = $this->actingAs($admin)->postJson('/api/v1/users', $payload);
     $response->assertStatus(201);
 
     $this->assertDatabaseHas('users', [
@@ -101,7 +101,7 @@ test('admin can update a user and promotions clear professional data', function 
         'active' => true
     ];
 
-    $response = $this->actingAs($admin)->putJson("/api/users/{$accountant->id}", $payload);
+    $response = $this->actingAs($admin)->putJson("/api/v1/users/{$accountant->id}", $payload);
     $response->assertStatus(200);
 
     $this->assertDatabaseHas('users', [
@@ -123,7 +123,7 @@ test('admin cannot update themselves', function () {
         'active' => true
     ];
 
-    $response = $this->actingAs($admin)->putJson("/api/users/{$admin->id}", $payload);
+    $response = $this->actingAs($admin)->putJson("/api/v1/users/{$admin->id}", $payload);
     $response->assertStatus(422)
         ->assertJson([
             'success' => false,
@@ -139,7 +139,7 @@ test('admin cannot update themselves', function () {
 test('admin cannot delete themselves', function () {
     $admin = User::factory()->create(['role' => 'admin']);
 
-    $response = $this->actingAs($admin)->deleteJson("/api/users/{$admin->id}");
+    $response = $this->actingAs($admin)->deleteJson("/api/v1/users/{$admin->id}");
     $response->assertStatus(422)
         ->assertJson([
             'success' => false,
@@ -153,7 +153,7 @@ test('admin can delete other users', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $other = User::factory()->create(['role' => 'accountant']);
 
-    $response = $this->actingAs($admin)->deleteJson("/api/users/{$other->id}");
+    $response = $this->actingAs($admin)->deleteJson("/api/v1/users/{$other->id}");
     $response->assertStatus(200);
 
     $this->assertDatabaseMissing('users', ['id' => $other->id]);

@@ -20,7 +20,7 @@ test('pode fazer login com credenciais validas e conta ativa', function () {
         'password' => 'senha12345',
     ];
 
-    $response = $this->postJson('/api/login', $payload);
+    $response = $this->postJson('/api/v1/auth/login', $payload);
 
     $response->assertStatus(200)
         ->assertJsonStructure([
@@ -52,7 +52,7 @@ test('nao pode fazer login com senha incorreta', function () {
         'password' => 'senha_errada',
     ];
 
-    $response = $this->postJson('/api/login', $payload);
+    $response = $this->postJson('/api/v1/auth/login', $payload);
 
     $response->assertStatus(401)
         ->assertJson([
@@ -73,7 +73,7 @@ test('nao pode fazer login com conta inativa', function () {
         'password' => 'senha12345',
     ];
 
-    $response = $this->postJson('/api/login', $payload);
+    $response = $this->postJson('/api/v1/auth/login', $payload);
 
     $response->assertStatus(401)
         ->assertJson([
@@ -83,7 +83,7 @@ test('nao pode fazer login com conta inativa', function () {
 });
 
 test('login exige email e senha', function () {
-    $response = $this->postJson('/api/login', []);
+    $response = $this->postJson('/api/v1/auth/login', []);
 
     $response->assertStatus(422)
         ->assertJsonStructure([

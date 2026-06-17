@@ -14,7 +14,7 @@ test('pode cadastrar um contador com dados validos', function () {
         'password' => 'senha12345',
     ];
 
-    $response = $this->postJson('/api/register', $payload);
+    $response = $this->postJson('/api/v1/auth/register', $payload);
 
     $response->assertStatus(201)
         ->assertJsonStructure([
@@ -55,7 +55,7 @@ test('nao pode cadastrar contador com email duplicado', function () {
         'password' => 'senha12345',
     ];
 
-    $response = $this->postJson('/api/register', $payload);
+    $response = $this->postJson('/api/v1/auth/register', $payload);
 
     $response->assertStatus(422)
         ->assertJsonStructure([
@@ -68,7 +68,7 @@ test('nao pode cadastrar contador com email duplicado', function () {
 });
 
 test('cadastro valida campos obrigatorios', function () {
-    $response = $this->postJson('/api/register', []);
+    $response = $this->postJson('/api/v1/auth/register', []);
 
     $response->assertStatus(422)
         ->assertJsonStructure([

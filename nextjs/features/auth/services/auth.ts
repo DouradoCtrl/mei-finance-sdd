@@ -20,7 +20,7 @@ export interface ApiResponse<T = any> {
  */
 export async function registerAccountant(payload: RegisterPayload): Promise<ApiResponse> {
   try {
-    const response = await fetch("/api/proxy/register", {
+    const response = await fetch("/api/proxy/v1/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export async function registerAccountant(payload: RegisterPayload): Promise<ApiR
  */
 export async function loginUser(email: string, password: string): Promise<ApiResponse> {
   try {
-    const response = await fetch("/api/proxy/login", {
+    const response = await fetch("/api/proxy/v1/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
         const laravelBaseUrl = process.env.LARAVEL_API_URL || "http://localhost:8000";
 
         try {
-          const response = await fetch(`${laravelBaseUrl}/api/login`, {
+          const response = await fetch(`${laravelBaseUrl}/api/v1/auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
