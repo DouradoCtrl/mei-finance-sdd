@@ -1,79 +1,157 @@
 # MEI Finance
 
-O MEI Finance é um sistema simplificado de controle financeiro projetado especificamente para o Microempreendedor Individual (MEI) brasileiro. Seu foco principal é resolver a dor de separar gastos pessoais (Pessoa Física - PF) de gastos profissionais (Pessoa Jurídica - PJ).
+🚧 Projeto em Desenvolvimento 🚧
 
-Este projeto foi desenvolvido utilizando a metodologia **Spec-Driven Development (SDD)** com o framework **spec-kit**.
+O MEI Finance é uma plataforma moderna e intuitiva de controle financeiro projetada especificamente para o Microempreendedor Individual (MEI) brasileiro. O sistema resolve uma das principais dificuldades do microempreendedor: a separação clara e organizada entre as finanças pessoais (Pessoa Física - PF) e profissionais (Pessoa Jurídica - PJ).
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-*   **Backend:** PHP 8.5+ (Laravel 11+), Laravel Sanctum (Tokens de autenticação de API), PostgreSQL 16 (Banco de dados rodando via Docker).
-*   **Frontend:** React (Next.js 14+), TypeScript, Tailwind CSS v4.
+Este projeto foi construído seguindo a metodologia **Spec-Driven Development (SDD)**, garantindo que o desenvolvimento seja sempre orientado por especificações e contratos técnicos claros e validados.
 
 ---
 
-## 🚀 Como Executar Localmente
+## Telas do Sistema
+
+### 1. Autenticação e Entrada
+
+#### Tema Claro
+![Tela de Login - Tema Claro](images/login_light.png)
+
+#### Tema Escuro
+![Tela de Login - Tema Escuro](images/login_dark.png)
+
+---
+
+### 2. Painel de Controle de Usuários (Administrativo)
+
+#### Tema Claro
+![Controle de Usuários - Tema Claro](images/dashboard_light.png)
+
+#### Tema Escuro
+![Controle de Usuários - Tema Escuro](images/dashboard_dark.png)
+
+---
+
+### 3. Documentação Automatizada da API (Scramble)
+
+A API possui documentação interativa integrada ao Scramble, com suporte completo a autenticação Bearer Token para testes diretos de endpoints protegidos no próprio navegador.
+
+![Scramble API Docs com Bearer Token](images/api_docs.png)
+
+---
+
+## Stack Tecnológica
+
+### Backend (Laravel API)
+*   **Linguagem:** PHP 8.3+
+*   **Framework:** Laravel 11+
+*   **Segurança:** Laravel Sanctum (autenticação por Bearer Token)
+*   **Banco de Dados:** PostgreSQL 16 (rodando via container Docker)
+*   **Documentação:** Dedoc Scramble (documentação OpenAPI automática baseada em PHPDocs)
+*   **Testes:** Pest PHP (testes de integração e unitários de alta velocidade)
+
+### Frontend (Next.js App)
+*   **Estrutura:** Next.js 14+ (com App Router)
+*   **Linguagem:** TypeScript
+*   **Estilização:** Tailwind CSS v4, Vanilla CSS (vidro translúcido / glassmorphism)
+*   **Gerenciador de Estado de Autenticação:** NextAuth.js
+*   **Componentes Headless:** Radix UI / @base-ui/react
+*   **Ícones:** Lucide Icons
+
+---
+
+## Como Executar o Projeto Localmente
 
 ### Pré-requisitos
-*   **Node.js** v20+ e **npm** instalados.
-*   **PHP** v8.2+ e **Composer** instalados (ou Laravel Herd/Herd Lite).
-*   **Docker** e **Docker Compose** instalados.
+*   **Docker** e **Docker Compose** instalados na máquina.
+*   **PHP 8.3+** e **Composer** configurados.
+*   **Node.js 20+** e **npm** instalados.
 
 ---
 
-### Passo 1: Configurar e Executar o Backend (Laravel)
+### Passo 1: Inicializar o Banco de Dados (PostgreSQL)
 
-1.  Inicie o banco de dados PostgreSQL 16 via Docker Compose (na raiz do projeto):
+Na raiz do projeto (onde está localizado o arquivo `docker-compose.yml`), execute o comando para iniciar o banco de dados em segundo plano:
+
+```bash
+docker compose up -d
+```
+
+---
+
+### Passo 2: Configurar e Executar o Backend (Laravel)
+
+1.  Acesse o diretório do backend:
     ```bash
-    docker compose up -d
+    cd laravel
     ```
-2.  Acesse o diretório do backend:
-    ```bash
-    cd backend
-    ```
-3.  Instale as dependências:
+
+2.  Instale as dependências do PHP:
     ```bash
     composer install
     ```
-4.  Crie o arquivo de configuração `.env` copiando o exemplo:
+
+3.  Crie o arquivo de ambiente local copiando o exemplo:
     ```bash
     cp .env.example .env
     ```
-    *(A conexão padrão já estará apontada para o PostgreSQL local do Docker)*
-5.  Rode as migrations de banco para criar as tabelas de usuários, sessões e tokens Sanctum:
+
+4.  Gere a chave da aplicação:
     ```bash
-    php artisan migrate
+    php artisan key:generate
     ```
-6.  Inicie o servidor local da API do Laravel:
+
+5.  Execute as migrations e popule o banco de dados com dados iniciais (seeders):
     ```bash
-    php artisan serve
+    php artisan migrate --seed
     ```
-    *O backend estará rodando em `http://127.0.0.1:8000`.*
+
+6.  Inicie o servidor de desenvolvimento do Laravel:
+    ```bash
+    php artisan serve --port=8001
+    ```
+    *A API backend estará disponível em `http://localhost:8001/api/v1` e a documentação interativa em `http://localhost:8001/docs/api`.*
 
 ---
 
-### Passo 2: Configurar e Executar o Frontend (Next.js)
+### Passo 3: Configurar e Executar o Frontend (Next.js)
 
-1.  Abra um novo terminal e acesse o diretório do frontend:
+1.  Abra um novo terminal e acesse a pasta do frontend:
     ```bash
-    cd frontend
+    cd nextjs
     ```
-2.  Instale as dependências:
+
+2.  Instale os pacotes npm:
     ```bash
     npm install
     ```
-3.  Execute o servidor Next.js em desenvolvimento:
+
+3.  Crie o arquivo de ambiente para o Next.js:
+    ```bash
+    cp .env.example .env.local
+    ```
+
+4.  Rode a aplicação em modo de desenvolvimento:
     ```bash
     npm run dev
     ```
-    *O frontend estará rodando em `http://localhost:3000`.*
+    *O painel do Next.js estará acessível em `http://localhost:3000`.*
 
 ---
 
-## 📖 Estrutura de Especificação (SDD)
+## Credenciais Padrão de Acesso (Seed)
 
-Toda a documentação deste módulo, incluindo especificações de negócio, planos técnicos e checklists de teste, está disponível em:
-*   [specs/001-autenticacao/spec.md](specs/001-autenticacao/spec.md)
-*   [specs/001-autenticacao/plan.md](specs/001-autenticacao/plan.md)
-*   [specs/001-autenticacao/tasks.md](specs/001-autenticacao/tasks.md)
+Após rodar o comando `php artisan db:seed`, as seguintes contas de teste estarão disponíveis para login:
+
+*   **Administrador**:
+    *   **E-mail:** `admin@meifinance.com`
+    *   **Senha:** `admin123`
+*   **Contador (Comum)**:
+    *   **E-mail:** `contador@meifinance.com`
+    *   **Senha:** `contador123`
+
+---
+
+## Estrutura do Desenvolvimento Orientado por Especificações (SDD)
+
+Todas as definições de escopo, contratos de rotas de API, diagramas de dados e checklists de verificação podem ser encontrados no diretório `/specs`:
+*   **Autenticação:** [specs/001-autenticacao/spec.md](specs/001-autenticacao/spec.md)
+*   **Controle de Usuários:** [specs/003-controle-usuarios/spec.md](specs/003-controle-usuarios/spec.md)
