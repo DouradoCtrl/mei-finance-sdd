@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
-import { Home, LayoutDashboard, Users, TrendingUp, Settings, LogOut } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { Home, LayoutDashboard, Users, Shield, TrendingUp, Settings, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavigationDockProps {
@@ -12,15 +12,28 @@ interface NavigationDockProps {
 
 export function NavigationDock({ activePage }: NavigationDockProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const items = [
     { id: "home", label: "Início", icon: Home, action: () => router.push("/") },
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, action: () => router.push("/dashboard") },
     { id: "clients", label: "Clientes MEI", icon: Users, action: () => {} }, // placeholder para desenvolvimento futuro
-    { id: "reports", label: "Relatórios", icon: TrendingUp, action: () => {} }, // placeholder para desenvolvimento futuro
-    { id: "settings", label: "Configurações", icon: Settings, action: () => {} }, // placeholder para desenvolvimento futuro
   ];
+
+  if (session?.user && (session.user as any).role === "admin") {
+    items.push({
+      id: "users",
+      label: "Controle de Usuários",
+      icon: Shield,
+      action: () => router.push("/dashboard/users"),
+    });
+  }
+
+  items.push(
+    { id: "reports", label: "Relatórios", icon: TrendingUp, action: () => {} }, // placeholder para desenvolvimento futuro
+    { id: "settings", label: "Configurações", icon: Settings, action: () => {} } // placeholder para desenvolvimento futuro
+  );
 
   const handleLogout = async () => {
     let apiMessage = "Sessão encerrada com sucesso.";
