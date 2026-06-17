@@ -10,7 +10,22 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ## Telas do Sistema
 
-### 1. Autenticação e Entrada
+### 1. Página Inicial (Portal de Acesso)
+![Página Inicial do Sistema](images/landing_page.png)
+
+---
+
+### 2. Primeiro Acesso (Cadastro de Contador)
+
+#### Tema Claro
+![Tela de Cadastro - Tema Claro](images/register_light.png)
+
+#### Tema Escuro
+![Tela de Cadastro - Tema Escuro](images/register_dark.png)
+
+---
+
+### 3. Autenticação (Login)
 
 #### Tema Claro
 ![Tela de Login - Tema Claro](images/login_light.png)
@@ -20,7 +35,7 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ---
 
-### 2. Painel de Controle de Usuários (Administrativo)
+### 4. Painel de Controle de Usuários (Administrativo)
 
 #### Tema Claro
 ![Controle de Usuários - Tema Claro](images/dashboard_light.png)
@@ -30,7 +45,7 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ---
 
-### 3. Documentação Automatizada da API (Scramble)
+### 5. Documentação Automatizada da API (Scramble)
 
 A API possui documentação interativa integrada ao Scramble, com suporte completo a autenticação Bearer Token para testes diretos de endpoints protegidos no próprio navegador.
 
