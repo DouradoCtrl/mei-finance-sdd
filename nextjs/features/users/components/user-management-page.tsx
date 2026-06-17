@@ -107,7 +107,7 @@ export function UserManagementPage() {
       </div>
 
       {/* Search Bar */}
-      <Card className="liquid-glass-card rounded-2xl border border-slate-900/5 dark:border-white/5 bg-slate-950/10 backdrop-blur-md">
+      <Card className="liquid-glass-card rounded-2xl border border-slate-900/5 dark:border-white/5 backdrop-blur-md">
         <CardContent className="p-4 flex items-center gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
@@ -116,7 +116,7 @@ export function UserManagementPage() {
               placeholder="Buscar usuário por nome ou e-mail..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-5 bg-slate-900/30 border-slate-800 text-slate-200 focus:border-emerald-500 focus:ring-emerald-500 rounded-xl text-sm"
+              className="pl-10 pr-4 py-5 text-sm"
             />
           </div>
         </CardContent>
@@ -152,7 +152,7 @@ export function UserManagementPage() {
                   size="sm"
                   disabled={page === 1 || loading}
                   onClick={() => handlePageChange(page - 1)}
-                  className="bg-transparent border-slate-800 hover:bg-slate-900/40 text-slate-300 rounded-xl px-4 py-4 text-xs cursor-pointer"
+                  className="btn-liquid-glass-secondary rounded-xl px-4 py-4 text-xs cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
                 >
                   Anterior
                 </Button>
@@ -164,7 +164,7 @@ export function UserManagementPage() {
                   size="sm"
                   disabled={page === meta.last_page || loading}
                   onClick={() => handlePageChange(page + 1)}
-                  className="bg-transparent border-slate-800 hover:bg-slate-900/40 text-slate-300 rounded-xl px-4 py-4 text-xs cursor-pointer"
+                  className="btn-liquid-glass-secondary rounded-xl px-4 py-4 text-xs cursor-pointer disabled:opacity-40 disabled:pointer-events-none"
                 >
                   Próximo
                 </Button>

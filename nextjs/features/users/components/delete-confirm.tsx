@@ -39,13 +39,13 @@ export function DeleteConfirmDialog({ open, onOpenChange, user, onSuccess }: Del
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="liquid-glass-card border border-slate-900/10 dark:border-white/10 sm:max-w-[420px] bg-slate-950/85 backdrop-blur-2xl text-slate-100 rounded-2xl p-6">
+      <DialogContent className="liquid-glass-card sm:max-w-[420px] text-foreground rounded-2xl p-6 shadow-2xl">
         <DialogHeader className="space-y-2">
-          <DialogTitle className="text-xl font-bold text-white">
+          <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white">
             Excluir Usuário
           </DialogTitle>
-          <DialogDescription className="text-slate-400 text-sm leading-relaxed">
-            Tem certeza que deseja excluir o usuário <span className="font-semibold text-slate-200">{user.name}</span>? 
+          <DialogDescription className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            Tem certeza que deseja excluir o usuário <span className="font-semibold text-slate-800 dark:text-slate-200">{user.name}</span>? 
             Esta ação é permanente e removerá todos os dados do banco.
           </DialogDescription>
         </DialogHeader>
@@ -53,10 +53,9 @@ export function DeleteConfirmDialog({ open, onOpenChange, user, onSuccess }: Del
         <DialogFooter className="pt-4 flex justify-end gap-3">
           <Button
             type="button"
-            variant="outline"
             disabled={loading}
             onClick={() => onOpenChange(false)}
-            className="bg-transparent border-slate-800 hover:bg-slate-900/40 text-slate-300 rounded-xl px-5 py-5 text-sm cursor-pointer"
+            className="btn-liquid-glass-secondary rounded-xl px-5 py-5 text-sm cursor-pointer"
           >
             Cancelar
           </Button>
