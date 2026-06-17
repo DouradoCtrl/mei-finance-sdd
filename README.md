@@ -8,63 +8,160 @@ Este projeto foi construído seguindo a metodologia **Spec-Driven Development (S
 
 ---
 
-## Telas do Sistema
+## Demonstração Visual das Telas
+
+Para economizar espaço e facilitar a comparação visual, as capturas de tela abaixo apresentam as versões em **Tema Claro** (esquerda) e **Tema Escuro** (direita) de cada seção principal da plataforma.
 
 ### 1. Página Inicial (Portal de Acesso)
 
-#### Tema Claro
-![Página Inicial - Tema Claro](images/landing_light.png)
+Página de apresentação da plataforma, com design moderno, clean e atrativo, destacando os propósitos do sistema e fornecendo opções de acesso rápido para login e cadastro.
 
-#### Tema Escuro
-![Página Inicial - Tema Escuro](images/landing_dark.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image2.png" alt="Página Inicial - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image1.png" alt="Página Inicial - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
-### 2. Primeiro Acesso (Cadastro de Contador)
+### 2. Autenticação (Login)
 
-#### Tema Claro
-![Tela de Cadastro - Tema Claro](images/register_light.png)
+Tela de login segura para acesso ao painel administrativo. Apresenta feedback visual claro em português em caso de erros de validação ou credenciais inválidas.
 
-#### Tema Escuro
-![Tela de Cadastro - Tema Escuro](images/register_dark.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image4.png" alt="Tela de Login - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image3.png" alt="Tela de Login - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
-### 3. Autenticação (Login)
+### 3. Cadastro (Primeiro Acesso)
 
-#### Tema Claro
-![Tela de Login - Tema Claro](images/login_light.png)
+Formulário de cadastro de novos usuários (como administradores ou contadores). Inclui validações em tempo real em português e campos específicos para registro do CRC e nome do escritório de contabilidade.
 
-#### Tema Escuro
-![Tela de Login - Tema Escuro](images/login_dark.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image6.png" alt="Tela de Cadastro - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image5.png" alt="Tela de Cadastro - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
 ### 4. Dashboard Principal (Página Inicial Logada)
 
-#### Tema Claro
-![Dashboard - Tema Claro](images/dashboard_home_light.png)
+O dashboard do usuário exibe informações básicas de perfil e o status administrativo da conta autenticada, servindo como ponto central de navegação rápida por meio do menu inferior (dock).
 
-#### Tema Escuro
-![Dashboard - Tema Escuro](images/dashboard_home_dark.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image8.png" alt="Dashboard - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image7.png" alt="Dashboard - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
-### 5. Controle de Usuários (Administrativo)
+### 5. Controle de Usuários (Painel Administrativo)
 
-#### Tema Claro
-![Controle de Usuários - Tema Claro](images/dashboard_light.png)
+Listagem administrativa de usuários cadastrados no sistema. Possui recursos avançados de pesquisa em tempo real por nome ou e-mail, paginação integrada e atalhos rápidos para criar, editar ou remover registros.
 
-#### Tema Escuro
-![Controle de Usuários - Tema Escuro](images/dashboard_dark.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image10.png" alt="Controle de Usuários - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image9.png" alt="Controle de Usuários - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
-### 6. Documentação Automatizada da API (Scramble)
+### 6. Modais de Operações Administrativas
+
+Para garantir uma experiência de usuário fluida e evitar redirecionamentos desnecessários, todas as operações administrativas (criar, editar e excluir) são realizadas por meio de modais interativos integrados.
+
+#### A. Criação de Usuário (Novo Usuário)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image12.png" alt="Criar Usuário - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image11.png" alt="Criar Usuário - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
+
+#### B. Edição de Usuário (Editar Usuário)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image14.png" alt="Editar Usuário - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image13.png" alt="Editar Usuário - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
+
+#### C. Confirmação de Exclusão (Excluir Usuário)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Tema Claro</b><br/>
+      <img src="images/image16.png" alt="Excluir Usuário - Tema Claro" width="100%">
+    </td>
+    <td width="50%" align="center">
+      <b>Tema Escuro</b><br/>
+      <img src="images/image15.png" alt="Excluir Usuário - Tema Escuro" width="100%">
+    </td>
+  </tr>
+</table>
+
+---
+
+### 7. Documentação Automatizada da API (Scramble)
 
 A API possui documentação interativa integrada ao Scramble, com suporte completo a autenticação Bearer Token para testes diretos de endpoints protegidos no próprio navegador.
 
-![Scramble API Docs com Bearer Token](images/api_docs.png)
+<p align="center">
+  <img src="images/api_docs.png" alt="Scramble API Docs com Bearer Token" width="100%">
+</p>
 
 ---
 
