@@ -154,7 +154,8 @@
     pointer-events: none;
   }
   input[data-slot="input"],
-  textarea {
+  textarea,
+  button[data-slot="select-trigger"] {
     background-color: var(--input) !important;
     border: 1px solid var(--border) !important;
     color: var(--foreground) !important;
@@ -296,7 +297,8 @@
 
 /* Refined selected (focused) border for forms inputs and textareas */
 input[data-slot="input"],
-textarea {
+textarea,
+button[data-slot="select-trigger"] {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -313,10 +315,31 @@ textarea:focus-visible {
   outline: none !important;
 }
 
+button[data-slot="select-trigger"]:focus,
+button[data-slot="select-trigger"]:focus-visible,
+button[data-slot="select-trigger"][data-open] {
+  border-color: var(--ring) !important;
+  box-shadow: 
+    0 0 0 1px var(--ring),
+    0 0 10px var(--ring),
+    inset 0 1px 2px rgba(12, 28, 20, 0.05) !important;
+  background-color: var(--input) !important;
+  outline: none !important;
+}
+
 .dark input[data-slot="input"]:focus,
 .dark input[data-slot="input"]:focus-visible,
 .dark textarea:focus,
 .dark textarea:focus-visible {
+  box-shadow: 
+    0 0 0 1px var(--ring),
+    0 0 12px var(--ring),
+    inset 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark button[data-slot="select-trigger"]:focus,
+.dark button[data-slot="select-trigger"]:focus-visible,
+.dark button[data-slot="select-trigger"][data-open] {
   box-shadow: 
     0 0 0 1px var(--ring),
     0 0 12px var(--ring),
