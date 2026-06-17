@@ -32,3 +32,6 @@ nextjs/out/
 # Reference Projects
 nextjs-spring-consumer/
 
+# Financial statements
+*.ofx
+
