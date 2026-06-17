@@ -1,12 +1,12 @@
 <!--
 SYNC IMPACT REPORT
-- Version Change: 1.3.2 -> 1.3.3 (PATCH)
-- Bump Rationale: Atualizadas diretrizes de estilo para adotar o fundo cinza do Discord no Dark Mode, botões/elementos em verde esmeralda, Toasts estilo Discord e ocultação de blobs secundários azuis.
+- Version Change: 1.3.3 -> 1.4.0 (MINOR)
+- Bump Rationale: Habilitação formal do padrão Feature-Driven Architecture (arquitetura orientada a features) no frontend Next.js.
 - Modified Principles:
-  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI) (Atualização do Guia de Estilo para Discord Dark Mode e Verde Esmeralda)
-- Added Sections: None.
+  * IV. Desenvolvimento Frontend Next.js e Segurança (BFF & Shadcn UI)
+- Added Sections: Feature-Driven Architecture (Arquitetura Baseada em Features) dentro do Princípio IV.
 - Removed Sections: None.
-- Templates requiring updates: None.
+- Templates requiring updates: ✅ .specify/templates/plan-template.md (atualizado)
 - Follow-up TODOs: None.
 -->
 
@@ -67,6 +67,13 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 *   **Fluxo de Comunicação Unidirecional (BFF):** A arquitetura de comunicação deve seguir estritamente o fluxo sequencial: `Página (page.tsx)` ➔ `Serviço (service)` ➔ `API do Next.js (BFF / Route Handler)` ➔ `API do Laravel`.
 *   **Validação Delegada ao Laravel:** A API do Next.js (BFF) atua apenas como um proxy seguro. Não é necessário realizar validações adicionais de dados ou de resposta na camada da API do Next.js, pois a validação de regras de negócio e de entrada é responsabilidade exclusiva da API do Laravel. As respostas do Laravel (mensagens de erro, validações e dados) devem ser retornadas e repassadas diretamente pelo BFF para o frontend sem alterações.
 *   **Tratamento de Validação e Feedback Visual:** No frontend, as mensagens de erro de validação de formulários vindas das requests do Laravel (status 422) devem ser exibidas diretamente abaixo de seus respectivos inputs. Mensagens de feedback globais ou erros gerais da API devem ser exibidas na forma de alertas flutuantes temporários (toasts) utilizando o componente Toast do Shadcn UI.
+*   **Feature-Driven Architecture (Arquitetura Baseada em Features):**
+    - A organização do frontend Next.js deve seguir o padrão de arquitetura orientada a features.
+    - Componentes, hooks, serviços (API/BFF clients) e tipos que pertencem exclusivamente a uma funcionalidade de negócio específica devem ser agrupados dentro de subpastas dedicadas em `features/` (ex: `nextjs/features/auth/`, `nextjs/features/incidents/`).
+    - Cada pasta de feature deve expor sua interface pública através de um arquivo de entrada `index.ts` (ou `server.ts` para componentes de servidor se aplicável).
+    - Outros módulos, páginas ou features devem interagir com uma feature importando apenas através do seu ponto de entrada exposto (ex: `import { LoginForm } from '@/features/auth'`), sendo terminantemente proibido realizar importações internas profundas (ex: `import LoginForm from '@/features/auth/components/LoginForm'`).
+    - **Camada de Rotas (`app/`):** Os arquivos de rotas do Next.js (ex: `nextjs/app/login/page.tsx`) devem agir como wrappers finos (thin wrappers) cuja única responsabilidade é importar e renderizar o componente principal/view exposto pela feature respectiva.
+    - **Elementos Globais:** Componentes visuais genéricos compartilhados e dependências externas (como botões fundamentais, inputs e os componentes nativos do Shadcn UI) permanecem em `nextjs/components/` ou `nextjs/components/ui/`. Serviços, utilitários e tipos genuinamente globais permanecem em `nextjs/services/`, `nextjs/lib/` ou `nextjs/types/`.
 *   **Identidade Visual e Guia de Estilo (Multitema com Fundo Discord e Verde Esmeralda):**
     - A aplicação possui suporte a multitema gerenciado por `next-themes`, com tema escuro habilitado por padrão inicial.
     - O Dark Mode utiliza a cor de fundo cinza escuro do Discord (`#313338` / `oklch(0.27 0.008 240)`) e os cartões de dados (Cards) seguem o estilo de vidro translúcido baseado na sidebar do Discord (`#2b2d31` com opacidade/blur) de forma minimalista.
@@ -100,4 +107,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 *   Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 *   As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou Models.
 
-**Version**: 1.3.3 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-16
+**Version**: 1.4.0 | **Ratified**: 2026-06-10 | **Last Amended**: 2026-06-16

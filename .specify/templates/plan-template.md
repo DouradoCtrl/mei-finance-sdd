@@ -77,20 +77,30 @@ tests/
 ├── integration/
 └── unit/
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
+# [REMOVE IF UNUSED] Option 2: Laravel backend + Next.js Feature-Driven frontend
+laravel/                  # Laravel backend
+├── app/
+│   ├── Http/Controllers/
+│   ├── Http/Requests/
+│   ├── Http/Resources/
+│   ├── Services/
+│   └── Models/
 └── tests/
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
+nextjs/                   # Next.js frontend (Feature-Driven Architecture)
+├── app/                  # Rotas e páginas (thin wrappers)
+├── features/             # Módulos de features
+│   └── [feature]/        # Ex: auth, incidents
+│       ├── components/   # Componentes da feature
+│       ├── hooks/        # Hooks da feature
+│       ├── services/     # Serviços (API/BFF clients) da feature
+│       ├── types/        # Tipos da feature
+│       └── index.ts      # Ponto de entrada (Public API)
+├── components/           # Componentes globais/reutilizáveis e UI (Shadcn)
+│   └── ui/
+├── services/             # Serviços globais
+├── lib/                  # Utilitários compartilhados
+└── types/                # Tipos globais
 
 # [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
 api/
