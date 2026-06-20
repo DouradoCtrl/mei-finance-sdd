@@ -1,13 +1,23 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:16
     container_name: mei-finance-db
     restart: always
     environment:
-      POSTGRES_DB: mei_finance
-      POSTGRES_USER: mei_user
-      POSTGRES_PASSWORD: mei_password
+      POSTGRES_DB: douradoCtrl
+      POSTGRES_USER: douradoCtrl
+      POSTGRES_PASSWORD: douradoCtrl
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - ./.docker/pgdata:/var/lib/postgresql/data
+
+  # adminer:
+  #   image: adminer
+  #   container_name: mei-finance-adminer
+  #   restart: always
+  #   ports:
+  #     - 9090:8080
+  #   depends_on:
+  #     - db
+
